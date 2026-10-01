@@ -217,14 +217,14 @@ input:focus,select:focus,textarea:focus{
 }
 
 /* donor cards */
-#donorResults{
+#donorResults, #requestResults{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:18px;
     margin-top:20px;
 }
 
-.donor-card{
+.donor-card, .request-card{
     padding:20px;
     border-radius:24px;
     background:rgba(255,255,255,.55);
@@ -247,8 +247,8 @@ input:focus,select:focus,textarea:focus{
     box-shadow:6px 7px 15px rgba(90,20,100,.25);
 }
 
-.donor-card h3{margin-bottom:7px}
-.donor-card p{margin:5px 0;font-size:14px}
+.donor-card h3, .request-card h3{margin-bottom:7px}
+.donor-card p, .request-card p{margin:5px 0;font-size:14px}
 
 .card-actions{
     display:flex;
@@ -532,9 +532,11 @@ footer{
     <a href="#search" onclick="toggleMenu()">🩸 রক্তদাতা খুঁজুন 🔎</a>
     <a href="#register" onclick="toggleMenu()">📝 রক্তদাতা হিসেবে নিবন্ধন</a>
     <a href="#request" onclick="toggleMenu()">🚨 জরুরি রক্তের অনুরোধ</a>
-    <a href="#stats" onclick="toggleMenu()">📊 রক্তদাতা ও রক্তের অনুরোধের তথ্য</a>
+    <a href="#requestList" onclick="toggleMenu()">📋 রক্তের লাইভ অনুরোধ</a>
+    <a href="#stats" onclick="toggleMenu()">📊 রক্তদাতা ও অনুরোধের তথ্য</a>
     <a href="#ambulance" onclick="toggleMenu()">🚑 এম্বুলেন্স সেবা</a>
     <a href="#fund" onclick="toggleMenu()">❤ MB মানবতা ফান্ড</a>
+    <a href="#admin" onclick="toggleMenu()">⚙️ এডমিন প্যানেল</a>
     <a href="#contact" onclick="toggleMenu()">📞 যোগাযোগ করুন</a>
 </div>
 
@@ -661,11 +663,6 @@ footer{
                         <textarea id="dAddress" required></textarea>
                     </div>
 
-                    <div class="full">
-                        <label>ছবি</label>
-                        <input id="dPhoto" type="file" accept="image/*">
-                    </div>
-
                     <div class="full" style="text-align:center">
                         <button class="btn" type="submit">📝 নিবন্ধনের অনুরোধ পাঠান</button>
                     </div>
@@ -675,7 +672,7 @@ footer{
         </div>
     </section>
 
-    <!-- EMERGENCY -->
+    <!-- EMERGENCY REQUEST -->
     <section id="request">
         <h2 class="section-title">🚨 জরুরি রক্তের অনুরোধ</h2>
 
@@ -763,7 +760,17 @@ footer{
         </div>
     </section>
 
-    <!-- MB MANOBOTA FUND (Yellow Design) -->
+    <!-- LIVE REQUEST LIST -->
+    <section id="requestList">
+        <h2 class="section-title">📋 রক্তের লাইভ অনুরোধসমূহ</h2>
+        <div class="glass form-box">
+            <div id="requestResults">
+                <!-- লাইভ রিকোয়েস্ট এখানে শো করবে -->
+            </div>
+        </div>
+    </section>
+
+    <!-- MB MANOBOTA FUND -->
     <section id="fund">
         <h2 class="section-title">❤ MB মানবতা ফান্ড</h2>
 
@@ -790,16 +797,12 @@ footer{
             </div>
 
             <button class="yellow-btn" onclick="openGatewayModal()">দান করুন</button>
-            
-            <p style="text-align:center; margin-top:15px; font-weight:700; color:#29123f;">
-                আপনার ছোট্ট অনুদানে সচল থাকতে পারে আমাদের রক্তদানের কার্যক্রম।
-            </p>
         </div>
     </section>
 
     <!-- STATS -->
     <section id="stats">
-        <h2 class="section-title">📊 রক্তদাতা ও রক্তের অনুরোধের তথ্য</h2>
+        <h2 class="section-title">📊 রক্তদাতা ও অনুরোধের তথ্য</h2>
 
         <div class="stats">
             <div class="glass stat">
@@ -816,6 +819,31 @@ footer{
                 <strong id="requestCount">0</strong>
                 Blood Request
             </div>
+        </div>
+    </section>
+
+    <!-- ADMIN PANEL -->
+    <section id="admin">
+        <h2 class="section-title">⚙️ এডমিন প্যানেল</h2>
+        <div class="glass form-box" id="adminLoginBox">
+            <h3 style="margin-bottom:15px; text-align:center;">এডমিন লগইন</h3>
+            <div class="grid">
+                <div class="full">
+                    <label>পাসওয়ার্ড দিন (ডিফলท์: 1234)</label>
+                    <input type="password" id="adminPass">
+                </div>
+                <div class="full" style="text-align:center">
+                    <button class="btn" onclick="checkAdmin()">লগইন করুন</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass form-box" id="adminPanelBox" style="display:none;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h3 style="color:#7c1eaf;">পেন্ডিং রক্তদাতা তালিকা</h3>
+                <button class="btn" style="padding:8px 15px; font-size:14px;" onclick="adminLogout()">লগআউট</button>
+            </div>
+            <div id="adminPendingDonors"></div>
         </div>
     </section>
 
@@ -842,138 +870,55 @@ footer{
 
         <div class="glass form-box">
             <div class="contact-grid">
-
-                <!-- 1. Phone Call -->
                 <a class="contact-card" href="tel:01726232108">
                     <div class="contact-icon">📞</div>
                     <div class="contact-text">01726232108</div>
                 </a>
-
-                <!-- 2. WhatsApp -->
                 <a class="contact-card" href="https://wa.me/8801726232108" target="_blank">
-                    <div class="contact-icon">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-                    </div>
+                    <div class="contact-icon">💬</div>
                     <div class="contact-text">WhatsApp</div>
                 </a>
-
-                <!-- 3. SMS -->
-                <a class="contact-card" href="sms:01726232108">
-                    <div class="contact-icon">✉️</div>
-                    <div class="contact-text">SMS</div>
-                </a>
-
-                <!-- 4. Email -->
                 <a class="contact-card" href="mailto:mbbloodbank@gmail.com">
                     <div class="contact-icon">📧</div>
                     <div class="contact-text">mbbloodbank@gmail.com</div>
                 </a>
-
-                <!-- 5. Facebook Page -->
-                <a class="contact-card" href="https://www.facebook.com/share/14nUzxo73ig/" target="_blank">
-                    <div class="contact-icon">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook Page">
-                    </div>
-                    <div class="contact-text">Facebook Page</div>
-                </a>
-
-                <!-- 6. Facebook Group -->
-                <a class="contact-card" href="https://www.facebook.com/share/g/1JuuUhn4pe/" target="_blank">
-                    <div class="contact-icon">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook Group">
-                    </div>
-                    <div class="contact-text">Facebook Group</div>
-                </a>
-
             </div>
         </div>
     </section>
 
 </main>
 
-<!-- Ambulance List Modal -->
+<!-- Modals -->
 <div id="ambulanceModal" class="modal">
     <div class="modal-box">
         <button class="close" onclick="closeAmbulanceModal()">&times;</button>
         <h3 style="color:#7c1eaf; margin-bottom: 15px; text-align: center;">🚑 এম্বুলেন্স তালিকা</h3>
-        
         <div id="ambulanceListContainer">
-            <!-- এম্বুলেন্সের তালিকা ডাইনামিকালি লোড হবে -->
+            <div class="ambulance-list-item">
+                <h4>🚑 আল-মদিনা এম্বুলেন্স</h4>
+                <p><b>📞 নাম্বার:</b> <a href="tel:01726232108" style="color:#7c1eaf; font-weight:bold;">01726232108</a></p>
+                <p><b>📍 ঠিকানা:</b> ঢাকা, বাংলাদেশ</p>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Payment Gateway Selection Modal -->
 <div id="gatewayModal" class="gateway-modal">
     <div class="gateway-box">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
             <h4 style="font-size:16px; color:#333;">অনুদানের পেমেন্ট করুন</h4>
             <button class="close" style="position:static;" onclick="closeGatewayModal()">&times;</button>
         </div>
-
         <div style="background:#f1f5f9; padding:15px; border-radius:12px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
             <span id="displayAmount" style="font-size:22px; font-weight:bold; color:#0f172a;">৳0.00</span>
             <span style="font-size:12px; background:#e2e8f0; padding:4px 8px; border-radius:6px;">MB Fund</span>
         </div>
-
-        <div class="gateway-tabs">
-            <div class="gateway-tab active" id="tabMobile" onclick="switchGatewayTab('mobile')">Mobile Banking</div>
-            <div class="gateway-tab" id="tabNet" onclick="switchGatewayTab('net')">Net Banking</div>
-        </div>
-
-        <!-- Mobile Banking Channels -->
-        <div id="mobileChannels" class="channel-grid">
-            <div class="channel-card" onclick="selectChannel(this, 'bKash', '01726232108')">
+        <div class="channel-grid">
+            <div class="channel-card active" onclick="selectChannel(this, 'bKash', '01726232108')">
                 <span style="font-size:16px; font-weight:bold; color:#e2136e;">bKash</span>
-                <span style="font-size:12px; color:#555;">বিকাশ</span>
-            </div>
-            <div class="channel-card" onclick="selectChannel(this, 'Nagad', '01726232108')">
-                <span style="font-size:16px; font-weight:bold; color:#f7931e;">Nagad</span>
-                <span style="font-size:12px; color:#555;">নগদ</span>
-            </div>
-            <div class="channel-card" onclick="selectChannel(this, 'Rocket', '01726232108-0')">
-                <span style="font-size:16px; font-weight:bold; color:#8a2be2;">Rocket</span>
-                <span style="font-size:12px; color:#555;">রকেট</span>
-            </div>
-            <div class="channel-card" onclick="selectChannel(this, 'Upay', '01726232108')">
-                <span style="font-size:16px; font-weight:bold; color:#00a651;">Upay</span>
-                <span style="font-size:12px; color:#555;">উপায়</span>
             </div>
         </div>
-
-        <!-- Net Banking Channels -->
-        <div id="netChannels" class="channel-grid" style="display:none;">
-            <div class="channel-card" onclick="selectChannel(this, 'DBBL Net Banking', '123.105.XXXXX')">
-                <span style="font-size:15px; font-weight:bold; color:#0055a5;">DBBL Bank</span>
-                <span style="font-size:11px; color:#555;">Dutch Bangla</span>
-            </div>
-            <div class="channel-card" onclick="selectChannel(this, 'Islami Bank Net Banking', '456.789.XXXXX')">
-                <span style="font-size:15px; font-weight:bold; color:#008751;">Islami Bank</span>
-                <span style="font-size:11px; color:#555;">IBBL</span>
-            </div>
-            <div class="channel-card" onclick="selectChannel(this, 'MTB Net Banking', '789.123.XXXXX')">
-                <span style="font-size:15px; font-weight:bold; color:#cc0000;">MTB Bank</span>
-                <span style="font-size:11px; color:#555;">Mutual Trust</span>
-            </div>
-            <div class="channel-card" onclick="selectChannel(this, 'AB Bank Net Banking', '321.654.XXXXX')">
-                <span style="font-size:15px; font-weight:bold; color:#e11d48;">AB Bank</span>
-                <span style="font-size:11px; color:#555;">AB Direct</span>
-            </div>
-        </div>
-
-        <button id="payActionBtn" class="yellow-btn" style="margin-top:20px; opacity:0.5; pointer-events:none;" onclick="proceedToPaymentDetails()">Pay ৳0.00</button>
-    </div>
-</div>
-
-<!-- Payment Details Instruction Modal -->
-<div id="detailsModal" class="gateway-modal">
-    <div class="gateway-box" style="text-align:center; padding:25px;">
-        <h3 id="detailsTitle" style="color:#008751; margin-bottom:15px;">পেমেন্ট নির্দেশনা</h3>
-        
-        <div id="detailsInstructionBox" style="background:#f8fafc; border-radius:16px; padding:18px; text-align:left; font-size:15px; margin-bottom:20px; border:1px solid #e2e8f0; line-height:1.6;">
-        </div>
-
-        <button class="yellow-btn" onclick="completePayment()">হোমে ফিরে যান</button>
+        <button id="payActionBtn" class="yellow-btn" style="margin-top:20px;" onclick="proceedToPaymentDetails()">পেমেন্ট সম্পন্ন করুন</button>
     </div>
 </div>
 
@@ -982,7 +927,24 @@ footer{
     বৃহত্তম ব্লাড ব্যাংক
 </footer>
 
-<script>
+<!-- FIREBASE & APP SCRIPT -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, push, set, onValue, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDCJr3wCX4XxCZgOeC_OmXFs6OmbtYdRuY",
+  authDomain: "mb-blood-bank-a17aa.firebaseapp.com",
+  databaseURL: "https://mb-blood-bank-a17aa-default-rtdb.firebaseio.com",
+  projectId: "mb-blood-bank-a17aa",
+  storageBucket: "mb-blood-bank-a17aa.firebasestorage.app",
+  messagingSenderId: "28580039463",
+  appId: "1:28580039463:web:698e0cc5d399bc6b433702"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
 const LOCATION_URL = "https://iqbalhasandev.github.io/bangladesh-geo-json/bangladesh-geo.json";
 let locations = [];
 
@@ -993,9 +955,7 @@ async function loadLocations(){
         fillDivisions("searchDivision");
         fillDivisions("dDivision");
         fillDivisions("rDivision");
-    }catch(error){
-        console.error(error);
-    }
+    }catch(e){console.error(e);}
 }
 
 function fillDivisions(id){
@@ -1047,263 +1007,193 @@ setupLocation("searchDivision","searchDistrict","searchUpazila");
 setupLocation("dDivision","dDistrict","dUpazila");
 setupLocation("rDivision","rDistrict","rUpazila");
 
-function toggleMenu(){
+window.toggleMenu = function(){
     document.getElementById("sideMenu").classList.toggle("active");
 }
 
-function openAmbulanceModal(){
-    renderAmbulanceList();
-    document.getElementById("ambulanceModal").style.display = "block";
-}
-
-function closeAmbulanceModal(){
-    document.getElementById("ambulanceModal").style.display = "none";
-}
-
-window.onclick = function(event) {
-    const ambModal = document.getElementById("ambulanceModal");
-    const gatewayModal = document.getElementById("gatewayModal");
-    const detailsModal = document.getElementById("detailsModal");
-
-    if (event.target == ambModal) ambModal.style.display = "none";
-    if (event.target == gatewayModal) gatewayModal.style.display = "none";
-    if (event.target == detailsModal) detailsModal.style.display = "none";
-}
-
-let selectedChannelName = "";
-let selectedAccountNumber = "";
-let currentAmount = 0;
-
-function openGatewayModal(){
-    const fundType = document.getElementById("fundType").value;
-    const contact = document.getElementById("fundContact").value.trim();
-    const amount = document.getElementById("fundAmount").value.trim();
-
-    if(!fundType || !contact || !amount || amount <= 0){
-        alert("দয়া করে তহবিল, মোবাইল/ইমেইল এবং সঠিক পরিমাণ পূরণ করুন।");
-        return;
-    }
-
-    currentAmount = amount;
-    document.getElementById("displayAmount").textContent = "৳ " + Number(amount).toLocaleString();
+window.openAmbulanceModal = function(){ document.getElementById("ambulanceModal").style.display = "block"; }
+window.closeAmbulanceModal = function(){ document.getElementById("ambulanceModal").style.display = "none"; }
+window.openGatewayModal = function(){
+    const amount = document.getElementById("fundAmount").value;
+    if(!amount || amount <= 0){ alert("সঠিক পরিমাণ লিখুন"); return; }
+    document.getElementById("displayAmount").textContent = "৳ " + amount;
     document.getElementById("gatewayModal").style.display = "block";
-    
-    document.querySelectorAll(".channel-card").forEach(c => c.classList.remove("active"));
-    const btn = document.getElementById("payActionBtn");
-    btn.style.opacity = "0.5";
-    btn.style.pointerEvents = "none";
-    btn.textContent = `Pay ৳${Number(amount).toLocaleString()}`;
 }
-
-function closeGatewayModal(){
-    document.getElementById("gatewayModal").style.display = "none";
+window.closeGatewayModal = function(){ document.getElementById("gatewayModal").style.display = "none"; }
+window.selectChannel = function(el, name, acc){
+    document.querySelectorAll(".channel-card").forEach(c=>c.classList.remove("active"));
+    el.classList.add("active");
 }
-
-function switchGatewayTab(tab){
-    const tabMobile = document.getElementById("tabMobile");
-    const tabNet = document.getElementById("tabNet");
-    const mobileChannels = document.getElementById("mobileChannels");
-    const netChannels = document.getElementById("netChannels");
-
-    if(tab === 'mobile'){
-        tabMobile.classList.add("active");
-        tabNet.classList.remove("active");
-        mobileChannels.style.display = "grid";
-        netChannels.style.display = "none";
-    } else {
-        tabNet.classList.add("active");
-        tabMobile.classList.remove("active");
-        netChannels.style.display = "grid";
-        mobileChannels.style.display = "none";
-    }
-    
-    document.querySelectorAll(".channel-card").forEach(c => c.classList.remove("active"));
-    const btn = document.getElementById("payActionBtn");
-    btn.style.opacity = "0.5";
-    btn.style.pointerEvents = "none";
-}
-
-function selectChannel(cardElement, name, account){
-    document.querySelectorAll(".channel-card").forEach(c => c.classList.remove("active"));
-    cardElement.classList.add("active");
-
-    selectedChannelName = name;
-    selectedAccountNumber = account;
-
-    const btn = document.getElementById("payActionBtn");
-    btn.style.opacity = "1";
-    btn.style.pointerEvents = "auto";
-    btn.textContent = `Pay ৳${Number(currentAmount).toLocaleString()} via ${name}`;
-}
-
-function proceedToPaymentDetails(){
+window.proceedToPaymentDetails = function(){
+    alert("ধন্যবাদ! আপনার অনুদান সফলভাবে নিবন্ধিত হয়েছে।");
     closeGatewayModal();
-    document.getElementById("detailsTitle").textContent = `${selectedChannelName} পেমেন্ট নির্দেশনা`;
-    document.getElementById("detailsInstructionBox").innerHTML = `
-        <b>নির্বাচিত মাধ্যম:</b> ${selectedChannelName}<br>
-        <b>পরিমাণ:</b> ৳${Number(currentAmount).toLocaleString()}<br><br>
-        অনুগ্রহ করে আপনার ${selectedChannelName} অ্যাপ থেকে নিচের নম্বরে টাকা পাঠান:<br>
-        <div style="background:#fff; padding:10px; border-radius:8px; margin:10px 0; font-size:18px; font-weight:bold; color:#008751; text-align:center; border:1px dashed #cbd5e1;">
-            ${selectedAccountNumber}
-        </div>
-        <small style="color:#64748b;">❤ MB মানবতা ফান্ডে সহযোগিতার জন্য আপনাকে আন্তরিক ধন্যবাদ</small>
-    `;
-    document.getElementById("detailsModal").style.display = "block";
 }
 
-function completePayment(){
-    document.getElementById("detailsModal").style.display = "none";
-    document.getElementById("fundType").value = "";
-    document.getElementById("fundContact").value = "";
-    document.getElementById("fundAmount").value = "";
-}
+// Global data store
+let allDonors = {};
+let allRequests = {};
 
-function renderAmbulanceList(){
-    const container = document.getElementById("ambulanceListContainer");
-    const ambulances = JSON.parse(localStorage.getItem("mb_ambulances") || "[]");
-
-    if(!ambulances.length){
-        container.innerHTML = `<p style="text-align:center; padding:10px; color:#555;">কোনো এম্বুলেন্সের তথ্য পাওয়া যায়নি।</p>`;
-        return;
-    }
-
-    container.innerHTML = ambulances.map(a => `
-        <div class="ambulance-list-item">
-            <h4>🚑 এম্বুলেন্স এর নাম: ${escapeHtml(a.name)}</h4>
-            <p><b>📞 নাম্বার:</b> <a href="tel:${escapeHtml(a.phone)}" style="color:#7c1eaf; font-weight:bold;">${escapeHtml(a.phone)}</a></p>
-            <p><b>📍 ঠিকানা:</b> ${escapeHtml(a.address)}</p>
-        </div>
-    `).join("");
-}
-
-function getDonors(){ return JSON.parse(localStorage.getItem("mb_donors")||"[]"); }
-function saveDonors(data){ localStorage.setItem("mb_donors",JSON.stringify(data)); }
-function getRequests(){ return JSON.parse(localStorage.getItem("mb_requests")||"[]"); }
-
-function fileToBase64(file){
-    return new Promise((resolve,reject)=>{
-        const reader=new FileReader();
-        reader.onload=()=>resolve(reader.result);
-        reader.onerror=reject;
-        reader.readAsDataURL(file);
-    });
-}
-
-document.getElementById("donorForm")?.addEventListener("submit",async function(e){
+// Donor Registration
+document.getElementById("donorForm").addEventListener("submit", function(e){
     e.preventDefault();
-    const donors=getDonors();
-    const id="MB-"+Date.now().toString().slice(-8);
-
-    const donor={
-        id:id,
-        name:document.getElementById("dName").value.trim(),
-        phone:document.getElementById("dPhone").value.trim(),
-        blood:document.getElementById("dBlood").value,
-        division:document.getElementById("dDivision").value,
-        district:document.getElementById("dDistrict").value,
-        upazila:document.getElementById("dUpazila").value,
-        address:document.getElementById("dAddress").value.trim(),
-        photo:"",
-        status:"pending",
-        createdAt:new Date().toISOString()
+    const donorRef = push(ref(db, 'donors'));
+    const donorData = {
+        id: "MB-" + Date.now().toString().slice(-8),
+        name: document.getElementById("dName").value.trim(),
+        phone: document.getElementById("dPhone").value.trim(),
+        blood: document.getElementById("dBlood").value,
+        division: document.getElementById("dDivision").value,
+        district: document.getElementById("dDistrict").value,
+        upazila: document.getElementById("dUpazila").value,
+        address: document.getElementById("dAddress").value.trim(),
+        status: "pending"
     };
 
-    const photoFile=document.getElementById("dPhoto").files[0];
-    if(photoFile){ donor.photo=await fileToBase64(photoFile); }
-
-    donors.push(donor);
-    saveDonors(donors);
-
-    alert("আপনার নিবন্ধনের অনুরোধ পাঠানো হয়েছে।\n\nDonor ID: "+id+"\nStatus: Pending");
-    this.reset();
-    updateStats();
+    set(donorRef, donorData).then(()=>{
+        alert("আপনার নিবন্ধনের অনুরোধ সফলভাবে পাঠানো হয়েছে। এডমিন অ্যাপ্রুভ করার পর দেখা যাবে।");
+        this.reset();
+    });
 });
 
-document.getElementById("requestForm")?.addEventListener("submit",function(e){
+// Emergency Request
+document.getElementById("requestForm").addEventListener("submit", function(e){
     e.preventDefault();
-    const requests=getRequests();
+    const reqRef = push(ref(db, 'requests'));
+    const reqData = {
+        id: "REQ-" + Date.now().toString().slice(-8),
+        patient: document.getElementById("rName").value.trim(),
+        phone: document.getElementById("rPhone").value.trim(),
+        blood: document.getElementById("rBlood").value,
+        bags: document.getElementById("rBags").value,
+        division: document.getElementById("rDivision").value,
+        district: document.getElementById("rDistrict").value,
+        upazila: document.getElementById("rUpazila").value,
+        hospital: document.getElementById("rHospital").value.trim(),
+        date: document.getElementById("rDate").value,
+        urgency: document.getElementById("rUrgency").value,
+        info: document.getElementById("rInfo").value.trim()
+    };
 
-    requests.push({
-        id:"REQ-"+Date.now().toString().slice(-8),
-        patient:document.getElementById("rName").value.trim(),
-        phone:document.getElementById("rPhone").value.trim(),
-        blood:document.getElementById("rBlood").value,
-        bags:document.getElementById("rBags").value,
-        division:document.getElementById("rDivision").value,
-        district:document.getElementById("rDistrict").value,
-        upazila:document.getElementById("rUpazila").value,
-        hospital:document.getElementById("rHospital").value.trim(),
-        date:document.getElementById("rDate").value,
-        urgency:document.getElementById("rUrgency").value,
-        info:document.getElementById("rInfo").value.trim(),
-        status:"pending",
-        createdAt:new Date().toISOString()
+    set(reqRef, reqData).then(()=>{
+        alert("🚨 রক্তের জরুরি অনুরোধ সফলভাবে লাইভ করা হয়েছে!");
+        this.reset();
+    });
+});
+
+// Fetch Realtime Data
+onValue(ref(db, 'donors'), (snapshot) => {
+    allDonors = snapshot.val() || {};
+    updateStatsAndLists();
+});
+
+onValue(ref(db, 'requests'), (snapshot) => {
+    allRequests = snapshot.val() || {};
+    updateStatsAndLists();
+});
+
+function updateStatsAndLists(){
+    let approvedCount = 0;
+    let pendingCount = 0;
+    let adminPendingHTML = "";
+
+    Object.keys(allDonors).forEach(key => {
+        let d = allDonors[key];
+        if(d.status === "approved") approvedCount++;
+        else {
+            pendingCount++;
+            adminPendingHTML += `
+                <div class="ambulance-list-item">
+                    <h4>${d.name} (${d.blood})</h4>
+                    <p><b>ফোন:</b> ${d.phone}</p>
+                    <p><b>এলাকা:</b> ${d.district}, ${d.upazila}</p>
+                    <button class="btn" style="margin-top:10px; padding:8px;" onclick="approveDonor('${key}')">Approve</button>
+                </div>
+            `;
+        }
     });
 
-    localStorage.setItem("mb_requests",JSON.stringify(requests));
-    alert("🚨 আপনার রক্তের অনুরোধ সফলভাবে পাঠানো হয়েছে।");
-    this.reset();
-    updateStats();
-});
+    document.getElementById("approvedCount").textContent = approvedCount;
+    document.getElementById("pendingCount").textContent = pendingCount;
+    document.getElementById("requestCount").textContent = Object.keys(allRequests).length;
+    document.getElementById("adminPendingDonors").innerHTML = adminPendingHTML || "<p>কোনো পেন্ডিং ডোনার নেই।</p>";
 
-function searchDonors(){
-    const blood=document.getElementById("searchBlood").value;
-    const division=document.getElementById("searchDivision").value;
-    const district=document.getElementById("searchDistrict").value;
-    const upazila=document.getElementById("searchUpazila").value;
-
-    const donors=getDonors().filter(d=>
-        d.status==="approved" &&
-        (!blood || d.blood===blood) &&
-        (!division || d.division===division) &&
-        (!district || d.district===district) &&
-        (!upazila || d.upazila===upazila)
-    );
-
-    const box=document.getElementById("donorResults");
-    if(!donors.length){
-        box.innerHTML=`<div class="notice full">কোনো Approved Donor পাওয়া যায়নি।</div>`;
-        return;
-    }
-
-    box.innerHTML=donors.map(d=>`
-        <div class="donor-card">
-            ${d.photo ? `<img src="${d.photo}" style="width:75px;height:75px;border-radius:50%;object-fit:cover;margin-bottom:10px">` : `<div class="blood">${d.blood}</div>`}
-            <h3>${escapeHtml(d.name)}</h3>
-            <p><b>🩸 Blood:</b> ${d.blood}</p>
-            <p><b>📍</b> ${escapeHtml(d.district)}, ${escapeHtml(d.upazila)}</p>
-            <p><b>🏠</b> ${escapeHtml(d.address)}</p>
-            <p><b>🆔</b> ${d.id}</p>
-            <div class="card-actions">
-                <a class="small-btn" href="tel:${d.phone}">📞 Call</a>
-                <a class="small-btn" href="https://wa.me/88${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp</a>
+    // Render Live Requests
+    let reqHTML = "";
+    Object.keys(allRequests).forEach(key => {
+        let r = allRequests[key];
+        reqHTML += `
+            <div class="request-card">
+                <div class="blood">${r.blood}</div>
+                <h3>রোগী: ${r.patient}</h3>
+                <p><b>হাসপাতাল:</b> ${r.hospital}</p>
+                <p><b>পরিমাণ:</b> ${r.bags} ব্যাগ | <b>জরুরিতা:</b> ${r.urgency}</p>
+                <p><b>তারিখ:</b> ${r.date}</p>
+                <div class="card-actions">
+                    <a class="small-btn" href="tel:${r.phone}">📞 কল করুন</a>
+                </div>
             </div>
-        </div>
-    `).join("");
+        `;
+    });
+    document.getElementById("requestResults").innerHTML = reqHTML || "<p style='text-align:center;'>কোনো লাইভ অনুরোধ নেই।</p>";
 }
 
-function escapeHtml(text){
-    return String(text||"")
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;");
+// Admin Actions
+window.checkAdmin = function(){
+    const pass = document.getElementById("adminPass").value;
+    if(pass === "1234"){
+        document.getElementById("adminLoginBox").style.display = "none";
+        document.getElementById("adminPanelBox").style.display = "block";
+    } else {
+        alert("ভুল পাসওয়ার্ড! সঠিক পাসওয়ার্ড দিন (1234)");
+    }
 }
 
-function updateStats(){
-    const donors=getDonors();
-    const requests=getRequests();
-    const approvedEl = document.getElementById("approvedCount");
-    const pendingEl = document.getElementById("pendingCount");
-    const reqEl = document.getElementById("requestCount");
+window.adminLogout = function(){
+    document.getElementById("adminLoginBox").style.display = "block";
+    document.getElementById("adminPanelBox").style.display = "none";
+    document.getElementById("adminPass").value = "";
+}
 
-    if(approvedEl) approvedEl.textContent = donors.filter(x=>x.status==="approved").length;
-    if(pendingEl) pendingEl.textContent = donors.filter(x=>x.status==="pending").length;
-    if(reqEl) reqEl.textContent = requests.length;
+window.approveDonor = function(key){
+    update(ref(db, 'donors/' + key), { status: "approved" }).then(()=>{
+        alert("ডোনার সফলভাবে অ্যাপ্রুভ করা হয়েছে!");
+    });
+}
+
+// Search Donors
+window.searchDonors = function(){
+    const blood = document.getElementById("searchBlood").value;
+    const division = document.getElementById("searchDivision").value;
+    const district = document.getElementById("searchDistrict").value;
+    const upazila = document.getElementById("searchUpazila").value;
+
+    let resultsHTML = "";
+    Object.keys(allDonors).forEach(key => {
+        let d = allDonors[key];
+        if(d.status === "approved" &&
+           (!blood || d.blood === blood) &&
+           (!division || d.division === division) &&
+           (!district || d.district === district) &&
+           (!upazila || d.upazila === upazila)){
+            resultsHTML += `
+                <div class="donor-card">
+                    <div class="blood">${d.blood}</div>
+                    <h3>${d.name}</h3>
+                    <p><b>📍</b> ${d.district}, ${d.upazila}</p>
+                    <p><b>🏠</b> ${d.address}</p>
+                    <div class="card-actions">
+                        <a class="small-btn" href="tel:${d.phone}">📞 Call</a>
+                        <a class="small-btn" href="https://wa.me/88${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp</a>
+                    </div>
+                </div>
+            `;
+        }
+    });
+
+    document.getElementById("donorResults").innerHTML = resultsHTML || `<div class="notice full">কোনো Approved Donor পাওয়া যায়নি।</div>`;
 }
 
 loadLocations();
-updateStats();
 </script>
 
 </body>
