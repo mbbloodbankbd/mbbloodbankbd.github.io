@@ -1,1590 +1,262 @@
-package com.mbbloodbank.app
-
-import android.content.Intent
-import android.net.Uri
-import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.*
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-
-/* =========================================================
-   COLORS
-========================================================= */
-
-val Purple = Color(0xFF4B168F)
-val Purple2 = Color(0xFF7B2CBF)
-val Pink = Color(0xFFE91E72)
-val LightBg = Color(0xFFF8F3FC)
-val Red = Color(0xFFE53935)
-
-/* =========================================================
-   DATA MODELS
-========================================================= */
-
-data class Donor(
-    val id: String = "",
-    val name: String = "",
-    val phone: String = "",
-    val bloodGroup: String = "",
-    val lastDonation: String = "",
-    val division: String = "",
-    val district: String = "",
-    val upazila: String = "",
-    val info: String = "",
-    val status: String = "pending"
-)
-
-data class BloodRequest(
-    val id: String = "",
-    val patient: String = "",
-    val phone: String = "",
-    val bloodGroup: String = "",
-    val bags: String = "",
-    val division: String = "",
-    val district: String = "",
-    val upazila: String = "",
-    val hospital: String = "",
-    val date: String = "",
-    val urgency: String = "",
-    val info: String = "",
-    val status: String = "pending"
-)
-
-/* =========================================================
-   MAIN ACTIVITY
-========================================================= */
-
-class MainActivity : ComponentActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            MaterialTheme {
-                MBBloodBankApp()
-            }
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MB Blood Bank - লাইভ ব্লাড ফাইন্ডার</title>
+    <style>
+        :root {
+            --primary-color: #e63946;
+            --secondary-color: #1d3557;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
         }
-    }
-}
-
-/* =========================================================
-   APP
-========================================================= */
-
-@Composable
-fun MBBloodBankApp() {
-
-    val navController = rememberNavController()
-
-    Scaffold(
-
-        bottomBar = {
-
-            NavigationBar {
-
-                NavigationBarItem(
-                    selected = false,
-                    onClick = {
-                        navController.navigate("home")
-                    },
-                    icon = { Text("🏠") },
-                    label = { Text("Home") }
-                )
-
-                NavigationBarItem(
-                    selected = false,
-                    onClick = {
-                        navController.navigate("search")
-                    },
-                    icon = { Text("🔎") },
-                    label = { Text("Donor") }
-                )
-
-                NavigationBarItem(
-                    selected = false,
-                    onClick = {
-                        navController.navigate("emergency")
-                    },
-                    icon = { Text("🚨") },
-                    label = { Text("Emergency") }
-                )
-            }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-    ) { padding ->
-
-        NavHost(
-            navController = navController,
-            startDestination = "home",
-            modifier = Modifier.padding(padding)
-        ) {
-
-            composable("home") {
-                HomeScreen(navController)
-            }
-
-            composable("search") {
-                DonorSearchScreen()
-            }
-
-            composable("register") {
-                DonorRegistrationScreen()
-            }
-
-            composable("emergency") {
-                EmergencyScreen()
-            }
-
-            composable("stats") {
-                StatisticsScreen()
-            }
-
-            composable("contact") {
-                ContactScreen()
-            }
-
-            composable("admin") {
-                AdminLoginScreen()
-            }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
         }
-    }
-}
-
-/* =========================================================
-   HOME
-========================================================= */
-
-@Composable
-fun HomeScreen(navController: NavHostController) {
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(LightBg)
-            .verticalScroll(rememberScrollState())
-            .padding(20.dp)
-    ) {
-
-        Text(
-            text = "🩸 MB Blood Bank",
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
-            color = Purple
-        )
-
-        Text(
-            text = "বৃহত্তম ব্লাড ব্যাংক",
-            fontSize = 18.sp,
-            color = Pink,
-            fontWeight = FontWeight.Bold
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        Text(
-            text = "আপনার নিকটবর্তী বিভাগ ও জেলায়\n" +
-                    "এবং উপজেলায় রক্তদাতা খোঁজা এখন সহজ",
-            fontSize = 16.sp
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(22.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = Purple
-            )
-        ) {
-
-            Column(
-                modifier = Modifier.padding(22.dp)
-            ) {
-
-                Text(
-                    text = "❤️ রক্তে যদি বাড়ে হাত\nঘুচে যাবে আঁধার রাত",
-                    color = Color.White,
-                    fontSize = 21.sp,
-                    fontWeight = FontWeight.Bold
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = "মুমূর্ষুর মুখে হাসি ফোটাই,\nরক্তদানে জীবন বাঁচাই।",
-                    color = Color.White,
-                    fontSize = 16.sp
-                )
-            }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
         }
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        AppButton(
-            "🩸 রক্তদাতা খুঁজুন"
-        ) {
-            navController.navigate("search")
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
-        AppButton(
-            "📝 রক্তদাতা হিসেবে নিবন্ধন"
-        ) {
-            navController.navigate("register")
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
         }
-
-        AppButton(
-            "🚨 জরুরি রক্তের অনুরোধ"
-        ) {
-            navController.navigate("emergency")
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
         }
-
-        AppButton(
-            "📊 পরিসংখ্যান"
-        ) {
-            navController.navigate("stats")
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
         }
-
-        AppButton(
-            "📞 যোগাযোগ"
-        ) {
-            navController.navigate("contact")
+        .card h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            font-size: 18px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
         }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        OutlinedButton(
-            onClick = {
-                navController.navigate("admin")
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("🔐 Admin Panel")
+        .form-group {
+            margin-bottom: 15px;
         }
-
-        Spacer(modifier = Modifier.height(15.dp))
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFFFE9E9)
-            )
-        ) {
-
-            Text(
-                text = "⚠️ আর্থিক লেনদেন হতে সাবধান।\n\n" +
-                        "আর্থিক লেনদেন হলে MB Blood Bank কর্তৃপক্ষ দায়ী নয়।",
-                modifier = Modifier.padding(18.dp),
-                color = Color.Red,
-                fontWeight = FontWeight.Bold
-            )
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 14px;
         }
-    }
-}
-
-/* =========================================================
-   DONOR SEARCH
-========================================================= */
-
-@Composable
-fun DonorSearchScreen() {
-
-    val context = LocalContext.current
-
-    var blood by remember { mutableStateOf("") }
-    var division by remember { mutableStateOf("") }
-    var district by remember { mutableStateOf("") }
-    var upazila by remember { mutableStateOf("") }
-
-    var donors by remember {
-        mutableStateOf<List<Donor>>(emptyList())
-    }
-
-    var searching by remember {
-        mutableStateOf(false)
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(20.dp)
-    ) {
-
-        Text(
-            text = "🩸 রক্তদাতা খুঁজুন 🔎",
-            fontSize = 27.sp,
-            fontWeight = FontWeight.Bold,
-            color = Purple
-        )
-
-        Text(
-            text = "রক্তের গ্রুপ ও এলাকার মাধ্যমে Donor Search করুন",
-            color = Color.Gray
-        )
-
-        Spacer(modifier = Modifier.height(15.dp))
-
-        InputField("রক্তের গ্রুপ", blood) {
-            blood = it
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
         }
-
-        InputField("বিভাগ", division) {
-            division = it
+        select:focus, input:focus {
+            border-color: var(--primary-color);
         }
-
-        InputField("জেলা", district) {
-            district = it
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
         }
-
-        InputField("উপজেলা", upazila) {
-            upazila = it
+        .btn:hover {
+            background: #d62828;
         }
-
-        AppButton(
-            if (searching) "Searching..." else "🔎 Donor Search"
-        ) {
-
-            searching = true
-
-            FirebaseDatabase
-                .getInstance()
-                .getReference("donors")
-                .addListenerForSingleValueEvent(
-
-                    object : ValueEventListener {
-
-                        override fun onDataChange(
-                            snapshot: DataSnapshot
-                        ) {
-
-                            val list =
-                                mutableListOf<Donor>()
-
-                            for (child in snapshot.children) {
-
-                                val donor =
-                                    child.getValue(Donor::class.java)
-
-                                if (
-                                    donor != null &&
-                                    donor.status.equals(
-                                        "approved",
-                                        ignoreCase = true
-                                    )
-                                ) {
-
-                                    val bloodOK =
-                                        blood.isBlank() ||
-                                                donor.bloodGroup.equals(
-                                                    blood,
-                                                    ignoreCase = true
-                                                )
-
-                                    val divisionOK =
-                                        division.isBlank() ||
-                                                donor.division.equals(
-                                                    division,
-                                                    ignoreCase = true
-                                                )
-
-                                    val districtOK =
-                                        district.isBlank() ||
-                                                donor.district.equals(
-                                                    district,
-                                                    ignoreCase = true
-                                                )
-
-                                    val upazilaOK =
-                                        upazila.isBlank() ||
-                                                donor.upazila.equals(
-                                                    upazila,
-                                                    ignoreCase = true
-                                                )
-
-                                    if (
-                                        bloodOK &&
-                                        divisionOK &&
-                                        districtOK &&
-                                        upazilaOK
-                                    ) {
-                                        list.add(donor)
-                                    }
-                                }
-                            }
-
-                            donors = list
-                            searching = false
-
-                            if (list.isEmpty()) {
-
-                                Toast.makeText(
-                                    context,
-                                    "কোনো Approved Donor পাওয়া যায়নি",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-
-                        override fun onCancelled(
-                            error: DatabaseError
-                        ) {
-
-                            searching = false
-
-                            Toast.makeText(
-                                context,
-                                error.message,
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    }
-                )
+        .donor-list {
+            margin-top: 15px;
         }
-
-        Spacer(modifier = Modifier.height(15.dp))
-
-        donors.forEach {
-            DonorCard(it)
+        .donor-item {
+            background: #f1faee;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 5px solid var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-    }
-}
+        .donor-info h4 {
+            font-size: 16px;
+            color: var(--secondary-color);
+        }
+        .donor-info p {
+            font-size: 13px;
+            color: #666;
+        }
+        .blood-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .call-btn {
+            background: #2a9d8f;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
 
-/* =========================================================
-   DONOR CARD
-========================================================= */
+    <div class="container">
+        <!-- অ্যাপ হেডার -->
+        <header>
+            <h1>🩸 MB Blood Bank</h1>
+            <p>আপনার জরুরি রক্তের প্রয়োজনে পাশে আছি</p>
+        </header>
 
-@Composable
-fun DonorCard(donor: Donor) {
+        <!-- রক্ত খোঁজার সেকশন -->
+        <div class="card">
+            <h3>রক্তদাতা খুঁজুন</h3>
+            <div class="form-group">
+                <label for="searchGroup">রক্তের গ্রুপ নির্বাচন করুন:</label>
+                <select id="searchGroup" onchange="filterDonors()">
+                    <option value="all">সকল গ্রুপ</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                </select>
+            </div>
 
-    val context = LocalContext.current
+            <div class="donor-list" id="donorContainer">
+                <!-- ডোনারদের তালিকা এখানে ডাইনামিক দেখাবে -->
+            </div>
+        </div>
 
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 6.dp),
-        shape = RoundedCornerShape(18.dp)
-    ) {
+        <!-- নতুন ডোনার রেজিস্ট্রেশন সেকশন -->
+        <div class="card">
+            <h3>নতুন রক্তদাতা হিসেবে যুক্ত হোন</h3>
+            <div class="form-group">
+                <label for="donorName">আপনার নাম:</label>
+                <input type="text" id="donorName" placeholder="পূর্ণ নাম লিখুন">
+            </div>
+            <div class="form-group">
+                <label for="donorGroup">রক্তের গ্রুপ:</label>
+                <select id="donorGroup">
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="donorPhone">মোবাইল নম্বর:</label>
+                <input type="text" id="donorPhone" placeholder="০১৭xxxxxxxx">
+            </div>
+            <button class="btn" onclick="addDonor()">তালিকাভুক্ত হোন</button>
+        </div>
+    </div>
 
-        Column(
-            modifier = Modifier.padding(18.dp)
-        ) {
+    <script>
+        // স্যাম্পল বা প্রারম্ভিক ডোনার ডাটা
+        let donors = [
+            { name: "রহিম উদ্দিন", group: "A+", phone: "01711112222" },
+            { name: "করিম আহমেদ", group: "O+", phone: "01822223333" },
+            { name: "ফাতেমা বেগম", group: "B+", phone: "01933334444" }
+        ];
 
-            Text(
-                text = "🩸 ${donor.bloodGroup}",
-                color = Color.Red,
-                fontSize = 23.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                text = donor.name,
-                fontSize = 19.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                text = "📍 ${donor.division}, ${donor.district}, ${donor.upazila}"
-            )
-
-            Text(
-                text = "📅 সর্বশেষ রক্তদান: ${donor.lastDonation}"
-            )
-
-            if (donor.info.isNotBlank()) {
-                Text(
-                    text = "ℹ️ ${donor.info}",
-                    color = Color.Gray
-                )
+        function displayDonors(list) {
+            const container = document.getElementById('donorContainer');
+            container.innerHTML = '';
+            
+            if(list.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#777;">কোনো রক্তদাতা পাওয়া যায়নি।</p>';
+                return;
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Button(
-                onClick = {
-
-                    val intent =
-                        Intent(
-                            Intent.ACTION_DIAL,
-                            Uri.parse("tel:${donor.phone}")
-                        )
-
-                    context.startActivity(intent)
-                },
-
-                modifier = Modifier.fillMaxWidth(),
-
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Purple
-                )
-            ) {
-                Text("📞 কল করুন")
-            }
-        }
-    }
-}
-
-/* =========================================================
-   DONOR REGISTRATION
-========================================================= */
-
-@Composable
-fun DonorRegistrationScreen() {
-
-    val context = LocalContext.current
-
-    var name by remember { mutableStateOf("") }
-    var phone by remember { mutableStateOf("") }
-    var blood by remember { mutableStateOf("") }
-    var lastDonation by remember { mutableStateOf("") }
-    var division by remember { mutableStateOf("") }
-    var district by remember { mutableStateOf("") }
-    var upazila by remember { mutableStateOf("") }
-    var info by remember { mutableStateOf("") }
-
-    var saving by remember {
-        mutableStateOf(false)
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(20.dp)
-    ) {
-
-        Text(
-            text = "📝 রক্তদাতা হিসেবে নিবন্ধন",
-            fontSize = 25.sp,
-            fontWeight = FontWeight.Bold,
-            color = Purple
-        )
-
-        Spacer(modifier = Modifier.height(15.dp))
-
-        InputField("নাম", name) { name = it }
-
-        InputField("মোবাইল নম্বর", phone) { phone = it }
-
-        InputField("রক্তের গ্রুপ", blood) { blood = it }
-
-        InputField(
-            "সর্বশেষ রক্তদানের তারিখ",
-            lastDonation
-        ) { lastDonation = it }
-
-        InputField("বিভাগ", division) { division = it }
-
-        InputField("জেলা", district) { district = it }
-
-        InputField("উপজেলা", upazila) { upazila = it }
-
-        InputField("অতিরিক্ত তথ্য", info) { info = it }
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        AppButton(
-            if (saving)
-                "Submitting..."
-            else
-                "📝 নিবন্ধন করুন"
-        ) {
-
-            if (
-                name.isBlank() ||
-                phone.isBlank() ||
-                blood.isBlank()
-            ) {
-
-                Toast.makeText(
-                    context,
-                    "নাম, ফোন ও রক্তের গ্রুপ দিন",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                return@AppButton
-            }
-
-            saving = true
-
-            val ref =
-                FirebaseDatabase
-                    .getInstance()
-                    .getReference("pendingDonors")
-
-            val id = ref.push().key
-
-            if (id == null) {
-
-                saving = false
-                return@AppButton
-            }
-
-            val donor = Donor(
-                id = id,
-                name = name,
-                phone = phone,
-                bloodGroup = blood,
-                lastDonation = lastDonation,
-                division = division,
-                district = district,
-                upazila = upazila,
-                info = info,
-                status = "pending"
-            )
-
-            ref.child(id)
-                .setValue(donor)
-                .addOnSuccessListener {
-
-                    saving = false
-
-                    Toast.makeText(
-                        context,
-                        "নিবন্ধন সফল। Admin Approval-এর অপেক্ষায় আছে।",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                    name = ""
-                    phone = ""
-                    blood = ""
-                    lastDonation = ""
-                    division = ""
-                    district = ""
-                    upazila = ""
-                    info = ""
-                }
-                .addOnFailureListener {
-
-                    saving = false
-
-                    Toast.makeText(
-                        context,
-                        "নিবন্ধন ব্যর্থ হয়েছে",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+            list.forEach(donor => {
+                container.innerHTML += `
+                    <div class="donor-item">
+                        <div class="donor-info">
+                            <h4>${donor.name}</h4>
+                            <p>মোবাইল: ${donor.phone}</p>
+                            <a href="tel:${donor.phone}" class="call-btn">📞 কল করুন</a>
+                        </div>
+                        <div class="blood-badge">${donor.group}</div>
+                    </div>
+                `;
+            });
         }
 
-        Spacer(modifier = Modifier.height(10.dp))
-
-        Text(
-            text = "ℹ️ Admin যাচাই ও Approved করার পর " +
-                    "আপনার তথ্য রক্তদাতার তালিকায় প্রদর্শিত হবে।",
-            fontSize = 13.sp,
-            color = Color.Gray
-        )
-    }
-}
-
-/* =========================================================
-   EMERGENCY
-========================================================= */
-
-@Composable
-fun EmergencyScreen() {
-
-    val context = LocalContext.current
-
-    var patient by remember { mutableStateOf("") }
-    var phone by remember { mutableStateOf("") }
-    var blood by remember { mutableStateOf("") }
-    var bags by remember { mutableStateOf("") }
-    var division by remember { mutableStateOf("") }
-    var district by remember { mutableStateOf("") }
-    var upazila by remember { mutableStateOf("") }
-    var hospital by remember { mutableStateOf("") }
-    var date by remember { mutableStateOf("") }
-    var urgency by remember { mutableStateOf("") }
-    var info by remember { mutableStateOf("") }
-
-    var saving by remember {
-        mutableStateOf(false)
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(20.dp)
-    ) {
-
-        Text(
-            text = "🚨 জরুরি রক্তের অনুরোধ",
-            fontSize = 27.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Red
-        )
-
-        Spacer(modifier = Modifier.height(15.dp))
-
-        InputField("রোগীর নাম", patient) { patient = it }
-
-        InputField("যোগাযোগ নম্বর", phone) { phone = it }
-
-        InputField("রক্তের গ্রুপ", blood) { blood = it }
-
-        InputField("কত ব্যাগ", bags) { bags = it }
-
-        InputField("বিভাগ", division) { division = it }
-
-        InputField("জেলা", district) { district = it }
-
-        InputField("উপজেলা", upazila) { upazila = it }
-
-        InputField("হাসপাতাল/স্থান", hospital) { hospital = it }
-
-        InputField(
-            "যে তারিখে রক্ত প্রয়োজন",
-            date
-        ) { date = it }
-
-        InputField(
-            "জরুরিতার মাত্রা",
-            urgency
-        ) { urgency = it }
-
-        InputField(
-            "অতিরিক্ত তথ্য",
-            info
-        ) { info = it }
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        AppButton(
-            if (saving)
-                "Submitting..."
-            else
-                "🚨 Request Submit"
-        ) {
-
-            if (
-                patient.isBlank() ||
-                phone.isBlank() ||
-                blood.isBlank()
-            ) {
-
-                Toast.makeText(
-                    context,
-                    "রোগীর নাম, ফোন ও রক্তের গ্রুপ দিন",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                return@AppButton
-            }
-
-            saving = true
-
-            val ref =
-                FirebaseDatabase
-                    .getInstance()
-                    .getReference("bloodRequests")
-
-            val id = ref.push().key
-
-            if (id == null) {
-
-                saving = false
-                return@AppButton
-            }
-
-            val request = BloodRequest(
-                id = id,
-                patient = patient,
-                phone = phone,
-                bloodGroup = blood,
-                bags = bags,
-                division = division,
-                district = district,
-                upazila = upazila,
-                hospital = hospital,
-                date = date,
-                urgency = urgency,
-                info = info,
-                status = "pending"
-            )
-
-            ref.child(id)
-                .setValue(request)
-                .addOnSuccessListener {
-
-                    saving = false
-
-                    Toast.makeText(
-                        context,
-                        "জরুরি রক্তের অনুরোধ পাঠানো হয়েছে।",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                    patient = ""
-                    phone = ""
-                    blood = ""
-                    bags = ""
-                    division = ""
-                    district = ""
-                    upazila = ""
-                    hospital = ""
-                    date = ""
-                    urgency = ""
-                    info = ""
-                }
-                .addOnFailureListener {
-
-                    saving = false
-
-                    Toast.makeText(
-                        context,
-                        "Request পাঠানো যায়নি",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-        }
-    }
-}
-
-/* =========================================================
-   ADMIN LOGIN
-========================================================= */
-
-@Composable
-fun AdminLoginScreen() {
-
-    val context = LocalContext.current
-
-    val auth = remember {
-        FirebaseAuth.getInstance()
-    }
-
-    var email by remember {
-        mutableStateOf("")
-    }
-
-    var password by remember {
-        mutableStateOf("")
-    }
-
-    var loading by remember {
-        mutableStateOf(false)
-    }
-
-    var loggedIn by remember {
-        mutableStateOf(
-            auth.currentUser != null
-        )
-    }
-
-    if (loggedIn) {
-
-        AdminPanel(
-            onLogout = {
-
-                auth.signOut()
-                loggedIn = false
-            }
-        )
-
-        return
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(20.dp)
-    ) {
-
-        Text(
-            text = "🔐 Admin Login",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            color = Purple
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        InputField(
-            "Admin Email",
-            email
-        ) {
-            email = it
-        }
-
-        OutlinedTextField(
-            value = password,
-            onValueChange = {
-                password = it
-            },
-            label = {
-                Text("Password")
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 5.dp),
-            singleLine = true,
-            shape = RoundedCornerShape(14.dp)
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        AppButton(
-            if (loading)
-                "Logging in..."
-            else
-                "🔐 Login"
-        ) {
-
-            if (
-                email.isBlank() ||
-                password.isBlank()
-            ) {
-
-                Toast.makeText(
-                    context,
-                    "Email ও Password দিন",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                return@AppButton
-            }
-
-            loading = true
-
-            auth.signInWithEmailAndPassword(
-                email.trim(),
-                password
-            )
-                .addOnSuccessListener {
-
-                    val uid =
-                        auth.currentUser?.uid
-
-                    if (uid == null) {
-
-                        loading = false
-                        return@addOnSuccessListener
-                    }
-
-                    FirebaseDatabase
-                        .getInstance()
-                        .getReference("admins")
-                        .child(uid)
-                        .get()
-                        .addOnSuccessListener { snapshot ->
-
-                            loading = false
-
-                            if (snapshot.exists()) {
-
-                                loggedIn = true
-
-                            } else {
-
-                                auth.signOut()
-
-                                Toast.makeText(
-                                    context,
-                                    "এই Account Admin নয়",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        }
-                }
-                .addOnFailureListener {
-
-                    loading = false
-
-                    Toast.makeText(
-                        context,
-                        "Login ব্যর্থ: ${it.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-        }
-    }
-}
-
-/* =========================================================
-   ADMIN PANEL
-========================================================= */
-
-@Composable
-fun AdminPanel(
-    onLogout: () -> Unit
-) {
-
-    var pendingDonors by remember {
-        mutableStateOf<List<Donor>>(emptyList())
-    }
-
-    var requests by remember {
-        mutableStateOf<List<BloodRequest>>(emptyList())
-    }
-
-    var refresh by remember {
-        mutableStateOf(0)
-    }
-
-    LaunchedEffect(refresh) {
-
-        val database =
-            FirebaseDatabase.getInstance()
-
-        database
-            .getReference("pendingDonors")
-            .get()
-            .addOnSuccessListener {
-
-                val list =
-                    mutableListOf<Donor>()
-
-                for (child in it.children) {
-
-                    val donor =
-                        child.getValue(Donor::class.java)
-
-                    if (donor != null) {
-                        list.add(donor)
-                    }
-                }
-
-                pendingDonors = list
-            }
-
-        database
-            .getReference("bloodRequests")
-            .get()
-            .addOnSuccessListener {
-
-                val list =
-                    mutableListOf<BloodRequest>()
-
-                for (child in it.children) {
-
-                    val request =
-                        child.getValue(
-                            BloodRequest::class.java
-                        )
-
-                    if (request != null) {
-                        list.add(request)
-                    }
-                }
-
-                requests = list
-            }
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(15.dp)
-    ) {
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement =
-                Arrangement.SpaceBetween,
-            verticalAlignment =
-                Alignment.CenterVertically
-        ) {
-
-            Text(
-                text = "🛠️ Admin Panel",
-                fontSize = 26.sp,
-                fontWeight = FontWeight.Bold,
-                color = Purple
-            )
-
-            TextButton(
-                onClick = onLogout
-            ) {
-                Text("Logout")
+        function filterDonors() {
+            const selectedGroup = document.getElementById('searchGroup').value;
+            if(selectedGroup === 'all') {
+                displayDonors(donors);
+            } else {
+                const filtered = donors.filter(d => d.group === selectedGroup);
+                displayDonors(filtered);
             }
         }
 
-        Spacer(modifier = Modifier.height(15.dp))
+        function addDonor() {
+            const name = document.getElementById('donorName').value;
+            const group = document.getElementById('donorGroup').value;
+            const phone = document.getElementById('donorPhone').value;
 
-        Text(
-            text = "⏳ Pending Donors",
-            fontSize = 21.sp,
-            fontWeight = FontWeight.Bold
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        if (pendingDonors.isEmpty()) {
-
-            Text(
-                text = "কোনো Pending Donor নেই",
-                color = Color.Gray
-            )
-
-        } else {
-
-            pendingDonors.forEach { donor ->
-
-                AdminDonorCard(
-                    donor = donor,
-                    onDone = {
-                        refresh++
-                    }
-                )
+            if(!name || !phone) {
+                alert('দয়া করে নাম এবং মোবাইল নম্বর পূরণ করুন।');
+                return;
             }
+
+            donors.push({ name, group, phone });
+            alert('ধন্যবাদ! সফলভাবে রক্তদাতা হিসেবে যুক্ত হয়েছেন।');
+            
+            // ইনপুট ফিল্ড খালি করা
+            document.getElementById('donorName').value = '';
+            document.getElementById('donorPhone').value = '';
+            
+            filterDonors();
         }
 
-        Spacer(modifier = Modifier.height(25.dp))
-
-        Text(
-            text = "🚨 Blood Requests",
-            fontSize = 21.sp,
-            fontWeight = FontWeight.Bold
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        if (requests.isEmpty()) {
-
-            Text(
-                text = "কোনো Blood Request নেই",
-                color = Color.Gray
-            )
-
-        } else {
-
-            requests.forEach { request ->
-
-                AdminRequestCard(request)
-            }
-        }
-    }
-}
-
-/* =========================================================
-   ADMIN DONOR CARD
-========================================================= */
-
-@Composable
-fun AdminDonorCard(
-    donor: Donor,
-    onDone: () -> Unit
-) {
-
-    val context = LocalContext.current
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 6.dp),
-        shape = RoundedCornerShape(18.dp)
-    ) {
-
-        Column(
-            modifier = Modifier.padding(15.dp)
-        ) {
-
-            Text(
-                text = donor.name,
-                fontSize = 19.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                text = "🩸 ${donor.bloodGroup}"
-            )
-
-            Text(
-                text = "📞 ${donor.phone}"
-            )
-
-            Text(
-                text = "📍 ${donor.division}, " +
-                        "${donor.district}, " +
-                        donor.upazila
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement =
-                    Arrangement.spacedBy(8.dp)
-            ) {
-
-                Button(
-                    onClick = {
-
-                        val database =
-                            FirebaseDatabase
-                                .getInstance()
-
-                        database
-                            .getReference("pendingDonors")
-                            .child(donor.id)
-                            .removeValue()
-                            .addOnSuccessListener {
-
-                                database
-                                    .getReference("donors")
-                                    .child(donor.id)
-                                    .setValue(
-                                        donor.copy(
-                                            status = "approved"
-                                        )
-                                    )
-                                    .addOnSuccessListener {
-
-                                        Toast.makeText(
-                                            context,
-                                            "Donor Approved",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-
-                                        onDone()
-                                    }
-                            }
-                    },
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF2E7D32)
-                    )
-                ) {
-
-                    Text("✅ Approve")
-                }
-
-                Button(
-                    onClick = {
-
-                        FirebaseDatabase
-                            .getInstance()
-                            .getReference("pendingDonors")
-                            .child(donor.id)
-                            .removeValue()
-                            .addOnSuccessListener {
-
-                                Toast.makeText(
-                                    context,
-                                    "Donor Rejected",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-
-                                onDone()
-                            }
-                    },
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Red
-                    )
-                ) {
-
-                    Text("❌ Reject")
-                }
-            }
-        }
-    }
-}
-
-/* =========================================================
-   ADMIN REQUEST CARD
-========================================================= */
-
-@Composable
-fun AdminRequestCard(
-    request: BloodRequest
-) {
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 6.dp),
-        shape = RoundedCornerShape(18.dp)
-    ) {
-
-        Column(
-            modifier = Modifier.padding(15.dp)
-        ) {
-
-            Text(
-                text = "🩸 ${request.bloodGroup}",
-                fontSize = 21.sp,
-                color = Color.Red,
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                text = "রোগী: ${request.patient}",
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                text = "📞 ${request.phone}"
-            )
-
-            Text(
-                text = "🩸 ব্যাগ: ${request.bags}"
-            )
-
-            Text(
-                text = "🏥 ${request.hospital}"
-            )
-
-            Text(
-                text = "📍 ${request.division}, " +
-                        "${request.district}, " +
-                        request.upazila
-            )
-
-            Text(
-                text = "📅 ${request.date}"
-            )
-
-            Text(
-                text = "⚠️ ${request.urgency}"
-            )
-
-            if (request.info.isNotBlank()) {
-
-                Text(
-                    text = "ℹ️ ${request.info}",
-                    color = Color.Gray
-                )
-            }
-        }
-    }
-}
-
-/* =========================================================
-   STATISTICS
-========================================================= */
-
-@Composable
-fun StatisticsScreen() {
-
-    var donors by remember {
-        mutableStateOf(0)
-    }
-
-    var pending by remember {
-        mutableStateOf(0)
-    }
-
-    var requests by remember {
-        mutableStateOf(0)
-    }
-
-    LaunchedEffect(Unit) {
-
-        val database =
-            FirebaseDatabase.getInstance()
-
-        database
-            .getReference("donors")
-            .get()
-            .addOnSuccessListener {
-                donors = it.childrenCount.toInt()
-            }
-
-        database
-            .getReference("pendingDonors")
-            .get()
-            .addOnSuccessListener {
-                pending = it.childrenCount.toInt()
-            }
-
-        database
-            .getReference("bloodRequests")
-            .get()
-            .addOnSuccessListener {
-                requests = it.childrenCount.toInt()
-            }
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp)
-    ) {
-
-        Text(
-            text = "📊 MB Blood Bank",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            color = Purple
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        StatCard("Active Donors", donors.toString())
-
-        StatCard("Pending Donors", pending.toString())
-
-        StatCard("Blood Requests", requests.toString())
-    }
-}
-
-@Composable
-fun StatCard(
-    title: String,
-    value: String
-) {
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 6.dp),
-        shape = RoundedCornerShape(18.dp)
-    ) {
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp),
-
-            horizontalArrangement =
-                Arrangement.SpaceBetween,
-
-            verticalAlignment =
-                Alignment.CenterVertically
-        ) {
-
-            Text(
-                text = title,
-                fontSize = 17.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            Text(
-                text = value,
-                fontSize = 25.sp,
-                fontWeight = FontWeight.Bold,
-                color = Purple
-            )
-        }
-    }
-}
-
-/* =========================================================
-   CONTACT
-========================================================= */
-
-@Composable
-fun ContactScreen() {
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp),
-        horizontalAlignment =
-            Alignment.CenterHorizontally
-    ) {
-
-        Text(
-            text = "📞 যোগাযোগ",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            color = Purple
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Text(
-            text = "MB Blood Bank",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
-        )
-
-        Text(
-            text = "বৃহত্তম ব্লাড ব্যাংক",
-            color = Pink,
-            fontSize = 17.sp
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Text(
-            text = "রক্তদাতা ও রক্তপ্রার্থীদের সহযোগিতার জন্য\n" +
-                    "MB Blood Bank-এর সাথে যোগাযোগ করুন।",
-            fontSize = 16.sp
-        )
-    }
-}
-
-/* =========================================================
-   COMMON BUTTON
-========================================================= */
-
-@Composable
-fun AppButton(
-    text: String,
-    onClick: () -> Unit
-) {
-
-    Button(
-        onClick = onClick,
-
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 6.dp)
-            .height(55.dp),
-
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Purple
-        ),
-
-        shape = RoundedCornerShape(16.dp)
-    ) {
-
-        Text(
-            text = text,
-            fontSize = 17.sp,
-            fontWeight = FontWeight.Bold
-        )
-    }
-}
-
-/* =========================================================
-   INPUT
-========================================================= */
-
-@Composable
-fun InputField(
-    label: String,
-    value: String,
-    onValueChange: (String) -> Unit
-) {
-
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-
-        label = {
-            Text(label)
-        },
-
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 5.dp),
-
-        singleLine = true,
-
-        shape = RoundedCornerShape(14.dp)
-    )
-}
+        // প্রথমে সকল ডোনার লোড করা
+        displayDonors(donors);
+    </script>
+</body>
+</html>
