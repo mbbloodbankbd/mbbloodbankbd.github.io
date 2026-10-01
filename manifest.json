@@ -1,16 +1,15 @@
 {
   "name": "MB Blood Bank",
-  "short_name": "BloodBank",
-  "start_url": "/",
+  "short_name": "Blood Bank",
+  "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#f8fafc",
-  "theme_color": "#dc2626",
+  "background_color": "#f8f9fa",
+  "theme_color": "#e63946",
   "icons": [
     {
-      "src": "icon.png",
-      "sizes": "192x192",
+      "src": "https://cdn-icons-png.flaticon.com/512/3063/3063823.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ]
 }
-
