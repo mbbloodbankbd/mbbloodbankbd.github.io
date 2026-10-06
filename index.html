@@ -179,79 +179,57 @@ section{
 }
 
 /* =========================
-   APP DOWNLOAD BANNER (পিকচার স্টাইল)
+   APP DOWNLOAD SECTION STYLES
 ========================= */
 
-.app-banner-card{
-    background: linear-gradient(135deg, #0d233a, #16365f);
-    border-radius: 20px;
-    padding: 22px 25px;
-    color: #ffffff;
-    box-shadow: 0 15px 35px rgba(13, 35, 58, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    margin-bottom: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-decoration: none;
-    transition: transform .3s ease, box-shadow .3s ease;
-}
-
-.app-banner-card:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 18px 40px rgba(13, 35, 58, 0.35);
-}
-
-.app-banner-left{
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-.app-icon-box{
-    width: 52px;
-    height: 52px;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    backdrop-filter: blur(10px);
-}
-
-.app-text-info h3{
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 4px;
-    color: #ffffff;
-}
-
-.app-text-info p{
-    font-size: 13px;
-    color: #cbd5e1;
-    font-weight: 500;
-}
-
-.app-arrow-box{
-    font-size: 20px;
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.08);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .app-slogan{
-    text-align: center;
-    font-weight: 700;
-    font-size: 15px;
-    color: #5c1875;
-    margin-bottom: 10px;
+    text-align:center;
+    font-size:18px;
+    font-weight:700;
+    color:#7c1eaf;
+    margin-bottom:12px;
+}
+
+.app-download-box{
+    padding:25px;
+    text-align:center;
+    background:linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,230,245,0.7));
+}
+
+.app-download-content{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+}
+
+.app-download-content p{
+    font-size:15px;
+    font-weight:600;
+    color:#29123f;
+    max-width:600px;
+}
+
+.app-download-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:14px 28px;
+    border-radius:17px;
+    color:#fff;
+    font-family:inherit;
+    font-weight:800;
+    font-size:16px;
+    background:linear-gradient(145deg,#7027ad,#db1768);
+    box-shadow:
+        7px 8px 18px rgba(85,25,115,.28),
+        inset 1px 1px 3px rgba(255,255,255,.35);
+    transition:.25s;
+}
+
+.app-download-btn:hover{
+    transform:translateY(-3px);
 }
 
 /* =========================
@@ -1194,27 +1172,26 @@ footer{
 
 
 <!-- =====================================================
-     APP DOWNLOAD BANNER (রক্তদাতা খুঁজুন এর ঠিক উপরে)
+     APP DOWNLOAD SECTION (রক্তদাতা খুঁজুন এর ঠিক উপরে)
 ===================================================== -->
 
-<div class="app-slogan">
-    📱 এক ক্লিকেই ডাউনলোড করুন আমাদের অফিসিয়াল অ্যাপ!
-</div>
+<section id="download-app">
 
-<a href="mbbloodbank.apk" class="app-banner-card" download>
-    <div class="app-banner-left">
-        <div class="app-icon-box">
-            📥
-        </div>
-        <div class="app-text-info">
-            <h3>অ্যাপ ডাউনলোড করুন</h3>
-            <p>Android App • Free Download</p>
+    <div class="app-slogan">
+        🩸 এক ফোঁটা রক্তে বাঁচুক প্রাণ, অ্যাপস ডাউনলোড করুন আজই! 📱
+    </div>
+
+    <div class="glass app-download-box">
+        <div class="app-download-content">
+            <p>আমাদের অফিশিয়াল মোবাইল অ্যাপস ডাউনলোড করুন এবং যেকোনো জরুরি মুহূর্তে খুব সহজেই রক্তদাতা খুঁজুন।</p>
+            
+            <a href="mbbloodbank.apk" class="app-download-btn" download>
+                📥 Download App (APK)
+            </a>
         </div>
     </div>
-    <div class="app-arrow-box">
-        ›
-    </div>
-</a>
+
+</section>
 
 
 <!-- =====================================================
