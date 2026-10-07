@@ -179,18 +179,11 @@ section{
 }
 
 /* =========================
-   APP DOWNLOAD SECTION (Only on Web, hidden in App)
+   APP DOWNLOAD SECTION (웹사이트 전용)
 ========================= */
 
 .web-only-download{
-    display:block;
-}
-
-@media all and (display-mode: standalone), (max-device-width: 500px) and (-webkit-min-device-pixel-ratio: 2) {
-    /* যদি অ্যাপ মোডে বা মোবাইল অ্যাপ হিসেবে রান হয় তবে ওয়েবসাইট ডাউনলোডার হাইড করার ক্লাস */
-    .app-download-section.hide-in-app {
-        display: none !important;
-    }
+    display: block; /* শুধুমাত্র ওয়েবসাইটে দেখাবে */
 }
 
 .app-download-box{
@@ -202,7 +195,17 @@ section{
 .app-slogan{
     font-size:15px;
     font-weight:700;
-    color:#4a1c6d;
+    color:#d71967;
+    margin-bottom:8px;
+    letter-spacing:0.5px;
+}
+
+.app-download-content p{
+    font-size:15px;
+    font-weight:600;
+    color:#3a1855;
+    max-width:600px;
+    line-height:1.5;
     margin-bottom:12px;
 }
 
@@ -570,7 +573,6 @@ textarea:focus{
     transform-box:fill-box;
     animation:rayRotate 2.8s linear infinite;
 }
-
 .map-ray.r2{ animation-delay:-.7s; }
 .map-ray.r3{ animation-delay:-1.4s; }
 
@@ -601,6 +603,7 @@ textarea:focus{
     color:#728579;
     font-size:11px;
 }
+
 
 /* =========================
    YELLOW FUND SECTION
@@ -634,6 +637,7 @@ textarea:focus{
     background:#006c40;
     transform:translateY(-2px);
 }
+
 
 /* =========================
    GATEWAY MODAL
@@ -713,6 +717,7 @@ textarea:focus{
     background:#f0fdf4;
 }
 
+
 /* =========================
    CONTACT & AMBULANCE
 ========================= */
@@ -770,6 +775,7 @@ textarea:focus{
     word-break:break-word;
 }
 
+
 /* =========================
    MODAL
 ========================= */
@@ -826,6 +832,7 @@ textarea:focus{
     margin:3px 0;
     color:#29123f;
 }
+
 
 /* =========================================================
    AMBULANCE VIDEO STYLE ANIMATION
@@ -885,6 +892,7 @@ textarea:focus{
     to{ transform:translateY(-2px); }
 }
 
+
 /* =========================
    FOOTER
 ========================= */
@@ -896,6 +904,11 @@ footer{
     background:rgba(38,10,58,.9);
     color:white;
 }
+
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(min-width:768px){
     .contact-grid{
@@ -912,9 +925,11 @@ footer{
 </style>
 </head>
 
+
 <body>
 
 <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
 
 <div id="sideMenu" class="side-menu">
     <h2>☰ Menu</h2>
@@ -928,6 +943,7 @@ footer{
     <a href="#contact" onclick="toggleMenu()">📞 যোগাযোগ করুন</a>
 </div>
 
+
 <main class="container" id="home">
 
 <!-- BANNER -->
@@ -935,32 +951,35 @@ footer{
     <img src="1742.png" alt="MB Blood Bank Banner">
 </div>
 
-<!-- APP DOWNLOAD SECTION (রক্তদাতা খুঁজুন এর ঠিক উপরে, শুধুমাত্র ওয়েবসাইটে দেখাবে) -->
-<section id="download-app" class="app-download-section hide-in-app">
-    <h2 class="section-title">📱 অ্যাপস ডাউনলোড 📥</h2>
+
+<!-- APP DOWNLOAD SECTION (শুধুমাত্র ওয়েবসাইটে দেখাবে) -->
+<section id="download-app" class="web-only-download">
     <div class="glass app-download-box">
-        <div class="app-slogan">
-            ✨ "আপনার জরুরি মুহূর্তে রক্ত পেতে এবং রক্তদাতা হিসেবে যুক্ত হতে আমাদের অফিশিয়াল অ্যাপস ডাউনলোড করুন" ✨
-        </div>
-        <div style="margin-top:10px;">
+        <div class="app-slogan">✨ আপনার হাতের মুঠোয় মানবতার সেবা ✨</div>
+        <div class="app-download-content">
+            <p>আমাদের অফিশিয়াল মোবাইল অ্যাপস ডাউনলোড করুন এবং এক ক্লিকেই রক্তদাতা খুঁজুন বা জরুরি রক্তের অনুরোধ পাঠান!</p>
             <a href="_MB_Blood_Bank_20235203.apk" class="app-download-btn" download>
-                📥 Download Android App (APK)
+                📥 Download MB Blood Bank App (APK)
             </a>
         </div>
     </div>
 </section>
 
+
 <!-- SEARCH -->
 <section id="search">
     <h2 class="section-title">🩸 রক্তদাতা খুঁজুন 🔎</h2>
+
     <div class="warning">
         ⚠️ আর্থিক লেনদেন হতে সাবধান<br>
         আর্থিক কোনো লেনদেন হলে MB Blood Bank কর্তৃপক্ষ দায়ী নয়
     </div>
+
     <div class="glass form-box">
-        <p style="text-align:center; margin-bottom:18px; font-weight:700">
-            রক্তের গ্রুপ ও এলাকার মাধ্যমে Donor Search করুন (পৌরসভা সহ)
+        <p style="text-align:center;margin-bottom:18px;font-weight:700">
+            রক্তের গ্রুপ ও এলাকার মাধ্যমে Donor Search করুন
         </p>
+
         <div class="grid">
             <div>
                 <label>রক্তের গ্রুপ</label>
@@ -970,33 +989,41 @@ footer{
                     <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
                 </select>
             </div>
+
             <div>
                 <label>বিভাগ নির্বাচন</label>
                 <select id="searchDivision"><option value="">বিভাগ নির্বাচন করুন</option></select>
             </div>
+
             <div>
                 <label>জেলা নির্বাচন</label>
                 <select id="searchDistrict"><option value="">জেলা নির্বাচন করুন</option></select>
             </div>
+
             <div>
-                <label>উপজেলা / পৌরসভা নির্বাচন</label>
-                <select id="searchUpazila"><option value="">উপজেলা / পৌরসভা নির্বাচন করুন</option></select>
+                <label>উপজেলা নির্বাচন</label>
+                <select id="searchUpazila"><option value="">উপজেলা নির্বাচন করুন</option></select>
             </div>
+
             <div class="full" style="text-align:center">
                 <button class="btn" onclick="searchDonors()">🔎 Donor Search</button>
             </div>
         </div>
+
         <div id="donorResults"></div>
     </div>
 </section>
 
+
 <!-- REGISTER -->
 <section id="register">
     <h2 class="section-title">📝 রক্তদাতা হিসেবে নিবন্ধন</h2>
+
     <div class="notice">
         ⚠️ নিবন্ধনের পর আপনার Account/Donor/Profile সরাসরি active হবে না।
         Admin যাচাই ও Approved করার পর আপনার তথ্য রক্তদাতার তালিকায় প্রদর্শিত হবে।
     </div>
+
     <div class="glass form-box">
         <form id="donorForm">
             <div class="grid">
@@ -1012,18 +1039,22 @@ footer{
                 </div>
                 <div><label>বিভাগ *</label><select id="dDivision" required><option value="">নির্বাচন করুন</option></select></div>
                 <div><label>জেলা *</label><select id="dDistrict" required><option value="">নির্বাচন করুন</option></select></div>
-                <div><label>উপজেলা / পৌরসভা *</label><select id="dUpazila" required><option value="">নির্বাচন করুন</option></select></div>
+                <div><label>উপজেলা *</label><select id="dUpazila" required><option value="">নির্বাচন করুন</option></select></div>
                 <div class="full"><label>ঠিকানা *</label><textarea id="dAddress" required></textarea></div>
                 <div class="full"><label>ছবি</label><input id="dPhoto" type="file" accept="image/*"></div>
-                <div class="full" style="text-align:center"><button class="btn" type="submit">📝 নিবন্ধনের অনুরোধ পাঠান</button></div>
+                <div class="full" style="text-align:center">
+                    <button class="btn" type="submit">📝 নিবন্ধনের অনুরোধ পাঠান</button>
+                </div>
             </div>
         </form>
     </div>
 </section>
 
+
 <!-- EMERGENCY REQUEST -->
 <section id="request">
     <h2 class="section-title">🚨 জরুরি রক্তের অনুরোধ</h2>
+
     <div class="glass form-box">
         <form id="requestForm">
             <div class="grid">
@@ -1040,7 +1071,7 @@ footer{
                 <div><label>কত ব্যাগ *</label><input id="rBags" type="number" min="1" required></div>
                 <div><label>বিভাগ নির্বাচন করুন *</label><select id="rDivision" required><option value="">নির্বাচন করুন</option></select></div>
                 <div><label>জেলা নির্বাচন করুন *</label><select id="rDistrict" required><option value="">নির্বাচন করুন</option></select></div>
-                <div><label>উপজেলা / পৌরসভা *</label><select id="rUpazila" required><option value="">নির্বাচন করুন</option></select></div>
+                <div><label>উপজেলা নির্বাচন করুন *</label><select id="rUpazila" required><option value="">নির্বাচন করুন</option></select></div>
                 <div><label>হাসপাতাল/স্থান *</label><input id="rHospital" required></div>
                 <div><label>প্রয়োজনের তারিখ *</label><input id="rDate" type="date" required></div>
                 <div>
@@ -1050,48 +1081,62 @@ footer{
                     </select>
                 </div>
                 <div class="full"><label>অতিরিক্ত তথ্য</label><textarea id="rInfo"></textarea></div>
-                <div class="full" style="text-align:center"><button class="btn" type="submit">🚨 রিকোয়েস্ট পাঠান</button></div>
+                <div class="full" style="text-align:center">
+                    <button class="btn" type="submit">🚨 রিকোয়েস্ট পাঠান</button>
+                </div>
             </div>
         </form>
     </div>
 </section>
 
+
 <!-- MB MANOBOTA FUND -->
 <section id="fund">
     <h2 class="section-title">❤ MB মানবতা ফান্ড</h2>
+
     <div class="yellow-fund-box">
-        <h2 style="text-align:center; font-size:24px; color:#29123f; margin-bottom:20px;">আপনার অনুদান প্রদান করুন</h2>
+        <h2 style="text-align:center;font-size:24px;color:#29123f;margin-bottom:20px;">
+            আপনার অনুদান প্রদান করুন
+        </h2>
+
         <div style="margin-bottom:15px;">
-            <label style="color:#29123f; font-weight:800; margin-bottom:5px; display:block;">তহবিল *</label>
-            <select id="fundType" style="width:100%; padding:14px; border-radius:14px; border:1px solid #ccc; background:#fff; font-size:15px;">
+            <label style="color:#29123f;font-weight:800;margin-bottom:5px;display:block;">তহবিল *</label>
+            <select id="fundType" style="width:100%;padding:14px;border-radius:14px;border:1px solid #ccc;background:#fff;font-size:15px;">
                 <option value="">নির্বাচন করুন</option>
                 <option value="Blood Donation">রক্তদান কার্যক্রম ফান্ড</option>
                 <option value="Emergency Patient">জরুরি রোগী সহায়তা ফান্ড</option>
             </select>
         </div>
+
         <div style="margin-bottom:15px;">
-            <label style="color:#29123f; font-weight:800; margin-bottom:5px; display:block;">মোবাইল / ইমেইল *</label>
-            <input id="fundContact" placeholder="মোবাইল নম্বর / ইমেইল লিখুন" style="width:100%; padding:14px; border-radius:14px; border:1px solid #ccc; background:#fff; font-size:15px;">
+            <label style="color:#29123f;font-weight:800;margin-bottom:5px;display:block;">মোবাইল / ইমেইল *</label>
+            <input id="fundContact" placeholder="মোবাইল নম্বর / ইমেইল লিখুন" style="width:100%;padding:14px;border-radius:14px;border:1px solid #ccc;background:#fff;font-size:15px;">
         </div>
+
         <div style="margin-bottom:20px;">
-            <label style="color:#29123f; font-weight:800; margin-bottom:5px; display:block;">পরিমাণ *</label>
-            <input id="fundAmount" type="number" placeholder="৳ সংখ্যায় লিখুন" style="width:100%; padding:14px; border-radius:14px; border:1px solid #ccc; background:#fff; font-size:15px;">
+            <label style="color:#29123f;font-weight:800;margin-bottom:5px;display:block;">পরিমাণ *</label>
+            <input id="fundAmount" type="number" placeholder="৳ সংখ্যায় লিখুন" style="width:100%;padding:14px;border-radius:14px;border:1px solid #ccc;background:#fff;font-size:15px;">
         </div>
+
         <button class="yellow-btn" onclick="openGatewayModal()">দান করুন</button>
-        <p style="text-align:center; margin-top:15px; font-weight:700; color:#29123f;">আপনার ছোট্ট অনুদানে সচল থাকতে পারে আমাদের রক্তদানের কার্যক্রম।</p>
+
+        <p style="text-align:center;margin-top:15px;font-weight:700;color:#29123f;">
+            আপনার ছোট্ট অনুদানে সচল থাকতে পারে আমাদের রক্তদানের কার্যক্রম।
+        </p>
     </div>
 </section>
 
-<!-- STATS -->
+
+<!-- STATS & MAP ANIMATION -->
 <section id="stats">
     <h2 class="section-title">📊 রক্তদাতা ও রক্তের অনুরোধের তথ্য</h2>
+
     <div class="stats">
-        <div class="glass stat"><strong id="approvedCount">0</strong> Approved Donor</div>
-        <div class="glass stat"><strong id="pendingCount">0</strong> Pending Donor</div>
-        <div class="glass stat"><strong id="requestCount">0</strong> Blood Request</div>
+        <div class="glass stat"><strong id="approvedCount">0</strong>Approved Donor</div>
+        <div class="glass stat"><strong id="pendingCount">0</strong>Pending Donor</div>
+        <div class="glass stat"><strong id="requestCount">0</strong>Blood Request</div>
     </div>
 
-    <!-- MAP ANIMATION -->
     <div class="mb-map-animation">
         <div class="mb-map-header"><span class="mb-map-status-dot"></span>নেটওয়ার্ক সচল</div>
         <svg class="mb-map-svg" viewBox="0 0 720 790" xmlns="http://www.w3.org/2000/svg">
@@ -1100,19 +1145,22 @@ footer{
                 <radialGradient id="mbGreenGlow"><stop offset="0%" stop-color="#19e889" stop-opacity=".35"/><stop offset="100%" stop-color="#19e889" stop-opacity="0"/></radialGradient>
                 <radialGradient id="mbOrangeGlow"><stop offset="0%" stop-color="#ffb52e" stop-opacity=".35"/><stop offset="100%" stop-color="#ffb52e" stop-opacity="0"/></radialGradient>
             </defs>
-            <path class="map-country" d="M310 42 L345 58 L340 87 L360 103 L370 151 L390 181 L428 205 L485 216 L548 227 L610 246 L630 265 L603 323 L580 389 L557 448 L521 507 L489 575 L454 640 L423 657 L401 607 L374 568 L342 531 L310 498 L280 458 L251 418 L224 378 L191 343 L158 313 L129 279 L149 242 L179 194 L205 154 L225 138 L246 82 L285 70 Z"/>
-            <circle cx="405" cy="345" r="48" fill="url(#mbGreenGlow)"/>
+            <path class="map-country" d="M310 42 L345 58 L340 87 L360 103 L347 125 L370 151 L390 181 L428 205 L485 216 L548 227 L610 246 L630 265 L615 284 L622 306 L603 323 L611 347 L596 369 L580 389 L568 418 L557 448 L540 476 L521 507 L505 540 L489 575 L473 610 L454 640 L438 675 L423 657 L412 632 L401 607 L388 586 L374 568 L358 549 L342 531 L325 518 L310 498 L294 482 L280 458 L264 440 L251 418 L236 399 L224 378 L207 360 L191 343 L175 326 L158 313 L143 295 L129 279 L134 258 L149 242 L145 222 L159 203 L179 194 L194 177 L205 154 L225 138 L235 116 L225 99 L246 82 L260 67 L285 70 L298 52 Z"/>
             <circle class="map-central-core" cx="405" cy="345" r="7"/>
         </svg>
         <div class="map-caption">🟢 রক্তদাতা এলাকা &nbsp;&nbsp;•&nbsp;&nbsp; 🟠 রক্তের অনুরোধ &nbsp;&nbsp;•&nbsp;&nbsp; 🩸 MB Blood Bank Network</div>
     </div>
 </section>
 
+
 <!-- AMBULANCE -->
 <section id="ambulance">
     <h2 class="section-title">🚑 এম্বুলেন্স সেবা</h2>
     <div class="glass form-box">
-        <p style="text-align:center; margin-bottom:15px; font-weight:700;">জরুরি প্রয়োজনে এম্বুলেন্স বুকিং বা যোগাযোগের জন্য নিচের অপশনটিতে ক্লিক করুন</p>
+        <p style="text-align:center;margin-bottom:15px;font-weight:700;">
+            জরুরি প্রয়োজনে এম্বুলেন্স বুকিং বা যোগাযোগের জন্য নিচের অপশনটিতে ক্লিক করুন
+        </p>
+
         <div class="mb-video-animation">
             <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0" y="0" width="720" height="360" fill="#ffffff"/>
@@ -1120,15 +1168,20 @@ footer{
                     <rect x="335" y="231" width="112" height="68" rx="5" fill="#e31b23"/>
                     <rect x="401" y="247" width="12" height="36" rx="2" fill="#ffffff"/>
                     <rect x="389" y="259" width="36" height="12" rx="2" fill="#ffffff"/>
+                    <g class="ambulance-wheel"><circle cx="359" cy="300" r="14" fill="#171717"/><circle cx="359" cy="300" r="6" fill="#a9a9a9"/></g>
+                    <g class="ambulance-wheel"><circle cx="465" cy="300" r="14" fill="#171717"/><circle cx="465" cy="300" r="6" fill="#a9a9a9"/></g>
                 </g>
                 <rect x="0" y="305" width="720" height="55" fill="#292929"/>
                 <g class="road-moving-lines" fill="#9b9b9b" opacity=".85">
-                    <rect x="0" y="329" width="45" height="4" rx="2"/><rect x="80" y="329" width="45" height="4" rx="2"/><rect x="160" y="329" width="45" height="4" rx="2"/>
+                    <rect x="0" y="329" width="45" height="4" rx="2"/>
+                    <rect x="80" y="329" width="45" height="4" rx="2"/>
+                    <rect x="160" y="329" width="45" height="4" rx="2"/>
                 </g>
             </svg>
         </div>
-        <div style="display:flex; justify-content:center;">
-            <div class="contact-card" onclick="openAmbulanceModal()" style="max-width:280px; width:100%;">
+
+        <div style="display:flex;justify-content:center;">
+            <div class="contact-card" onclick="openAmbulanceModal()" style="max-width:280px;width:100%;">
                 <div class="contact-icon">🚑</div>
                 <div class="contact-text">এম্বুলেন্স কল করুন</div>
             </div>
@@ -1136,59 +1189,50 @@ footer{
     </div>
 </section>
 
+
 <!-- CONTACT -->
 <section id="contact">
     <h2 class="section-title">📞 যোগাযোগ করুন</h2>
     <div class="glass form-box">
         <div class="contact-grid">
-            <a class="contact-card" href="tel:01726232108">
-                <div class="contact-icon">📞</div>
-                <div class="contact-text">01726232108</div>
-            </a>
-            <a class="contact-card" href="https://wa.me/8801726232108" target="_blank">
-                <div class="contact-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"></div>
-                <div class="contact-text">WhatsApp</div>
-            </a>
-            <a class="contact-card" href="sms:01726232108">
-                <div class="contact-icon">✉️</div>
-                <div class="contact-text">SMS</div>
-            </a>
-            <a class="contact-card" href="mailto:mbbloodbank@gmail.com">
-                <div class="contact-icon">📧</div>
-                <div class="contact-text">mbbloodbank@gmail.com</div>
-            </a>
-            <a class="contact-card" href="https://www.facebook.com/share/14nUzxo73ig/" target="_blank">
-                <div class="contact-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook Page"></div>
-                <div class="contact-text">Facebook Page</div>
-            </a>
-            <a class="contact-card" href="https://www.facebook.com/share/g/1JuuUhn4pe/" target="_blank">
-                <div class="contact-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook Group"></div>
-                <div class="contact-text">Facebook Group</div>
-            </a>
+            <a class="contact-card" href="tel:01726232108"><div class="contact-icon">📞</div><div class="contact-text">01726232108</div></a>
+            <a class="contact-card" href="https://wa.me/8801726232108" target="_blank"><div class="contact-icon">✉️</div><div class="contact-text">WhatsApp</div></a>
+            <a class="contact-card" href="mailto:mbbloodbank@gmail.com"><div class="contact-icon">📧</div><div class="contact-text">mbbloodbank@gmail.com</div></a>
         </div>
     </div>
 </section>
 
 </main>
 
-<!-- AMBULANCE MODAL -->
+
+<!-- MODALS -->
 <div id="ambulanceModal" class="modal">
     <div class="modal-box">
         <button class="close" onclick="closeAmbulanceModal()">&times;</button>
-        <h3 style="color:#7c1eaf; margin-bottom:15px; text-align:center;">🚑 এম্বুলেন্স তালিকা</h3>
+        <h3 style="color:#7c1eaf;margin-bottom:15px;text-align:center;">🚑 এম্বুলেন্স তালিকা</h3>
         <div id="ambulanceListContainer"></div>
     </div>
 </div>
 
-<footer>
-    <b>🩸 MB Blood Bank</b><br>বৃহত্তম ব্লাড ব্যাংক
-</footer>
+<div id="gatewayModal" class="gateway-modal">
+    <div class="gateway-box">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
+            <h4 style="font-size:16px;color:#333;">অনুদানের পেমেন্ট করুন</h4>
+            <button class="close" style="position:static;" onclick="closeGatewayModal()">&times;</button>
+        </div>
+        <div style="background:#f1f5f9;padding:15px;border-radius:12px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
+            <span id="displayAmount" style="font-size:22px;font-weight:bold;color:#0f172a;">৳0.00</span>
+            <span style="font-size:12px;background:#e2e8f0;padding:4px 8px;border-radius:6px;">MB Fund</span>
+        </div>
+        <button class="yellow-btn" onclick="closeGatewayModal()">বন্ধ করুন</button>
+    </div>
+</div>
 
-<!-- FIREBASE & APP SCRIPT -->
+
+<!-- FIREBASE & CORE SCRIPTS -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDCJr3wCX4XxCZgOeC_OmXFs6OmbtYdRuY",
@@ -1202,29 +1246,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
-// Realtime Firebase sync for donors and requests
-onValue(ref(db, 'donors'), (snapshot) => {
-    const data = snapshot.val();
-    const donors = data ? Object.keys(data).map(key => ({ ...data[key], firebaseKey: key })) : [];
-    localStorage.setItem("mb_donors", JSON.stringify(donors));
-    updateStats();
-});
-
-onValue(ref(db, 'requests'), (snapshot) => {
-    const data = snapshot.val();
-    const reqs = data ? Object.keys(data).map(key => ({ ...data[key], firebaseKey: key })) : [];
-    localStorage.setItem("mb_requests", JSON.stringify(reqs));
-    updateStats();
-});
-
-onValue(ref(db, 'ambulances'), (snapshot) => {
-    const data = snapshot.val();
-    const amb = data ? Object.keys(data).map(key => ({ ...data[key], firebaseKey: key })) : [];
-    localStorage.setItem("mb_ambulances", JSON.stringify(amb));
-});
+const analytics = getAnalytics(app);
 </script>
+
 
 <script>
 const LOCATION_URL = "https://iqbalhasandev.github.io/bangladesh-geo-json/bangladesh-geo.json";
@@ -1244,6 +1268,7 @@ async function loadLocations(){
 
 function fillDivisions(id){
     const select = document.getElementById(id);
+    if(!select) return;
     locations.forEach(d=>{
         const o = document.createElement("option");
         o.value = d.name;
@@ -1253,16 +1278,17 @@ function fillDivisions(id){
 }
 
 function getDivision(name){ return locations.find(x => x.name === name); }
-function getDistrict(div,name){ return div?.districts?.find(x => x.name === name); }
+function getDistrict(div, name){ return div?.districts?.find(x => x.name === name); }
 
 function setupLocation(divId, districtId, upazilaId){
     const div = document.getElementById(divId);
     const dis = document.getElementById(districtId);
     const up = document.getElementById(upazilaId);
+    if(!div || !dis || !up) return;
 
     div.addEventListener("change", ()=>{
         dis.innerHTML = '<option value="">জেলা নির্বাচন করুন</option>';
-        up.innerHTML = '<option value="">উপজেলা / পৌরসভা নির্বাচন করুন</option>';
+        up.innerHTML = '<option value="">উপজেলা নির্বাচন করুন</option>';
         const d = getDivision(div.value);
         d?.districts?.forEach(x=>{
             const o = document.createElement("option");
@@ -1273,7 +1299,7 @@ function setupLocation(divId, districtId, upazilaId){
     });
 
     dis.addEventListener("change", ()=>{
-        up.innerHTML = '<option value="">উপজেলা / পৌরসভা নির্বাচন করুন</option>';
+        up.innerHTML = '<option value="">উপজেলা নির্বাচন করুন</option>';
         const d = getDivision(div.value);
         const district = getDistrict(d, dis.value);
         district?.upazilas?.forEach(x=>{
@@ -1302,17 +1328,25 @@ function closeAmbulanceModal(){
     document.getElementById("ambulanceModal").style.display = "none";
 }
 
+function openGatewayModal(){
+    document.getElementById("gatewayModal").style.display = "block";
+}
+
+function closeGatewayModal(){
+    document.getElementById("gatewayModal").style.display = "none";
+}
+
 function renderAmbulanceList(){
     const container = document.getElementById("ambulanceListContainer");
     const ambulances = JSON.parse(localStorage.getItem("mb_ambulances") || "[]");
     if(!ambulances.length){
-        container.innerHTML = `<p style="text-align:center; padding:10px; color:#555;">কোনো এম্বুলেন্সের তথ্য পাওয়া যায়নি।</p>`;
+        container.innerHTML = `<p style="text-align:center;padding:10px;color:#555;">কোনো এম্বুলেন্সের তথ্য পাওয়া যায়নি।</p>`;
         return;
     }
     container.innerHTML = ambulances.map(a => `
         <div class="ambulance-list-item">
             <h4>🚑 এম্বুলেন্স এর নাম: ${escapeHtml(a.name)}</h4>
-            <p><b>📞 নাম্বার:</b> <a href="tel:${escapeHtml(a.phone)}" style="color:#7c1eaf; font-weight:bold;">${escapeHtml(a.phone)}</a></p>
+            <p><b>📞 নাম্বার:</b> <a href="tel:${escapeHtml(a.phone)}" style="color:#7c1eaf;font-weight:bold;">${escapeHtml(a.phone)}</a></p>
             <p><b>📍 ঠিকানা:</b> ${escapeHtml(a.address)}</p>
         </div>
     `).join("");
@@ -1321,51 +1355,20 @@ function renderAmbulanceList(){
 function getDonors(){ return JSON.parse(localStorage.getItem("mb_donors") || "[]"); }
 function getRequests(){ return JSON.parse(localStorage.getItem("mb_requests") || "[]"); }
 
-function searchDonors(){
-    const blood = document.getElementById("searchBlood").value;
-    const division = document.getElementById("searchDivision").value;
-    const district = document.getElementById("searchDistrict").value;
-    const upazila = document.getElementById("searchUpazila").value;
-
-    const donors = getDonors().filter(d =>
-        d.status === "approved" &&
-        (!blood || d.blood === blood) &&
-        (!division || d.division === division) &&
-        (!district || d.district === district) &&
-        (!upazila || d.upazila === upazila)
-    );
-
-    const box = document.getElementById("donorResults");
-    if(!donors.length){
-        box.innerHTML = `<div class="notice full">কোনো Approved Donor পাওয়া যায়নি।</div>`;
-        return;
-    }
-    box.innerHTML = donors.map(d => `
-        <div class="donor-card">
-            ${d.photo ? `<img src="${d.photo}" style="width:75px; height:75px; border-radius:50%; object-fit:cover; margin-bottom:10px">` : `<div class="blood">${d.blood}</div>`}
-            <h3>${escapeHtml(d.name)}</h3>
-            <p><b>🩸 Blood:</b> ${d.blood}</p>
-            <p><b>📍</b> ${escapeHtml(d.district)}, ${escapeHtml(d.upazila)}</p>
-            <p><b>🏠</b> ${escapeHtml(d.address)}</p>
-            <p><b>🆔</b> ${d.id}</p>
-            <div class="card-actions">
-                <a class="small-btn" href="tel:${d.phone}">📞 Call</a>
-                <a class="small-btn" href="https://wa.me/88${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp</a>
-            </div>
-        </div>
-    `).join("");
+function escapeHtml(text){
+    return String(text || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
 function updateStats(){
     const donors = getDonors();
     const requests = getRequests();
-    document.getElementById("approvedCount").textContent = donors.filter(x => x.status === "approved").length;
-    document.getElementById("pendingCount").textContent = donors.filter(x => x.status === "pending").length;
-    document.getElementById("requestCount").textContent = requests.length;
-}
+    const approvedEl = document.getElementById("approvedCount");
+    const pendingEl = document.getElementById("pendingCount");
+    const reqEl = document.getElementById("requestCount");
 
-function escapeHtml(text){
-    return String(text || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+    if(approvedEl) approvedEl.textContent = donors.filter(x => x.status === "approved").length;
+    if(pendingEl) pendingEl.textContent = donors.filter(x => x.status === "pending").length;
+    if(reqEl) reqEl.textContent = requests.length;
 }
 
 loadLocations();
