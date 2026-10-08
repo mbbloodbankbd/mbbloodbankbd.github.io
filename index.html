@@ -179,53 +179,6 @@ section{
 }
 
 /* =========================
-   APP DOWNLOAD SECTION
-========================= */
-
-.app-download-box{
-    padding:30px;
-    text-align:center;
-    background:linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,230,245,0.7));
-}
-
-.app-download-content{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:15px;
-}
-
-.app-download-content p{
-    font-size:16px;
-    font-weight:600;
-    color:#3a1855;
-    max-width:600px;
-    line-height:1.5;
-}
-
-.app-download-btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    padding:14px 28px;
-    border-radius:17px;
-    color:#fff;
-    font-family:inherit;
-    font-weight:800;
-    font-size:16px;
-    background:linear-gradient(145deg,#7027ad,#db1768);
-    box-shadow:
-        7px 8px 18px rgba(85,25,115,.28),
-        inset 1px 1px 3px rgba(255,255,255,.35);
-    transition:.25s;
-}
-
-.app-download-btn:hover{
-    transform:translateY(-3px);
-}
-
-/* =========================
    FORMS
 ========================= */
 
@@ -1165,29 +1118,6 @@ footer{
 
 
 <!-- =====================================================
-     APP DOWNLOAD SECTION (রক্তদাতা খুঁজুন এর ঠিক উপরে যুক্ত করা হয়েছে)
-===================================================== -->
-
-<section id="download-app">
-
-    <h2 class="section-title">
-        📱 অ্যাপস ডাউনলোড 📥
-    </h2>
-
-    <div class="glass app-download-box">
-        <div class="app-download-content">
-            <p>আমাদের অফিশিয়াল মোবাইল অ্যাপস ডাউনলোড করে খুব সহজেই রক্তদাতা খুঁজুন এবং জরুরি রক্তের অনুরোধ করুন এক ক্লিকে!</p>
-            
-            <a href="app.apk" class="app-download-btn" download>
-                📥 Download App (APK)
-            </a>
-        </div>
-    </div>
-
-</section>
-
-
-<!-- =====================================================
      SEARCH
 ===================================================== -->
 
@@ -1340,7 +1270,7 @@ footer{
 
         ⚠️ নিবন্ধনের পর আপনার Account/Donor/Profile সরাসরি active হবে না।
 
-        Admin যাচাই ও Approved করার পর আপনার তথ্য রক্তদעתার তালিকায় প্রদর্শিত হবে।
+        Admin যাচাই ও Approved করার পর আপনার তথ্য রক্তদাতার তালিকায় প্রদর্শিত হবে।
 
     </div>
 
@@ -4290,7 +4220,7 @@ footer{
                     style="
                     font-size:15px;
                     font-weight:bold;
-                    color:#0055a5;
+                    color:#e11d48;
                     "
                 >
                     AB Bank
@@ -4302,31 +4232,1480 @@ footer{
                     color:#555;
                     "
                 >
-                    AB Bank PLC
+                    AB Direct
                 </span>
 
             </div>
 
+
         </div>
 
 
-        <div style="margin-top:20px;">
-            <label style="font-size:13px; font-weight:bold; margin-bottom:5px; display:block;">ট্রানজেকশন আইডি / অ্যাকাউন্ট নম্বর</label>
-            <input id="gatewayTrx" placeholder="টাকা প্রেরণের পর ট্রানজেকশন আইডি দিন" style="padding:10px; font-size:14px;">
+        <button
+            id="payActionBtn"
+            class="yellow-btn"
+            style="
+            margin-top:20px;
+            opacity:.5;
+            pointer-events:none;
+            "
+            onclick="proceedToPaymentDetails()"
+        >
+            Pay ৳0.00
+        </button>
+
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     PAYMENT DETAILS
+===================================================== -->
+
+<div
+    id="detailsModal"
+    class="gateway-modal"
+>
+
+    <div
+        class="gateway-box"
+        style="
+        text-align:center;
+        padding:25px;
+        "
+    >
+
+
+        <h3
+            id="detailsTitle"
+            style="
+            color:#008751;
+            margin-bottom:15px;
+            "
+        >
+            পেমেন্ট নির্দেশনা
+        </h3>
+
+
+        <div
+            id="detailsInstructionBox"
+            style="
+            background:#f8fafc;
+            border-radius:16px;
+            padding:18px;
+            text-align:left;
+            font-size:15px;
+            margin-bottom:20px;
+            border:1px solid #e2e8f0;
+            line-height:1.6;
+            "
+        >
         </div>
 
 
         <button
             class="yellow-btn"
-            style="margin-top:20px; font-size:16px; padding:12px;"
-            onclick="verifyPayment()"
+            onclick="completePayment()"
         >
-            পেমেন্ট কনফার্ম করুন
+            হোমে ফিরে যান
         </button>
+
 
     </div>
 
 </div>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <b>🩸 MB Blood Bank</b>
+
+    <br>
+
+    বৃহত্তম ব্লাড ব্যাংক
+
+</footer>
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script type="module">
+
+import {
+    initializeApp
+}
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+
+import {
+    getAnalytics
+}
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyDCJr3wCX4XxCZgOeC_OmXFs6OmbtYdRuY",
+
+    authDomain:
+        "mb-blood-bank-a17aa.firebaseapp.com",
+
+    databaseURL:
+        "https://mb-blood-bank-a17aa-default-rtdb.firebaseio.com",
+
+    projectId:
+        "mb-blood-bank-a17aa",
+
+    storageBucket:
+        "mb-blood-bank-a17aa.firebasestorage.app",
+
+    messagingSenderId:
+        "28580039463",
+
+    appId:
+        "1:28580039463:web:698e0cc5d399bc6b433702",
+
+    measurementId:
+        "G-D4FJTMQ17C"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const analytics =
+    getAnalytics(app);
+
+</script>
+
+
+<script>
+
+/* =====================================================
+   BANGLADESH LOCATION DATA
+===================================================== */
+
+const LOCATION_URL =
+"https://iqbalhasandev.github.io/bangladesh-geo-json/bangladesh-geo.json";
+
+
+let locations = [];
+
+
+async function loadLocations(){
+
+    try{
+
+        const res =
+            await fetch(LOCATION_URL);
+
+        locations =
+            await res.json();
+
+
+        fillDivisions("searchDivision");
+
+        fillDivisions("dDivision");
+
+        fillDivisions("rDivision");
+
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "বিভাগ/জেলা/উপজেলার তথ্য লোড হয়নি। Internet connection পরীক্ষা করুন।"
+        );
+
+    }
+
+}
+
+
+function fillDivisions(id){
+
+    const select =
+        document.getElementById(id);
+
+
+    locations.forEach(d=>{
+
+        const o =
+            document.createElement("option");
+
+
+        o.value =
+            d.name;
+
+
+        o.textContent =
+            `${d.bn_name} (${d.name})`;
+
+
+        select.appendChild(o);
+
+    });
+
+}
+
+
+function getDivision(name){
+
+    return locations.find(
+        x => x.name === name
+    );
+
+}
+
+
+function getDistrict(div,name){
+
+    return div?.districts?.find(
+        x => x.name === name
+    );
+
+}
+
+
+function setupLocation(
+    divId,
+    districtId,
+    upazilaId
+){
+
+    const div =
+        document.getElementById(divId);
+
+
+    const dis =
+        document.getElementById(districtId);
+
+
+    const up =
+        document.getElementById(upazilaId);
+
+
+    div.addEventListener(
+        "change",
+        ()=>{
+
+            dis.innerHTML =
+                '<option value="">জেলা নির্বাচন করুন</option>';
+
+
+            up.innerHTML =
+                '<option value="">উপজেলা নির্বাচন করুন</option>';
+
+
+            const d =
+                getDivision(div.value);
+
+
+            d?.districts?.forEach(x=>{
+
+                const o =
+                    document.createElement("option");
+
+
+                o.value =
+                    x.name;
+
+
+                o.textContent =
+                    `${x.bn_name} (${x.name})`;
+
+
+                dis.appendChild(o);
+
+            });
+
+        }
+    );
+
+
+    dis.addEventListener(
+        "change",
+        ()=>{
+
+            up.innerHTML =
+                '<option value="">উপজেলা নির্বাচন করুন</option>';
+
+
+            const d =
+                getDivision(div.value);
+
+
+            const district =
+                getDistrict(
+                    d,
+                    dis.value
+                );
+
+
+            district?.upazilas?.forEach(x=>{
+
+                const o =
+                    document.createElement("option");
+
+
+                o.value =
+                    x.name;
+
+
+                o.textContent =
+                    `${x.bn_name} (${x.name})`;
+
+
+                up.appendChild(o);
+
+            });
+
+        }
+    );
+
+}
+
+
+setupLocation(
+    "searchDivision",
+    "searchDistrict",
+    "searchUpazila"
+);
+
+
+setupLocation(
+    "dDivision",
+    "dDistrict",
+    "dUpazila"
+);
+
+
+setupLocation(
+    "rDivision",
+    "rDistrict",
+    "rUpazila"
+);
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+function toggleMenu(){
+
+    document
+        .getElementById("sideMenu")
+        .classList
+        .toggle("active");
+
+}
+
+
+/* =====================================================
+   AMBULANCE MODAL
+===================================================== */
+
+function openAmbulanceModal(){
+
+    renderAmbulanceList();
+
+
+    document
+        .getElementById("ambulanceModal")
+        .style.display =
+        "block";
+
+}
+
+
+function closeAmbulanceModal(){
+
+    document
+        .getElementById("ambulanceModal")
+        .style.display =
+        "none";
+
+}
+
+
+window.onclick =
+function(event){
+
+    const ambModal =
+        document.getElementById(
+            "ambulanceModal"
+        );
+
+
+    const gatewayModal =
+        document.getElementById(
+            "gatewayModal"
+        );
+
+
+    const detailsModal =
+        document.getElementById(
+            "detailsModal"
+        );
+
+
+    if(event.target == ambModal)
+        ambModal.style.display =
+            "none";
+
+
+    if(event.target == gatewayModal)
+        gatewayModal.style.display =
+            "none";
+
+
+    if(event.target == detailsModal)
+        detailsModal.style.display =
+            "none";
+
+}
+
+
+/* =====================================================
+   PAYMENT GATEWAY
+===================================================== */
+
+let selectedChannelName = "";
+
+let selectedAccountNumber = "";
+
+let currentAmount = 0;
+
+
+function openGatewayModal(){
+
+    const fundType =
+        document
+        .getElementById("fundType")
+        .value;
+
+
+    const contact =
+        document
+        .getElementById("fundContact")
+        .value
+        .trim();
+
+
+    const amount =
+        document
+        .getElementById("fundAmount")
+        .value
+        .trim();
+
+
+    if(
+        !fundType ||
+        !contact ||
+        !amount ||
+        amount <= 0
+    ){
+
+        alert(
+            "দয়া করে তহবিল, মোবাইল/ইমেইল এবং সঠিক পরিমাণ পূরণ করুন।"
+        );
+
+        return;
+
+    }
+
+
+    currentAmount =
+        amount;
+
+
+    document
+        .getElementById("displayAmount")
+        .textContent =
+        "৳ " +
+        Number(amount).toLocaleString();
+
+
+    document
+        .getElementById("gatewayModal")
+        .style.display =
+        "block";
+
+
+    document
+        .querySelectorAll(".channel-card")
+        .forEach(
+            c =>
+            c.classList.remove("active")
+        );
+
+
+    const btn =
+        document.getElementById(
+            "payActionBtn"
+        );
+
+
+    btn.style.opacity =
+        "0.5";
+
+
+    btn.style.pointerEvents =
+        "none";
+
+
+    btn.textContent =
+        `Pay ৳${Number(amount).toLocaleString()}`;
+
+}
+
+
+function closeGatewayModal(){
+
+    document
+        .getElementById("gatewayModal")
+        .style.display =
+        "none";
+
+}
+
+
+function switchGatewayTab(tab){
+
+    const tabMobile =
+        document.getElementById(
+            "tabMobile"
+        );
+
+
+    const tabNet =
+        document.getElementById(
+            "tabNet"
+        );
+
+
+    const mobileChannels =
+        document.getElementById(
+            "mobileChannels"
+        );
+
+
+    const netChannels =
+        document.getElementById(
+            "netChannels"
+        );
+
+
+    if(tab === "mobile"){
+
+        tabMobile.classList.add(
+            "active"
+        );
+
+        tabNet.classList.remove(
+            "active"
+        );
+
+        mobileChannels.style.display =
+            "grid";
+
+        netChannels.style.display =
+            "none";
+
+    }else{
+
+        tabNet.classList.add(
+            "active"
+        );
+
+        tabMobile.classList.remove(
+            "active"
+        );
+
+        netChannels.style.display =
+            "grid";
+
+        mobileChannels.style.display =
+            "none";
+
+    }
+
+
+    document
+        .querySelectorAll(".channel-card")
+        .forEach(
+            c =>
+            c.classList.remove("active")
+        );
+
+
+    const btn =
+        document.getElementById(
+            "payActionBtn"
+        );
+
+
+    btn.style.opacity =
+        "0.5";
+
+
+    btn.style.pointerEvents =
+        "none";
+
+}
+
+
+function selectChannel(
+    cardElement,
+    name,
+    account
+){
+
+    document
+        .querySelectorAll(".channel-card")
+        .forEach(
+            c =>
+            c.classList.remove("active")
+        );
+
+
+    cardElement.classList.add(
+        "active"
+    );
+
+
+    selectedChannelName =
+        name;
+
+
+    selectedAccountNumber =
+        account;
+
+
+    const btn =
+        document.getElementById(
+            "payActionBtn"
+        );
+
+
+    btn.style.opacity =
+        "1";
+
+
+    btn.style.pointerEvents =
+        "auto";
+
+
+    btn.textContent =
+        `Pay ৳${Number(currentAmount).toLocaleString()} via ${name}`;
+
+}
+
+
+function proceedToPaymentDetails(){
+
+    closeGatewayModal();
+
+
+    document
+        .getElementById("detailsTitle")
+        .textContent =
+        `${selectedChannelName} পেমেন্ট নির্দেশনা`;
+
+
+    document
+        .getElementById("detailsInstructionBox")
+        .innerHTML = `
+
+        <b>নির্বাচিত মাধ্যম:</b>
+        ${selectedChannelName}
+
+        <br>
+
+        <b>পরিমাণ:</b>
+        ৳${Number(currentAmount).toLocaleString()}
+
+        <br><br>
+
+        অনুগ্রহ করে আপনার
+        ${selectedChannelName}
+        অ্যাপ থেকে নিচের নম্বরে টাকা পাঠান:
+
+        <div
+            style="
+            background:#fff;
+            padding:10px;
+            border-radius:8px;
+            margin:10px 0;
+            font-size:18px;
+            font-weight:bold;
+            color:#008751;
+            text-align:center;
+            border:1px dashed #cbd5e1;
+            "
+        >
+
+            ${selectedAccountNumber}
+
+        </div>
+
+        <small style="color:#64748b;">
+            ❤ MB মানবতা ফান্ডে সহযোগিতার জন্য আপনাকে আন্তরিক ধন্যবাদ
+        </small>
+
+    `;
+
+
+    document
+        .getElementById("detailsModal")
+        .style.display =
+        "block";
+
+}
+
+
+function completePayment(){
+
+    document
+        .getElementById("detailsModal")
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById("fundType")
+        .value =
+        "";
+
+
+    document
+        .getElementById("fundContact")
+        .value =
+        "";
+
+
+    document
+        .getElementById("fundAmount")
+        .value =
+        "";
+
+}
+
+
+/* =====================================================
+   AMBULANCE LIST
+===================================================== */
+
+function renderAmbulanceList(){
+
+    const container =
+        document.getElementById(
+            "ambulanceListContainer"
+        );
+
+
+    const ambulances =
+        JSON.parse(
+            localStorage.getItem(
+                "mb_ambulances"
+            ) || "[]"
+        );
+
+
+    if(!ambulances.length){
+
+        container.innerHTML = `
+
+            <p
+                style="
+                text-align:center;
+                padding:10px;
+                color:#555;
+                "
+            >
+                কোনো এম্বুলেন্সের তথ্য পাওয়া যায়নি।
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        ambulances.map(
+            a => `
+
+        <div class="ambulance-list-item">
+
+            <h4>
+                🚑 এম্বুলেন্স এর নাম:
+                ${escapeHtml(a.name)}
+            </h4>
+
+            <p>
+
+                <b>📞 নাম্বার:</b>
+
+                <a
+                    href="tel:${escapeHtml(a.phone)}"
+                    style="
+                    color:#7c1eaf;
+                    font-weight:bold;
+                    "
+                >
+                    ${escapeHtml(a.phone)}
+                </a>
+
+            </p>
+
+            <p>
+
+                <b>📍 ঠিকানা:</b>
+
+                ${escapeHtml(a.address)}
+
+            </p>
+
+        </div>
+
+    `
+        ).join("");
+
+}
+
+
+/* =====================================================
+   LOCAL STORAGE
+===================================================== */
+
+function getDonors(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "mb_donors"
+        ) || "[]"
+    );
+
+}
+
+
+function saveDonors(data){
+
+    localStorage.setItem(
+        "mb_donors",
+        JSON.stringify(data)
+    );
+
+}
+
+
+function getRequests(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "mb_requests"
+        ) || "[]"
+    );
+
+}
+
+
+/* =====================================================
+   DONOR REGISTRATION
+===================================================== */
+
+function fileToBase64(file){
+
+    return new Promise(
+        (resolve,reject)=>{
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                () =>
+                resolve(
+                    reader.result
+                );
+
+
+            reader.onerror =
+                reject;
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+}
+
+
+document
+    .getElementById("donorForm")
+    .addEventListener(
+        "submit",
+        async function(e){
+
+            e.preventDefault();
+
+
+            const donors =
+                getDonors();
+
+
+            const id =
+                "MB-" +
+                Date.now()
+                .toString()
+                .slice(-8);
+
+
+            const donor = {
+
+                id:id,
+
+                name:
+                    document
+                    .getElementById(
+                        "dName"
+                    )
+                    .value
+                    .trim(),
+
+                phone:
+                    document
+                    .getElementById(
+                        "dPhone"
+                    )
+                    .value
+                    .trim(),
+
+                blood:
+                    document
+                    .getElementById(
+                        "dBlood"
+                    )
+                    .value,
+
+                division:
+                    document
+                    .getElementById(
+                        "dDivision"
+                    )
+                    .value,
+
+                district:
+                    document
+                    .getElementById(
+                        "dDistrict"
+                    )
+                    .value,
+
+                upazila:
+                    document
+                    .getElementById(
+                        "dUpazila"
+                    )
+                    .value,
+
+                address:
+                    document
+                    .getElementById(
+                        "dAddress"
+                    )
+                    .value
+                    .trim(),
+
+                photo:"",
+
+                status:"pending",
+
+                createdAt:
+                    new Date()
+                    .toISOString()
+
+            };
+
+
+            const photoFile =
+                document
+                .getElementById(
+                    "dPhoto"
+                )
+                .files[0];
+
+
+            if(photoFile){
+
+                donor.photo =
+                    await fileToBase64(
+                        photoFile
+                    );
+
+            }
+
+
+            donors.push(
+                donor
+            );
+
+
+            saveDonors(
+                donors
+            );
+
+
+            alert(
+
+                "আপনার নিবন্ধনের অনুরোধ পাঠানো হয়েছে।\n\n" +
+
+                "Donor ID: " +
+                id +
+
+                "\nStatus: Pending\n\n" +
+
+                "Admin যাচাই করে Approve করার পর আপনার Profile তালিকায় প্রদর্শিত হবে।"
+
+            );
+
+
+            this.reset();
+
+
+            updateStats();
+
+        }
+    );
+
+
+/* =====================================================
+   EMERGENCY REQUEST
+===================================================== */
+
+document
+    .getElementById("requestForm")
+    .addEventListener(
+        "submit",
+        function(e){
+
+            e.preventDefault();
+
+
+            const requests =
+                getRequests();
+
+
+            requests.push({
+
+                id:
+                    "REQ-" +
+                    Date.now()
+                    .toString()
+                    .slice(-8),
+
+                patient:
+                    document
+                    .getElementById(
+                        "rName"
+                    )
+                    .value
+                    .trim(),
+
+                phone:
+                    document
+                    .getElementById(
+                        "rPhone"
+                    )
+                    .value
+                    .trim(),
+
+                blood:
+                    document
+                    .getElementById(
+                        "rBlood"
+                    )
+                    .value,
+
+                bags:
+                    document
+                    .getElementById(
+                        "rBags"
+                    )
+                    .value,
+
+                division:
+                    document
+                    .getElementById(
+                        "rDivision"
+                    )
+                    .value,
+
+                district:
+                    document
+                    .getElementById(
+                        "rDistrict"
+                    )
+                    .value,
+
+                upazila:
+                    document
+                    .getElementById(
+                        "rUpazila"
+                    )
+                    .value,
+
+                hospital:
+                    document
+                    .getElementById(
+                        "rHospital"
+                    )
+                    .value
+                    .trim(),
+
+                date:
+                    document
+                    .getElementById(
+                        "rDate"
+                    )
+                    .value,
+
+                urgency:
+                    document
+                    .getElementById(
+                        "rUrgency"
+                    )
+                    .value,
+
+                info:
+                    document
+                    .getElementById(
+                        "rInfo"
+                    )
+                    .value
+                    .trim(),
+
+                status:"pending",
+
+                createdAt:
+                    new Date()
+                    .toISOString()
+
+            });
+
+
+            localStorage.setItem(
+                "mb_requests",
+                JSON.stringify(
+                    requests
+                )
+            );
+
+
+            alert(
+                "🚨 আপনার রক্তের অনুরোধ সফলভাবে পাঠানো হয়েছে।"
+            );
+
+
+            this.reset();
+
+
+            updateStats();
+
+        }
+    );
+
+
+/* =====================================================
+   DONOR SEARCH
+===================================================== */
+
+function searchDonors(){
+
+    const blood =
+        document
+        .getElementById(
+            "searchBlood"
+        )
+        .value;
+
+
+    const division =
+        document
+        .getElementById(
+            "searchDivision"
+        )
+        .value;
+
+
+    const district =
+        document
+        .getElementById(
+            "searchDistrict"
+        )
+        .value;
+
+
+    const upazila =
+        document
+        .getElementById(
+            "searchUpazila"
+        )
+        .value;
+
+
+    const donors =
+        getDonors()
+        .filter(
+            d =>
+
+            d.status === "approved" &&
+
+            (!blood ||
+                d.blood === blood) &&
+
+            (!division ||
+                d.division === division) &&
+
+            (!district ||
+                d.district === district) &&
+
+            (!upazila ||
+                d.upazila === upazila)
+
+        );
+
+
+    const box =
+        document.getElementById(
+            "donorResults"
+        );
+
+
+    if(!donors.length){
+
+        box.innerHTML =
+
+            `<div class="notice full">
+
+                কোনো Approved Donor পাওয়া যায়নি।
+
+            </div>`;
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+        donors.map(
+            d => `
+
+        <div class="donor-card">
+
+
+            ${
+                d.photo
+
+                ?
+
+                `<img
+                    src="${d.photo}"
+                    style="
+                    width:75px;
+                    height:75px;
+                    border-radius:50%;
+                    object-fit:cover;
+                    margin-bottom:10px
+                    "
+                >`
+
+                :
+
+                `<div class="blood">
+                    ${d.blood}
+                </div>`
+            }
+
+
+            <h3>
+                ${escapeHtml(d.name)}
+            </h3>
+
+
+            <p>
+
+                <b>🩸 Blood:</b>
+
+                ${d.blood}
+
+            </p>
+
+
+            <p>
+
+                <b>📍</b>
+
+                ${escapeHtml(d.district)},
+
+                ${escapeHtml(d.upazila)}
+
+            </p>
+
+
+            <p>
+
+                <b>🏠</b>
+
+                ${escapeHtml(d.address)}
+
+            </p>
+
+
+            <p>
+
+                <b>🆔</b>
+
+                ${d.id}
+
+            </p>
+
+
+            <div class="card-actions">
+
+
+                <a
+                    class="small-btn"
+                    href="tel:${d.phone}"
+                >
+                    📞 Call
+                </a>
+
+
+                <a
+                    class="small-btn"
+                    href="https://wa.me/88${d.phone.replace(/\D/g,'')}"
+                    target="_blank"
+                >
+                    💬 WhatsApp
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+    `
+        ).join("");
+
+}
+
+
+function escapeHtml(text){
+
+    return String(
+        text || ""
+    )
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        );
+
+}
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+function updateStats(){
+
+    const donors =
+        getDonors();
+
+
+    const requests =
+        getRequests();
+
+
+    document
+        .getElementById(
+            "approvedCount"
+        )
+        .textContent =
+
+        donors.filter(
+            x =>
+            x.status === "approved"
+        ).length;
+
+
+    document
+        .getElementById(
+            "pendingCount"
+        )
+        .textContent =
+
+        donors.filter(
+            x =>
+            x.status === "pending"
+        ).length;
+
+
+    document
+        .getElementById(
+            "requestCount"
+        )
+        .textContent =
+
+        requests.length;
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadLocations();
+
+updateStats();
+
+</script>
 
 </body>
 </html>
