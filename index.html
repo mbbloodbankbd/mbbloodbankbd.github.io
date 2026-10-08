@@ -93,6 +93,68 @@ a{
 }
 
 /* =========================
+   APP DOWNLOAD BANNER (Custom Styled)
+========================= */
+
+.app-download-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #0d2348, #13386e, #0a1832);
+    color: #ffffff;
+    padding: 18px 22px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 12px 30px rgba(13, 35, 72, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.app-download-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 35px rgba(13, 35, 72, 0.4);
+}
+
+.app-download-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.app-download-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #ffffff;
+}
+
+.app-download-info h3 {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 3px;
+    color: #ffffff;
+}
+
+.app-download-info p {
+    font-size: 13px;
+    opacity: 0.85;
+    color: #e2e8f0;
+}
+
+.app-download-arrow {
+    font-size: 20px;
+    opacity: 0.8;
+    font-weight: bold;
+    padding-right: 5px;
+}
+
+/* =========================
    MENU
 ========================= */
 
@@ -176,82 +238,6 @@ section{
     background:rgba(255,40,40,.09);
     border:1px solid rgba(200,0,0,.18);
     margin-bottom:15px;
-}
-
-/* =========================
-   APP DOWNLOAD BANNER (পিকচার স্টাইল)
-========================= */
-
-.app-banner-card{
-    background: linear-gradient(135deg, #0d233a, #16365f);
-    border-radius: 20px;
-    padding: 22px 25px;
-    color: #ffffff;
-    box-shadow: 0 15px 35px rgba(13, 35, 58, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    margin-bottom: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-decoration: none;
-    transition: transform .3s ease, box-shadow .3s ease;
-}
-
-.app-banner-card:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 18px 40px rgba(13, 35, 58, 0.35);
-}
-
-.app-banner-left{
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-.app-icon-box{
-    width: 52px;
-    height: 52px;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    backdrop-filter: blur(10px);
-}
-
-.app-text-info h3{
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 4px;
-    color: #ffffff;
-}
-
-.app-text-info p{
-    font-size: 13px;
-    color: #cbd5e1;
-    font-weight: 500;
-}
-
-.app-arrow-box{
-    font-size: 20px;
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.08);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.app-slogan{
-    text-align: center;
-    font-weight: 700;
-    font-size: 15px;
-    color: #5c1875;
-    margin-bottom: 10px;
 }
 
 /* =========================
@@ -417,7 +403,6 @@ textarea:focus{
 
 /* =========================================================
    MB BLOOD BANK MAP ANIMATION
-   ভিডিওর মতো ডার্ক ম্যাপ + GREEN DOT + ORANGE PULSE
 ========================================================= */
 
 .mb-map-animation{
@@ -1194,34 +1179,26 @@ footer{
 
 
 <!-- =====================================================
-     APP DOWNLOAD BANNER (রক্তদাতা খুঁজুন এর ঠিক উপরে)
-===================================================== -->
-
-<div class="app-slogan">
-    📱 এক ক্লিকেই ডাউনলোড করুন আমাদের অফিসিয়াল অ্যাপ!
-</div>
-
-<a href="MBBloodBank.apk" class="app-banner-card" download>
-    <div class="app-banner-left">
-        <div class="app-icon-box">
-            📥
-        </div>
-        <div class="app-text-info">
-            <h3>অ্যাপ ডাউনলোড করুন</h3>
-            <p>Android App • Free Download</p>
-        </div>
-    </div>
-    <div class="app-arrow-box">
-        ›
-    </div>
-</a>
-
-
-<!-- =====================================================
      SEARCH
 ===================================================== -->
 
 <section id="search">
+
+    <!-- App Download Option (Visible only on website, styled as requested) -->
+    <a href="MBBloodBank.apk" download class="app-download-card">
+        <div class="app-download-left">
+            <div class="app-download-icon">
+                📥
+            </div>
+            <div class="app-download-info">
+                <h3>অ্যাপ ডাউনলোড করুন</h3>
+                <p>এক ক্লিকেই নামিয়ে নিন MB Blood Bank অ্যান্ড্রয়েড অ্যাপ</p>
+            </div>
+        </div>
+        <div class="app-download-arrow">
+            &gt;
+        </div>
+    </a>
 
     <h2 class="section-title">
         🩸 রক্তদাতা খুঁজুন 🔎
@@ -2004,7 +1981,6 @@ footer{
 
     <!-- =================================================
          MAP ANIMATION
-         লেখাটার নিচে ভিডিওর মতো ম্যাপ
     ================================================= -->
 
     <div class="mb-map-animation">
@@ -2030,8 +2006,6 @@ footer{
             <defs>
 
 
-                <!-- Green map dots -->
-
                 <pattern
                     id="mbMapDots"
                     width="23"
@@ -2050,8 +2024,6 @@ footer{
                 </pattern>
 
 
-                <!-- Green glow -->
-
                 <radialGradient id="mbGreenGlow">
 
                     <stop
@@ -2068,8 +2040,6 @@ footer{
 
                 </radialGradient>
 
-
-                <!-- Orange glow -->
 
                 <radialGradient id="mbOrangeGlow">
 
@@ -2088,8 +2058,6 @@ footer{
                 </radialGradient>
 
 
-                <!-- Map shadow -->
-
                 <filter id="mapShadow">
 
                     <feGaussianBlur
@@ -2098,8 +2066,6 @@ footer{
 
                 </filter>
 
-
-                <!-- Bangladesh clip -->
 
                 <clipPath id="bangladeshClip">
 
@@ -2177,8 +2143,6 @@ footer{
             </defs>
 
 
-            <!-- Dark map shadow -->
-
             <path
                 d="
                 M310 42
@@ -2252,8 +2216,6 @@ footer{
             />
 
 
-            <!-- Bangladesh -->
-
             <path
                 class="map-country"
                 d="
@@ -2323,8 +2285,6 @@ footer{
                 "
             />
 
-
-            <!-- Dot field -->
 
             <path
                 class="map-inner-glow"
@@ -2396,8 +2356,6 @@ footer{
             />
 
 
-            <!-- Country outline -->
-
             <path
                 class="map-outline"
                 d="
@@ -2468,8 +2426,6 @@ footer{
             />
 
 
-            <!-- Connection lines -->
-
             <path
                 class="map-connection"
                 d="
@@ -2495,8 +2451,6 @@ footer{
             />
 
 
-            <!-- Map scan -->
-
             <line
                 class="map-scan-line"
                 x1="120"
@@ -2505,10 +2459,6 @@ footer{
                 y2="100"
             />
 
-
-            <!-- ==========================================
-                 LOCATION 1
-            ========================================== -->
 
             <circle
                 cx="275"
@@ -2546,10 +2496,6 @@ footer{
             />
 
 
-            <!-- ==========================================
-                 LOCATION 2
-            ========================================== -->
-
             <circle
                 cx="480"
                 cy="277"
@@ -2580,10 +2526,6 @@ footer{
                 r="4.5"
             />
 
-
-            <!-- ==========================================
-                 LOCATION 3
-            ========================================== -->
 
             <circle
                 cx="570"
@@ -2616,10 +2558,6 @@ footer{
             />
 
 
-            <!-- ==========================================
-                 LOCATION 4
-            ========================================== -->
-
             <circle
                 cx="270"
                 cy="400"
@@ -2650,10 +2588,6 @@ footer{
                 r="4.5"
             />
 
-
-            <!-- ==========================================
-                 LOCATION 5
-            ========================================== -->
 
             <circle
                 cx="390"
@@ -2686,10 +2620,6 @@ footer{
             />
 
 
-            <!-- ==========================================
-                 LOCATION 6
-            ========================================== -->
-
             <circle
                 cx="525"
                 cy="460"
@@ -2713,17 +2643,12 @@ footer{
             />
 
 
-            <!-- ==========================================
-                 CENTRAL MB BLOOD BANK LOCATION
-            ========================================== -->
-
             <circle
                 cx="405"
                 cy="345"
                 r="48"
                 fill="url(#mbGreenGlow)"
             />
-
 
             <circle
                 cx="405"
@@ -2749,7 +2674,6 @@ footer{
                 />
             </circle>
 
-
             <circle
                 class="map-central-core"
                 cx="405"
@@ -2758,292 +2682,47 @@ footer{
             />
 
 
-            <!-- rotating rays -->
-
             <g>
-
-                <line
-                    class="map-ray"
-                    x1="405"
-                    y1="315"
-                    x2="405"
-                    y2="294"
-                />
-
-                <line
-                    class="map-ray r2"
-                    x1="405"
-                    y1="375"
-                    x2="405"
-                    y2="396"
-                />
-
-                <line
-                    class="map-ray r3"
-                    x1="375"
-                    y1="345"
-                    x2="354"
-                    y2="345"
-                />
-
-                <line
-                    class="map-ray"
-                    x1="435"
-                    y1="345"
-                    x2="456"
-                    y2="345"
-                />
-
+                <line class="map-ray" x1="405" y1="315" x2="405" y2="294"/>
+                <line class="map-ray r2" x1="405" y1="375" x2="405" y2="396"/>
+                <line class="map-ray r3" x1="375" y1="345" x2="354" y2="345"/>
+                <line class="map-ray" x1="435" y1="345" x2="456" y2="345"/>
             </g>
 
 
-            <!-- Small green location dots -->
-
             <g>
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="220"
-                    cy="250"
-                    r="2.3"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="245"
-                    cy="285"
-                    r="2.3"
-                    style="animation-delay:.3s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="300"
-                    cy="250"
-                    r="2.3"
-                    style="animation-delay:.6s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="335"
-                    cy="285"
-                    r="2.3"
-                    style="animation-delay:.9s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="365"
-                    cy="235"
-                    r="2.3"
-                    style="animation-delay:1.2s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="425"
-                    cy="230"
-                    r="2.3"
-                    style="animation-delay:1.5s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="515"
-                    cy="255"
-                    r="2.3"
-                    style="animation-delay:.2s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="545"
-                    cy="285"
-                    r="2.3"
-                    style="animation-delay:.5s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="595"
-                    cy="280"
-                    r="2.3"
-                    style="animation-delay:.8s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="205"
-                    cy="320"
-                    r="2.3"
-                    style="animation-delay:1.1s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="240"
-                    cy="350"
-                    r="2.3"
-                    style="animation-delay:1.4s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="305"
-                    cy="330"
-                    r="2.3"
-                    style="animation-delay:.4s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="345"
-                    cy="365"
-                    r="2.3"
-                    style="animation-delay:.7s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="465"
-                    cy="350"
-                    r="2.3"
-                    style="animation-delay:1s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="510"
-                    cy="380"
-                    r="2.3"
-                    style="animation-delay:1.3s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="555"
-                    cy="400"
-                    r="2.3"
-                    style="animation-delay:.1s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="210"
-                    cy="390"
-                    r="2.3"
-                    style="animation-delay:.5s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="310"
-                    cy="430"
-                    r="2.3"
-                    style="animation-delay:.9s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="350"
-                    cy="460"
-                    r="2.3"
-                    style="animation-delay:1.2s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="425"
-                    cy="430"
-                    r="2.3"
-                    style="animation-delay:.2s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="480"
-                    cy="425"
-                    r="2.3"
-                    style="animation-delay:.6s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="550"
-                    cy="430"
-                    r="2.3"
-                    style="animation-delay:1s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="245"
-                    cy="460"
-                    r="2.3"
-                    style="animation-delay:1.4s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="280"
-                    cy="500"
-                    r="2.3"
-                    style="animation-delay:.3s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="330"
-                    cy="490"
-                    r="2.3"
-                    style="animation-delay:.8s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="450"
-                    cy="520"
-                    r="2.3"
-                    style="animation-delay:1.1s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="500"
-                    cy="500"
-                    r="2.3"
-                    style="animation-delay:.4s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="350"
-                    cy="540"
-                    r="2.3"
-                    style="animation-delay:.7s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="405"
-                    cy="570"
-                    r="2.3"
-                    style="animation-delay:1.3s"
-                />
-
-                <circle
-                    class="map-dot map-dot-small"
-                    cx="440"
-                    cy="600"
-                    r="2.3"
-                    style="animation-delay:.2s"
-                />
-
+                <circle class="map-dot map-dot-small" cx="220" cy="250" r="2.3"/>
+                <circle class="map-dot map-dot-small" cx="245" cy="285" r="2.3" style="animation-delay:.3s"/>
+                <circle class="map-dot map-dot-small" cx="300" cy="250" r="2.3" style="animation-delay:.6s"/>
+                <circle class="map-dot map-dot-small" cx="335" cy="285" r="2.3" style="animation-delay:.9s"/>
+                <circle class="map-dot map-dot-small" cx="365" cy="235" r="2.3" style="animation-delay:1.2s"/>
+                <circle class="map-dot map-dot-small" cx="425" cy="230" r="2.3" style="animation-delay:1.5s"/>
+                <circle class="map-dot map-dot-small" cx="515" cy="255" r="2.3" style="animation-delay:.2s"/>
+                <circle class="map-dot map-dot-small" cx="545" cy="285" r="2.3" style="animation-delay:.5s"/>
+                <circle class="map-dot map-dot-small" cx="595" cy="280" r="2.3" style="animation-delay:.8s"/>
+                <circle class="map-dot map-dot-small" cx="205" cy="320" r="2.3" style="animation-delay:1.1s"/>
+                <circle class="map-dot map-dot-small" cx="240" cy="350" r="2.3" style="animation-delay:1.4s"/>
+                <circle class="map-dot map-dot-small" cx="305" cy="330" r="2.3" style="animation-delay:.4s"/>
+                <circle class="map-dot map-dot-small" cx="345" cy="365" r="2.3" style="animation-delay:.7s"/>
+                <circle class="map-dot map-dot-small" cx="465" cy="350" r="2.3" style="animation-delay:1s"/>
+                <circle class="map-dot map-dot-small" cx="510" cy="380" r="2.3" style="animation-delay:1.3s"/>
+                <circle class="map-dot map-dot-small" cx="555" cy="400" r="2.3" style="animation-delay:.1s"/>
+                <circle class="map-dot map-dot-small" cx="210" cy="390" r="2.3" style="animation-delay:.5s"/>
+                <circle class="map-dot map-dot-small" cx="310" cy="430" r="2.3" style="animation-delay:.9s"/>
+                <circle class="map-dot map-dot-small" cx="350" cy="460" r="2.3" style="animation-delay:1.2s"/>
+                <circle class="map-dot map-dot-small" cx="425" cy="430" r="2.3" style="animation-delay:.2s"/>
+                <circle class="map-dot map-dot-small" cx="480" cy="425" r="2.3" style="animation-delay:.6s"/>
+                <circle class="map-dot map-dot-small" cx="550" cy="430" r="2.3" style="animation-delay:1s"/>
+                <circle class="map-dot map-dot-small" cx="245" cy="460" r="2.3" style="animation-delay:1.4s"/>
+                <circle class="map-dot map-dot-small" cx="280" cy="500" r="2.3" style="animation-delay:.3s"/>
+                <circle class="map-dot map-dot-small" cx="330" cy="490" r="2.3" style="animation-delay:.8s"/>
+                <circle class="map-dot map-dot-small" cx="450" cy="520" r="2.3" style="animation-delay:1.1s"/>
+                <circle class="map-dot map-dot-small" cx="500" cy="500" r="2.3" style="animation-delay:.4s"/>
+                <circle class="map-dot map-dot-small" cx="350" cy="540" r="2.3" style="animation-delay:.7s"/>
+                <circle class="map-dot map-dot-small" cx="405" cy="570" r="2.3" style="animation-delay:1.3s"/>
+                <circle class="map-dot map-dot-small" cx="440" cy="600" r="2.3" style="animation-delay:.2s"/>
             </g>
 
-
-            <!-- Emergency red blood point -->
 
             <circle
                 cx="455"
@@ -3052,30 +2731,20 @@ footer{
                 fill="#ff3040"
                 filter="drop-shadow(0 0 8px rgba(255,48,64,.8))"
             >
-
                 <animate
                     attributeName="r"
                     values="4;7;4"
                     dur="1.3s"
                     repeatCount="indefinite"
                 />
-
             </circle>
-
 
         </svg>
 
 
         <div class="map-caption">
-
-            🟢 রক্তদাতা এলাকা
-            &nbsp;&nbsp;•&nbsp;&nbsp;
-            🟠 রক্তের অনুরোধ
-            &nbsp;&nbsp;•&nbsp;&nbsp;
-            🩸 MB Blood Bank Network
-
+            🟢 রক্তদাতা এলাকা &nbsp;&nbsp;•&nbsp;&nbsp; 🟠 রক্তের অনুরোধ &nbsp;&nbsp;•&nbsp;&nbsp; 🩸 MB Blood Bank Network
         </div>
-
 
     </div>
 
@@ -3095,726 +2764,108 @@ footer{
 
     <div class="glass form-box">
 
-
-        <p
-            style="
-            text-align:center;
-            margin-bottom:15px;
-            font-weight:700;
-            "
-        >
+        <p style="text-align:center;margin-bottom:15px;font-weight:700;">
             জরুরি প্রয়োজনে এম্বুলেন্স বুকিং বা যোগাযোগের জন্য নিচের অপশনটিতে ক্লিক করুন
         </p>
 
-
-        <!-- VIDEO STYLE ANIMATION -->
-
         <div class="mb-video-animation">
-
-
-            <svg
-                viewBox="0 0 720 360"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-label="MB Blood Bank Ambulance Animation"
-            >
-
-
-                <rect
-                    x="0"
-                    y="0"
-                    width="720"
-                    height="360"
-                    fill="#ffffff"
-                />
-
-
-                <!-- LEFT BUILDING -->
-
+            <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" aria-label="MB Blood Bank Ambulance Animation">
+                <rect x="0" y="0" width="720" height="360" fill="#ffffff"/>
                 <g>
-
-                    <rect
-                        x="-8"
-                        y="205"
-                        width="115"
-                        height="95"
-                        rx="5"
-                        fill="#087f4f"
-                    />
-
-                    <rect
-                        x="-2"
-                        y="214"
-                        width="103"
-                        height="70"
-                        rx="3"
-                        fill="#202c2a"
-                    />
-
-                    <rect
-                        x="10"
-                        y="228"
-                        width="78"
-                        height="45"
-                        rx="2"
-                        fill="#d8f5bd"
-                    />
-
-                    <rect
-                        x="5"
-                        y="201"
-                        width="105"
-                        height="13"
-                        rx="4"
-                        fill="#08a867"
-                    />
-
-                    <rect
-                        x="18"
-                        y="204"
-                        width="45"
-                        height="4"
-                        rx="2"
-                        fill="#ffffff"
-                        opacity=".9"
-                    />
-
-                    <rect
-                        x="70"
-                        y="203"
-                        width="12"
-                        height="6"
-                        rx="2"
-                        fill="#ffffff"
-                        opacity=".8"
-                    />
-
+                    <rect x="-8" y="205" width="115" height="95" rx="5" fill="#087f4f"/>
+                    <rect x="-2" y="214" width="103" height="70" rx="3" fill="#202c2a"/>
+                    <rect x="10" y="228" width="78" height="45" rx="2" fill="#d8f5bd"/>
+                    <rect x="5" y="201" width="105" height="13" rx="4" fill="#08a867"/>
+                    <rect x="18" y="204" width="45" height="4" rx="2" fill="#ffffff" opacity=".9"/>
+                    <rect x="70" y="203" width="12" height="6" rx="2" fill="#ffffff" opacity=".8"/>
                 </g>
-
-
-                <!-- LEFT PERSON -->
-
                 <g class="walk-person">
-
-                    <circle
-                        cx="137"
-                        cy="239"
-                        r="11"
-                        fill="#087f4f"
-                    />
-
-                    <path
-                        d="M127 252 L147 252 L151 278 L123 278 Z"
-                        fill="#08a867"
-                    />
-
-                    <path
-                        d="M130 276 L126 299"
-                        stroke="#222"
-                        stroke-width="5"
-                        stroke-linecap="round"
-                    />
-
-                    <path
-                        d="M143 276 L149 299"
-                        stroke="#222"
-                        stroke-width="5"
-                        stroke-linecap="round"
-                    />
-
-                    <path
-                        d="M148 257 L167 264"
-                        stroke="#087f4f"
-                        stroke-width="5"
-                        stroke-linecap="round"
-                    />
-
-                    <rect
-                        x="164"
-                        y="259"
-                        width="14"
-                        height="13"
-                        rx="2"
-                        fill="#f3eee5"
-                    />
-
+                    <circle cx="137" cy="239" r="11" fill="#087f4f"/>
+                    <path d="M127 252 L147 252 L151 278 L123 278 Z" fill="#08a867"/>
+                    <path d="M130 276 L126 299" stroke="#222" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M143 276 L149 299" stroke="#222" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M148 257 L167 264" stroke="#087f4f" stroke-width="5" stroke-linecap="round"/>
+                    <rect x="164" y="259" width="14" height="13" rx="2" fill="#f3eee5"/>
                 </g>
-
-
-                <!-- MIDDLE BUILDING -->
-
                 <g>
-
-                    <rect
-                        x="220"
-                        y="190"
-                        width="125"
-                        height="110"
-                        rx="5"
-                        fill="#087f4f"
-                    />
-
-                    <rect
-                        x="227"
-                        y="199"
-                        width="111"
-                        height="91"
-                        rx="2"
-                        fill="#dff5c9"
-                    />
-
-                    <rect
-                        x="220"
-                        y="190"
-                        width="125"
-                        height="24"
-                        rx="5"
-                        fill="#087f4f"
-                    />
-
-                    <text
-                        x="232"
-                        y="207"
-                        font-size="10"
-                        font-family="Arial"
-                        fill="#ffffff"
-                        font-weight="bold"
-                    >
-                        ✚ MB BLOOD BANK
-                    </text>
-
-                    <rect
-                        x="239"
-                        y="225"
-                        width="86"
-                        height="50"
-                        rx="2"
-                        fill="#c8eca9"
-                    />
-
-                    <line
-                        x1="245"
-                        y1="237"
-                        x2="318"
-                        y2="237"
-                        stroke="#9bc77e"
-                        stroke-width="2"
-                    />
-
-                    <line
-                        x1="245"
-                        y1="247"
-                        x2="318"
-                        y2="247"
-                        stroke="#9bc77e"
-                        stroke-width="2"
-                    />
-
-                    <line
-                        x1="245"
-                        y1="257"
-                        x2="318"
-                        y2="257"
-                        stroke="#9bc77e"
-                        stroke-width="2"
-                    />
-
-                    <line
-                        x1="245"
-                        y1="267"
-                        x2="318"
-                        y2="267"
-                        stroke="#9bc77e"
-                        stroke-width="2"
-                    />
-
+                    <rect x="220" y="190" width="125" height="110" rx="5" fill="#087f4f"/>
+                    <rect x="227" y="199" width="111" height="91" rx="2" fill="#dff5c9"/>
+                    <rect x="220" y="190" width="125" height="24" rx="5" fill="#087f4f"/>
+                    <text x="232" y="207" font-size="10" font-family="Arial" fill="#ffffff" font-weight="bold">✚ MB BLOOD BANK</text>
+                    <rect x="239" y="225" width="86" height="50" rx="2" fill="#c8eca9"/>
+                    <line x1="245" y1="237" x2="318" y2="237" stroke="#9bc77e" stroke-width="2"/>
+                    <line x1="245" y1="247" x2="318" y2="247" stroke="#9bc77e" stroke-width="2"/>
+                    <line x1="245" y1="257" x2="318" y2="257" stroke="#9bc77e" stroke-width="2"/>
+                    <line x1="245" y1="267" x2="318" y2="267" stroke="#9bc77e" stroke-width="2"/>
                 </g>
-
-
-                <!-- RED AMBULANCE -->
-
                 <g class="mb-ambulance-car">
-
-
-                    <ellipse
-                        cx="395"
-                        cy="302"
-                        rx="70"
-                        ry="7"
-                        fill="#111111"
-                        opacity=".16"
-                    />
-
-
-                    <rect
-                        x="335"
-                        y="231"
-                        width="112"
-                        height="68"
-                        rx="5"
-                        fill="#e31b23"
-                    />
-
-
-                    <rect
-                        x="339"
-                        y="226"
-                        width="104"
-                        height="13"
-                        rx="4"
-                        fill="#c9151c"
-                    />
-
-
-                    <rect
-                        x="347"
-                        y="244"
-                        width="45"
-                        height="28"
-                        rx="2"
-                        fill="#eaf8dc"
-                    />
-
-
-                    <line
-                        x1="370"
-                        y1="244"
-                        x2="370"
-                        y2="272"
-                        stroke="#b9d7a9"
-                        stroke-width="2"
-                    />
-
-
-                    <path
-                        d="
-                        M447 246
-                        L471 246
-                        L489 263
-                        L489 299
-                        L447 299 Z
-                        "
-                        fill="#e31b23"
-                    />
-
-
-                    <path
-                        d="
-                        M450 249
-                        L468 249
-                        L482 263
-                        L450 263 Z
-                        "
-                        fill="#dff5cf"
-                    />
-
-
-                    <line
-                        x1="447"
-                        y1="267"
-                        x2="447"
-                        y2="298"
-                        stroke="#a90f15"
-                        stroke-width="2"
-                    />
-
-
-                    <rect
-                        x="452"
-                        y="274"
-                        width="8"
-                        height="2"
-                        rx="1"
-                        fill="#ffffff"
-                    />
-
-
-                    <!-- WHITE MEDICAL CROSS -->
-
-                    <rect
-                        x="401"
-                        y="247"
-                        width="12"
-                        height="36"
-                        rx="2"
-                        fill="#ffffff"
-                    />
-
-                    <rect
-                        x="389"
-                        y="259"
-                        width="36"
-                        height="12"
-                        rx="2"
-                        fill="#ffffff"
-                    />
-
-
-                    <!-- EMERGENCY LIGHT -->
-
-                    <rect
-                        x="374"
-                        y="218"
-                        width="28"
-                        height="9"
-                        rx="3"
-                        fill="#b40008"
-                    />
-
-                    <rect
-                        x="380"
-                        y="215"
-                        width="16"
-                        height="7"
-                        rx="3"
-                        fill="#ff1e2d"
-                    />
-
-
-                    <rect
-                        x="482"
-                        y="273"
-                        width="7"
-                        height="10"
-                        rx="2"
-                        fill="#fff4a8"
-                    />
-
-
-                    <rect
-                        x="336"
-                        y="273"
-                        width="6"
-                        height="12"
-                        rx="2"
-                        fill="#8e0710"
-                    />
-
-
-                    <!-- WHEEL 1 -->
-
+                    <ellipse cx="395" cy="302" rx="70" ry="7" fill="#111111" opacity=".16"/>
+                    <rect x="335" y="231" width="112" height="68" rx="5" fill="#e31b23"/>
+                    <rect x="339" y="226" width="104" height="13" rx="4" fill="#c9151c"/>
+                    <rect x="347" y="244" width="45" height="28" rx="2" fill="#eaf8dc"/>
+                    <line x1="370" y1="244" x2="370" y2="272" stroke="#b9d7a9" stroke-width="2"/>
+                    <path d="M447 246 L471 246 L489 263 L489 299 L447 299 Z" fill="#e31b23"/>
+                    <path d="M450 249 L468 249 L482 263 L450 263 Z" fill="#dff5cf"/>
+                    <line x1="447" y1="267" x2="447" y2="298" stroke="#a90f15" stroke-width="2"/>
+                    <rect x="452" y="274" width="8" height="2" rx="1" fill="#ffffff"/>
+                    <rect x="401" y="247" width="12" height="36" rx="2" fill="#ffffff"/>
+                    <rect x="389" y="259" width="36" height="12" rx="2" fill="#ffffff"/>
+                    <rect x="374" y="218" width="28" height="9" rx="3" fill="#b40008"/>
+                    <rect x="380" y="215" width="16" height="7" rx="3" fill="#ff1e2d"/>
+                    <rect x="482" y="273" width="7" height="10" rx="2" fill="#fff4a8"/>
+                    <rect x="336" y="273" width="6" height="12" rx="2" fill="#8e0710"/>
                     <g class="ambulance-wheel">
-
-                        <circle
-                            cx="359"
-                            cy="300"
-                            r="14"
-                            fill="#171717"
-                        />
-
-                        <circle
-                            cx="359"
-                            cy="300"
-                            r="6"
-                            fill="#a9a9a9"
-                        />
-
-                        <path
-                            d="
-                            M359 287 L359 313
-                            M346 300 L372 300
-                            "
-                            stroke="#555"
-                            stroke-width="2"
-                        />
-
+                        <circle cx="359" cy="300" r="14" fill="#171717"/>
+                        <circle cx="359" cy="300" r="6" fill="#a9a9a9"/>
+                        <path d="M359 287 L359 313 M346 300 L372 300" stroke="#555" stroke-width="2"/>
                     </g>
-
-
-                    <!-- WHEEL 2 -->
-
                     <g class="ambulance-wheel">
-
-                        <circle
-                            cx="465"
-                            cy="300"
-                            r="14"
-                            fill="#171717"
-                        />
-
-                        <circle
-                            cx="465"
-                            cy="300"
-                            r="6"
-                            fill="#a9a9a9"
-                        />
-
-                        <path
-                            d="
-                            M465 287 L465 313
-                            M452 300 L478 300
-                            "
-                            stroke="#555"
-                            stroke-width="2"
-                        />
-
+                        <circle cx="465" cy="300" r="14" fill="#171717"/>
+                        <circle cx="465" cy="300" r="6" fill="#a9a9a9"/>
+                        <path d="M465 287 L465 313 M452 300 L478 300" stroke="#555" stroke-width="2"/>
                     </g>
-
-
                 </g>
-
-
-                <!-- RIGHT PERSON -->
-
                 <g class="walk-person">
-
-                    <circle
-                        cx="530"
-                        cy="238"
-                        r="11"
-                        fill="#087f4f"
-                    />
-
-                    <path
-                        d="M520 251 L540 251 L545 278 L516 278 Z"
-                        fill="#08a867"
-                    />
-
-                    <path
-                        d="M521 276 L516 299"
-                        stroke="#222"
-                        stroke-width="5"
-                        stroke-linecap="round"
-                    />
-
-                    <path
-                        d="M535 276 L541 299"
-                        stroke="#222"
-                        stroke-width="5"
-                        stroke-linecap="round"
-                    />
-
-                    <path
-                        d="M520 257 L503 266"
-                        stroke="#087f4f"
-                        stroke-width="5"
-                        stroke-linecap="round"
-                    />
-
-                    <rect
-                        x="492"
-                        y="262"
-                        width="13"
-                        height="13"
-                        rx="2"
-                        fill="#f3eee5"
-                    />
-
+                    <circle cx="530" cy="238" r="11" fill="#087f4f"/>
+                    <path d="M520 251 L540 251 L545 278 L516 278 Z" fill="#08a867"/>
+                    <path d="M521 276 L516 299" stroke="#222" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M535 276 L541 299" stroke="#222" stroke-width="5" stroke-linecap="round"/>
+                    <path d="M520 257 L503 266" stroke="#087f4f" stroke-width="5" stroke-linecap="round"/>
+                    <rect x="492" y="262" width="13" height="13" rx="2" fill="#f3eee5"/>
                 </g>
-
-
-                <!-- HOUSE -->
-
                 <g>
-
-                    <path
-                        d="M560 235 L600 196 L640 235 Z"
-                        fill="#202020"
-                    />
-
-                    <rect
-                        x="568"
-                        y="231"
-                        width="72"
-                        height="70"
-                        fill="#dff3c9"
-                    />
-
-                    <rect
-                        x="578"
-                        y="246"
-                        width="18"
-                        height="17"
-                        fill="#94bd83"
-                    />
-
-                    <line
-                        x1="587"
-                        y1="246"
-                        x2="587"
-                        y2="263"
-                        stroke="#ffffff"
-                        stroke-width="2"
-                    />
-
-                    <rect
-                        x="609"
-                        y="260"
-                        width="20"
-                        height="41"
-                        rx="2"
-                        fill="#087f4f"
-                    />
-
-                    <circle
-                        cx="613"
-                        cy="281"
-                        r="2"
-                        fill="#ffffff"
-                    />
-
-                    <circle
-                        cx="628"
-                        cy="240"
-                        r="9"
-                        fill="#087f4f"
-                    />
-
-                    <rect
-                        x="625"
-                        y="234"
-                        width="6"
-                        height="12"
-                        fill="#ffffff"
-                    />
-
-                    <rect
-                        x="622"
-                        y="237"
-                        width="12"
-                        height="6"
-                        fill="#ffffff"
-                    />
-
+                    <path d="M560 235 L600 196 L640 235 Z" fill="#202020"/>
+                    <rect x="568" y="231" width="72" height="70" fill="#dff3c9"/>
+                    <rect x="578" y="246" width="18" height="17" fill="#94bd83"/>
+                    <line x1="587" y1="246" x2="587" y2="263" stroke="#ffffff" stroke-width="2"/>
+                    <rect x="609" y="260" width="20" height="41" rx="2" fill="#087f4f"/>
+                    <circle cx="613" cy="281" r="2" fill="#ffffff"/>
+                    <circle cx="628" cy="240" r="9" fill="#087f4f"/>
+                    <rect x="625" y="234" width="6" height="12" fill="#ffffff"/>
+                    <rect x="622" y="237" width="12" height="6" fill="#ffffff"/>
                 </g>
-
-
-                <!-- ROAD -->
-
-                <rect
-                    x="0"
-                    y="300"
-                    width="720"
-                    height="5"
-                    fill="#087f4f"
-                />
-
-                <rect
-                    x="0"
-                    y="305"
-                    width="720"
-                    height="55"
-                    fill="#292929"
-                />
-
-
-                <!-- MOVING ROAD MARKINGS -->
-
-                <g
-                    class="road-moving-lines"
-                    fill="#9b9b9b"
-                    opacity=".85"
-                >
-
-                    <rect
-                        x="0"
-                        y="329"
-                        width="45"
-                        height="4"
-                        rx="2"
-                    />
-
-                    <rect
-                        x="80"
-                        y="329"
-                        width="45"
-                        height="4"
-                        rx="2"
-                    />
-
-                    <rect
-                        x="160"
-                        y="329"
-                        width="45"
-                        height="4"
-                        rx="2"
-                    />
-
-                    <rect
-                        x="240"
-                        y="329"
-                        width="45"
-                        height="4"
-                        rx="2"
-                    />
-
-                    <rect
-                        x="320"
-                        y="329"
-                        width="45"
-                        height="4"
-                        rx="2"
-                    />
-
-                    <rect
-                        x="400"
-                        y="329"
-                        width="45"
-                        height="4"
-                        rx="2"
-                    />
-
-                    <rect
-                        x="480"
-                        y="329"
-                        width="45"
-                        height="4"
-                        rx="2"
-                    />
-
-                    <rect
-                        x="560"
-                        y="329"
-                        width="45"
-                        height="4"
-                        rx="2"
-                    />
-
-                    <rect
-                        x="640"
-                        y="329"
-                        width="45"
-                        height="4"
-                        rx="2"
-                    />
-
+                <rect x="0" y="300" width="720" height="5" fill="#087f4f"/>
+                <rect x="0" y="305" width="720" height="55" fill="#292929"/>
+                <g class="road-moving-lines" fill="#9b9b9b" opacity=".85">
+                    <rect x="0" y="329" width="45" height="4" rx="2"/>
+                    <rect x="80" y="329" width="45" height="4" rx="2"/>
+                    <rect x="160" y="329" width="45" height="4" rx="2"/>
+                    <rect x="240" y="329" width="45" height="4" rx="2"/>
+                    <rect x="320" y="329" width="45" height="4" rx="2"/>
+                    <rect x="400" y="329" width="45" height="4" rx="2"/>
+                    <rect x="480" y="329" width="45" height="4" rx="2"/>
+                    <rect x="560" y="329" width="45" height="4" rx="2"/>
+                    <rect x="640" y="329" width="45" height="4" rx="2"/>
                 </g>
-
-
             </svg>
-
         </div>
 
-
-        <!-- AMBULANCE BUTTON -->
-
-        <div
-            style="
-            display:flex;
-            justify-content:center;
-            "
-        >
-
-            <div
-                class="contact-card"
-                onclick="openAmbulanceModal()"
-                style="
-                max-width:280px;
-                width:100%;
-                "
-            >
-
-                <div class="contact-icon">
-                    🚑
-                </div>
-
-                <div class="contact-text">
-                    এম্বুলেন্স কল করুন
-                </div>
-
+        <div style="display:flex;justify-content:center;">
+            <div class="contact-card" onclick="openAmbulanceModal()" style="max-width:280px;width:100%;">
+                <div class="contact-icon">🚑</div>
+                <div class="contact-text">এম্বুলেন্স কল করুন</div>
             </div>
-
         </div>
-
 
     </div>
 
@@ -3836,120 +2887,41 @@ footer{
 
         <div class="contact-grid">
 
-
-            <a
-                class="contact-card"
-                href="tel:01726232108"
-            >
-
-                <div class="contact-icon">
-                    📞
-                </div>
-
-                <div class="contact-text">
-                    01726232108
-                </div>
-
+            <a class="contact-card" href="tel:01726232108">
+                <div class="contact-icon">📞</div>
+                <div class="contact-text">01726232108</div>
             </a>
 
-
-            <a
-                class="contact-card"
-                href="https://wa.me/8801726232108"
-                target="_blank"
-            >
-
+            <a class="contact-card" href="https://wa.me/8801726232108" target="_blank">
                 <div class="contact-icon">
-
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-                        alt="WhatsApp"
-                    >
-
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
                 </div>
-
-                <div class="contact-text">
-                    WhatsApp
-                </div>
-
+                <div class="contact-text">WhatsApp</div>
             </a>
 
-
-            <a
-                class="contact-card"
-                href="sms:01726232108"
-            >
-
-                <div class="contact-icon">
-                    ✉️
-                </div>
-
-                <div class="contact-text">
-                    SMS
-                </div>
-
+            <a class="contact-card" href="sms:01726232108">
+                <div class="contact-icon">✉️</div>
+                <div class="contact-text">SMS</div>
             </a>
 
-
-            <a
-                class="contact-card"
-                href="mailto:mbbloodbank@gmail.com"
-            >
-
-                <div class="contact-icon">
-                    📧
-                </div>
-
-                <div class="contact-text">
-                    mbbloodbank@gmail.com
-                </div>
-
+            <a class="contact-card" href="mailto:mbbloodbank@gmail.com">
+                <div class="contact-icon">📧</div>
+                <div class="contact-text">mbbloodbank@gmail.com</div>
             </a>
 
-
-            <a
-                class="contact-card"
-                href="https://www.facebook.com/share/14nUzxo73ig/"
-                target="_blank"
-            >
-
+            <a class="contact-card" href="https://www.facebook.com/share/14nUzxo73ig/" target="_blank">
                 <div class="contact-icon">
-
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg"
-                        alt="Facebook Page"
-                    >
-
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook Page">
                 </div>
-
-                <div class="contact-text">
-                    Facebook Page
-                </div>
-
+                <div class="contact-text">Facebook Page</div>
             </a>
 
-
-            <a
-                class="contact-card"
-                href="https://www.facebook.com/share/g/1JuuUhn4pe/"
-                target="_blank"
-            >
-
+            <a class="contact-card" href="https://www.facebook.com/share/g/1JuuUhn4pe/" target="_blank">
                 <div class="contact-icon">
-
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg"
-                        alt="Facebook Group"
-                    >
-
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook Group">
                 </div>
-
-                <div class="contact-text">
-                    Facebook Group
-                </div>
-
+                <div class="contact-text">Facebook Group</div>
             </a>
-
 
         </div>
 
@@ -3965,40 +2937,12 @@ footer{
      AMBULANCE MODAL
 ===================================================== -->
 
-<div
-    id="ambulanceModal"
-    class="modal"
->
-
+<div id="ambulanceModal" class="modal">
     <div class="modal-box">
-
-
-        <button
-            class="close"
-            onclick="closeAmbulanceModal()"
-        >
-            &times;
-        </button>
-
-
-        <h3
-            style="
-            color:#7c1eaf;
-            margin-bottom:15px;
-            text-align:center;
-            "
-        >
-            🚑 এম্বুলেন্স তালিকা
-        </h3>
-
-
-        <div id="ambulanceListContainer">
-
-        </div>
-
-
+        <button class="close" onclick="closeAmbulanceModal()">&times;</button>
+        <h3 style="color:#7c1eaf;margin-bottom:15px;text-align:center;">🚑 এম্বুলেন্স তালিকা</h3>
+        <div id="ambulanceListContainer"></div>
     </div>
-
 </div>
 
 
@@ -4006,357 +2950,65 @@ footer{
      PAYMENT GATEWAY
 ===================================================== -->
 
-<div
-    id="gatewayModal"
-    class="gateway-modal"
->
-
+<div id="gatewayModal" class="gateway-modal">
     <div class="gateway-box">
-
-
-        <div
-            style="
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            margin-bottom:15px;
-            "
-        >
-
-            <h4
-                style="
-                font-size:16px;
-                color:#333;
-                "
-            >
-                অনুদানের পেমেন্ট করুন
-            </h4>
-
-
-            <button
-                class="close"
-                style="position:static;"
-                onclick="closeGatewayModal()"
-            >
-                &times;
-            </button>
-
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
+            <h4 style="font-size:16px;color:#333;">অনুদানের পেমেন্ট করুন</h4>
+            <button class="close" style="position:static;" onclick="closeGatewayModal()">&times;</button>
         </div>
 
-
-        <div
-            style="
-            background:#f1f5f9;
-            padding:15px;
-            border-radius:12px;
-            margin-bottom:20px;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            "
-        >
-
-            <span
-                id="displayAmount"
-                style="
-                font-size:22px;
-                font-weight:bold;
-                color:#0f172a;
-                "
-            >
-                ৳0.00
-            </span>
-
-
-            <span
-                style="
-                font-size:12px;
-                background:#e2e8f0;
-                padding:4px 8px;
-                border-radius:6px;
-                "
-            >
-                MB Fund
-            </span>
-
+        <div style="background:#f1f5f9;padding:15px;border-radius:12px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
+            <span id="displayAmount" style="font-size:22px;font-weight:bold;color:#0f172a;">৳0.00</span>
+            <span style="font-size:12px;background:#e2e8f0;padding:4px 8px;border-radius:6px;">MB Fund</span>
         </div>
-
 
         <div class="gateway-tabs">
-
-
-            <div
-                class="gateway-tab active"
-                id="tabMobile"
-                onclick="switchGatewayTab('mobile')"
-            >
-                Mobile Banking
-            </div>
-
-
-            <div
-                class="gateway-tab"
-                id="tabNet"
-                onclick="switchGatewayTab('net')"
-            >
-                Net Banking
-            </div>
-
-
+            <div class="gateway-tab active" id="tabMobile" onclick="switchGatewayTab('mobile')">Mobile Banking</div>
+            <div class="gateway-tab" id="tabNet" onclick="switchGatewayTab('net')">Net Banking</div>
         </div>
 
-
-        <div
-            id="mobileChannels"
-            class="channel-grid"
-        >
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'bKash','01726232108')"
-            >
-
-                <span
-                    style="
-                    font-size:16px;
-                    font-weight:bold;
-                    color:#e2136e;
-                    "
-                >
-                    bKash
-                </span>
-
-                <span
-                    style="
-                    font-size:12px;
-                    color:#555;
-                    "
-                >
-                    বিকাশ
-                </span>
-
+        <div id="mobileChannels" class="channel-grid">
+            <div class="channel-card" onclick="selectChannel(this,'bKash','01726232108')">
+                <span style="font-size:16px;font-weight:bold;color:#e2136e;">bKash</span>
+                <span style="font-size:12px;color:#555;">বিকাশ</span>
             </div>
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'Nagad','01726232108')"
-            >
-
-                <span
-                    style="
-                    font-size:16px;
-                    font-weight:bold;
-                    color:#f7931e;
-                    "
-                >
-                    Nagad
-                </span>
-
-                <span
-                    style="
-                    font-size:12px;
-                    color:#555;
-                    "
-                >
-                    নগদ
-                </span>
-
+            <div class="channel-card" onclick="selectChannel(this,'Nagad','01726232108')">
+                <span style="font-size:16px;font-weight:bold;color:#f7931e;">Nagad</span>
+                <span style="font-size:12px;color:#555;">নগদ</span>
             </div>
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'Rocket','01726232108-0')"
-            >
-
-                <span
-                    style="
-                    font-size:16px;
-                    font-weight:bold;
-                    color:#8a2be2;
-                    "
-                >
-                    Rocket
-                </span>
-
-                <span
-                    style="
-                    font-size:12px;
-                    color:#555;
-                    "
-                >
-                    রকেট
-                </span>
-
+            <div class="channel-card" onclick="selectChannel(this,'Rocket','01726232108-0')">
+                <span style="font-size:16px;font-weight:bold;color:#8a2be2;">Rocket</span>
+                <span style="font-size:12px;color:#555;">রকেট</span>
             </div>
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'Upay','01726232108')"
-            >
-
-                <span
-                    style="
-                    font-size:16px;
-                    font-weight:bold;
-                    color:#00a651;
-                    "
-                >
-                    Upay
-                </span>
-
-                <span
-                    style="
-                    font-size:12px;
-                    color:#555;
-                    "
-                >
-                    উপায়
-                </span>
-
+            <div class="channel-card" onclick="selectChannel(this,'Upay','01726232108')">
+                <span style="font-size:16px;font-weight:bold;color:#00a651;">Upay</span>
+                <span style="font-size:12px;color:#555;">উপায়</span>
             </div>
-
-
         </div>
 
-
-        <div
-            id="netChannels"
-            class="channel-grid"
-            style="display:none;"
-        >
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'DBBL Net Banking','123.105.XXXXX')"
-            >
-
-                <span
-                    style="
-                    font-size:15px;
-                    font-weight:bold;
-                    color:#0055a5;
-                    "
-                >
-                    DBBL Bank
-                </span>
-
-                <span
-                    style="
-                    font-size:11px;
-                    color:#555;
-                    "
-                >
-                    Dutch Bangla
-                </span>
-
+        <div id="netChannels" class="channel-grid" style="display:none;">
+            <div class="channel-card" onclick="selectChannel(this,'DBBL Net Banking','123.105.XXXXX')">
+                <span style="font-size:15px;font-weight:bold;color:#0055a5;">DBBL Bank</span>
+                <span style="font-size:11px;color:#555;">Dutch Bangla</span>
             </div>
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'Islami Bank Net Banking','456.789.XXXXX')"
-            >
-
-                <span
-                    style="
-                    font-size:15px;
-                    font-weight:bold;
-                    color:#008751;
-                    "
-                >
-                    Islami Bank
-                </span>
-
-                <span
-                    style="
-                    font-size:11px;
-                    color:#555;
-                    "
-                >
-                    IBBL
-                </span>
-
+            <div class="channel-card" onclick="selectChannel(this,'Islami Bank Net Banking','456.789.XXXXX')">
+                <span style="font-size:15px;font-weight:bold;color:#008751;">Islami Bank</span>
+                <span style="font-size:11px;color:#555;">IBBL</span>
             </div>
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'MTB Net Banking','789.123.XXXXX')"
-            >
-
-                <span
-                    style="
-                    font-size:15px;
-                    font-weight:bold;
-                    color:#cc0000;
-                    "
-                >
-                    MTB Bank
-                </span>
-
-                <span
-                    style="
-                    font-size:11px;
-                    color:#555;
-                    "
-                >
-                    Mutual Trust
-                </span>
-
+            <div class="channel-card" onclick="selectChannel(this,'MTB Net Banking','789.123.XXXXX')">
+                <span style="font-size:15px;font-weight:bold;color:#cc0000;">MTB Bank</span>
+                <span style="font-size:11px;color:#555;">Mutual Trust</span>
             </div>
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'AB Bank Net Banking','321.654.XXXXX')"
-            >
-
-                <span
-                    style="
-                    font-size:15px;
-                    font-weight:bold;
-                    color:#e11d48;
-                    "
-                >
-                    AB Bank
-                </span>
-
-                <span
-                    style="
-                    font-size:11px;
-                    color:#555;
-                    "
-                >
-                    AB Direct
-                </span>
-
+            <div class="channel-card" onclick="selectChannel(this,'AB Bank Net Banking','321.654.XXXXX')">
+                <span style="font-size:15px;font-weight:bold;color:#e11d48;">AB Bank</span>
+                <span style="font-size:11px;color:#555;">AB Direct</span>
             </div>
-
-
         </div>
 
-
-        <button
-            id="payActionBtn"
-            class="yellow-btn"
-            style="
-            margin-top:20px;
-            opacity:.5;
-            pointer-events:none;
-            "
-            onclick="proceedToPaymentDetails()"
-        >
+        <button id="payActionBtn" class="yellow-btn" style="margin-top:20px;opacity:.5;pointer-events:none;" onclick="proceedToPaymentDetails()">
             Pay ৳0.00
         </button>
-
-
     </div>
-
 </div>
 
 
@@ -4364,57 +3016,12 @@ footer{
      PAYMENT DETAILS
 ===================================================== -->
 
-<div
-    id="detailsModal"
-    class="gateway-modal"
->
-
-    <div
-        class="gateway-box"
-        style="
-        text-align:center;
-        padding:25px;
-        "
-    >
-
-
-        <h3
-            id="detailsTitle"
-            style="
-            color:#008751;
-            margin-bottom:15px;
-            "
-        >
-            পেমেন্ট নির্দেশনা
-        </h3>
-
-
-        <div
-            id="detailsInstructionBox"
-            style="
-            background:#f8fafc;
-            border-radius:16px;
-            padding:18px;
-            text-align:left;
-            font-size:15px;
-            margin-bottom:20px;
-            border:1px solid #e2e8f0;
-            line-height:1.6;
-            "
-        >
-        </div>
-
-
-        <button
-            class="yellow-btn"
-            onclick="completePayment()"
-        >
-            হোমে ফিরে যান
-        </button>
-
-
+<div id="detailsModal" class="gateway-modal">
+    <div class="gateway-box" style="text-align:center;padding:25px;">
+        <h3 id="detailsTitle" style="color:#008751;margin-bottom:15px;">পেমেন্ট নির্দেশনা</h3>
+        <div id="detailsInstructionBox" style="background:#f8fafc;border-radius:16px;padding:18px;text-align:left;font-size:15px;margin-bottom:20px;border:1px solid #e2e8f0;line-height:1.6;"></div>
+        <button class="yellow-btn" onclick="completePayment()">হোমে ফিরে যান</button>
     </div>
-
 </div>
 
 
@@ -4423,13 +3030,9 @@ footer{
 ===================================================== -->
 
 <footer>
-
     <b>🩸 MB Blood Bank</b>
-
     <br>
-
     বৃহত্তম ব্লাড ব্যাংক
-
 </footer>
 
 
@@ -4438,1373 +3041,341 @@ footer{
 ===================================================== -->
 
 <script type="module">
-
-import {
-    initializeApp
-}
-from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-
-
-import {
-    getAnalytics
-}
-from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
 
 const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyDCJr3wCX4XxCZgOeC_OmXFs6OmbtYdRuY",
-
-    authDomain:
-        "mb-blood-bank-a17aa.firebaseapp.com",
-
-    databaseURL:
-        "https://mb-blood-bank-a17aa-default-rtdb.firebaseio.com",
-
-    projectId:
-        "mb-blood-bank-a17aa",
-
-    storageBucket:
-        "mb-blood-bank-a17aa.firebasestorage.app",
-
-    messagingSenderId:
-        "28580039463",
-
-    appId:
-        "1:28580039463:web:698e0cc5d399bc6b433702",
-
-    measurementId:
-        "G-D4FJTMQ17C"
-
+    apiKey: "AIzaSyDCJr3wCX4XxCZgOeC_OmXFs6OmbtYdRuY",
+    authDomain: "mb-blood-bank-a17aa.firebaseapp.com",
+    databaseURL: "https://mb-blood-bank-a17aa-default-rtdb.firebaseio.com",
+    projectId: "mb-blood-bank-a17aa",
+    storageBucket: "mb-blood-bank-a17aa.firebasestorage.app",
+    messagingSenderId: "28580039463",
+    appId: "1:28580039463:web:698e0cc5d399bc6b433702",
+    measurementId: "G-D4FJTMQ17C"
 };
 
-
-const app =
-    initializeApp(firebaseConfig);
-
-
-const analytics =
-    getAnalytics(app);
-
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 </script>
 
 
 <script>
-
-/* =====================================================
-   BANGLADESH LOCATION DATA
-===================================================== */
-
-const LOCATION_URL =
-"https://iqbalhasandev.github.io/bangladesh-geo-json/bangladesh-geo.json";
-
-
+const LOCATION_URL = "https://iqbalhasandev.github.io/bangladesh-geo-json/bangladesh-geo.json";
 let locations = [];
 
-
 async function loadLocations(){
-
     try{
-
-        const res =
-            await fetch(LOCATION_URL);
-
-        locations =
-            await res.json();
-
-
+        const res = await fetch(LOCATION_URL);
+        locations = await res.json();
         fillDivisions("searchDivision");
-
         fillDivisions("dDivision");
-
         fillDivisions("rDivision");
-
-
     }catch(error){
-
         console.error(error);
-
-        alert(
-            "বিভাগ/জেলা/উপজেলার তথ্য লোড হয়নি। Internet connection পরীক্ষা করুন।"
-        );
-
+        alert("বিভাগ/জেলা/উপজেলার তথ্য লোড হয়নি। Internet connection পরীক্ষা করুন।");
     }
-
 }
-
 
 function fillDivisions(id){
-
-    const select =
-        document.getElementById(id);
-
-
+    const select = document.getElementById(id);
     locations.forEach(d=>{
-
-        const o =
-            document.createElement("option");
-
-
-        o.value =
-            d.name;
-
-
-        o.textContent =
-            `${d.bn_name} (${d.name})`;
-
-
+        const o = document.createElement("option");
+        o.value = d.name;
+        o.textContent = `${d.bn_name} (${d.name})`;
         select.appendChild(o);
-
     });
-
 }
-
 
 function getDivision(name){
-
-    return locations.find(
-        x => x.name === name
-    );
-
+    return locations.find(x => x.name === name);
 }
-
 
 function getDistrict(div,name){
-
-    return div?.districts?.find(
-        x => x.name === name
-    );
-
+    return div?.districts?.find(x => x.name === name);
 }
 
+function setupLocation(divId, districtId, upazilaId){
+    const div = document.getElementById(divId);
+    const dis = document.getElementById(districtId);
+    const up = document.getElementById(upazilaId);
 
-function setupLocation(
-    divId,
-    districtId,
-    upazilaId
-){
+    div.addEventListener("change", ()=>{
+        dis.innerHTML = '<option value="">জেলা নির্বাচন করুন</option>';
+        up.innerHTML = '<option value="">উপজেলা নির্বাচন করুন</option>';
+        const d = getDivision(div.value);
+        d?.districts?.forEach(x=>{
+            const o = document.createElement("option");
+            o.value = x.name;
+            o.textContent = `${x.bn_name} (${x.name})`;
+            dis.appendChild(o);
+        });
+    });
 
-    const div =
-        document.getElementById(divId);
-
-
-    const dis =
-        document.getElementById(districtId);
-
-
-    const up =
-        document.getElementById(upazilaId);
-
-
-    div.addEventListener(
-        "change",
-        ()=>{
-
-            dis.innerHTML =
-                '<option value="">জেলা নির্বাচন করুন</option>';
-
-
-            up.innerHTML =
-                '<option value="">উপজেলা নির্বাচন করুন</option>';
-
-
-            const d =
-                getDivision(div.value);
-
-
-            d?.districts?.forEach(x=>{
-
-                const o =
-                    document.createElement("option");
-
-
-                o.value =
-                    x.name;
-
-
-                o.textContent =
-                    `${x.bn_name} (${x.name})`;
-
-
-                dis.appendChild(o);
-
-            });
-
-        }
-    );
-
-
-    dis.addEventListener(
-        "change",
-        ()=>{
-
-            up.innerHTML =
-                '<option value="">উপজেলা নির্বাচন করুন</option>';
-
-
-            const d =
-                getDivision(div.value);
-
-
-            const district =
-                getDistrict(
-                    d,
-                    dis.value
-                );
-
-
-            district?.upazilas?.forEach(x=>{
-
-                const o =
-                    document.createElement("option");
-
-
-                o.value =
-                    x.name;
-
-
-                o.textContent =
-                    `${x.bn_name} (${x.name})`;
-
-
-                up.appendChild(o);
-
-            });
-
-        }
-    );
-
+    dis.addEventListener("change", ()=>{
+        up.innerHTML = '<option value="">উপজেলা নির্বাচন করুন</option>';
+        const d = getDivision(div.value);
+        const district = getDistrict(d, dis.value);
+        district?.upazilas?.forEach(x=>{
+            const o = document.createElement("option");
+            o.value = x.name;
+            o.textContent = `${x.bn_name} (${x.name})`;
+            up.appendChild(o);
+        });
+    });
 }
 
-
-setupLocation(
-    "searchDivision",
-    "searchDistrict",
-    "searchUpazila"
-);
-
-
-setupLocation(
-    "dDivision",
-    "dDistrict",
-    "dUpazila"
-);
-
-
-setupLocation(
-    "rDivision",
-    "rDistrict",
-    "rUpazila"
-);
-
-
-/* =====================================================
-   MENU
-===================================================== */
+setupLocation("searchDivision", "searchDistrict", "searchUpazila");
+setupLocation("dDivision", "dDistrict", "dUpazila");
+setupLocation("rDivision", "rDistrict", "rUpazila");
 
 function toggleMenu(){
-
-    document
-        .getElementById("sideMenu")
-        .classList
-        .toggle("active");
-
+    document.getElementById("sideMenu").classList.toggle("active");
 }
-
-
-/* =====================================================
-   AMBULANCE MODAL
-===================================================== */
 
 function openAmbulanceModal(){
-
     renderAmbulanceList();
-
-
-    document
-        .getElementById("ambulanceModal")
-        .style.display =
-        "block";
-
+    document.getElementById("ambulanceModal").style.display = "block";
 }
-
 
 function closeAmbulanceModal(){
-
-    document
-        .getElementById("ambulanceModal")
-        .style.display =
-        "none";
-
+    document.getElementById("ambulanceModal").style.display = "none";
 }
 
-
-window.onclick =
-function(event){
-
-    const ambModal =
-        document.getElementById(
-            "ambulanceModal"
-        );
-
-
-    const gatewayModal =
-        document.getElementById(
-            "gatewayModal"
-        );
-
-
-    const detailsModal =
-        document.getElementById(
-            "detailsModal"
-        );
-
-
-    if(event.target == ambModal)
-        ambModal.style.display =
-            "none";
-
-
-    if(event.target == gatewayModal)
-        gatewayModal.style.display =
-            "none";
-
-
-    if(event.target == detailsModal)
-        detailsModal.style.display =
-            "none";
-
+window.onclick = function(event){
+    const ambModal = document.getElementById("ambulanceModal");
+    const gatewayModal = document.getElementById("gatewayModal");
+    const detailsModal = document.getElementById("detailsModal");
+    if(event.target == ambModal) ambModal.style.display = "none";
+    if(event.target == gatewayModal) gatewayModal.style.display = "none";
+    if(event.target == detailsModal) detailsModal.style.display = "none";
 }
-
-
-/* =====================================================
-   PAYMENT GATEWAY
-===================================================== */
 
 let selectedChannelName = "";
-
 let selectedAccountNumber = "";
-
 let currentAmount = 0;
 
-
 function openGatewayModal(){
+    const fundType = document.getElementById("fundType").value;
+    const contact = document.getElementById("fundContact").value.trim();
+    const amount = document.getElementById("fundAmount").value.trim();
 
-    const fundType =
-        document
-        .getElementById("fundType")
-        .value;
-
-
-    const contact =
-        document
-        .getElementById("fundContact")
-        .value
-        .trim();
-
-
-    const amount =
-        document
-        .getElementById("fundAmount")
-        .value
-        .trim();
-
-
-    if(
-        !fundType ||
-        !contact ||
-        !amount ||
-        amount <= 0
-    ){
-
-        alert(
-            "দয়া করে তহবিল, মোবাইল/ইমেইল এবং সঠিক পরিমাণ পূরণ করুন।"
-        );
-
+    if(!fundType || !contact || !amount || amount <= 0){
+        alert("দয়া করে তহবিল, মোবাইল/ইমেইল এবং সঠিক পরিমাণ পূরণ করুন।");
         return;
-
     }
 
-
-    currentAmount =
-        amount;
-
-
-    document
-        .getElementById("displayAmount")
-        .textContent =
-        "৳ " +
-        Number(amount).toLocaleString();
-
-
-    document
-        .getElementById("gatewayModal")
-        .style.display =
-        "block";
-
-
-    document
-        .querySelectorAll(".channel-card")
-        .forEach(
-            c =>
-            c.classList.remove("active")
-        );
-
-
-    const btn =
-        document.getElementById(
-            "payActionBtn"
-        );
-
-
-    btn.style.opacity =
-        "0.5";
-
-
-    btn.style.pointerEvents =
-        "none";
-
-
-    btn.textContent =
-        `Pay ৳${Number(amount).toLocaleString()}`;
-
+    currentAmount = amount;
+    document.getElementById("displayAmount").textContent = "৳ " + Number(amount).toLocaleString();
+    document.getElementById("gatewayModal").style.display = "block";
+    document.querySelectorAll(".channel-card").forEach(c => c.classList.remove("active"));
+    const btn = document.getElementById("payActionBtn");
+    btn.style.opacity = "0.5";
+    btn.style.pointerEvents = "none";
+    btn.textContent = `Pay ৳${Number(amount).toLocaleString()}`;
 }
-
 
 function closeGatewayModal(){
-
-    document
-        .getElementById("gatewayModal")
-        .style.display =
-        "none";
-
+    document.getElementById("gatewayModal").style.display = "none";
 }
-
 
 function switchGatewayTab(tab){
-
-    const tabMobile =
-        document.getElementById(
-            "tabMobile"
-        );
-
-
-    const tabNet =
-        document.getElementById(
-            "tabNet"
-        );
-
-
-    const mobileChannels =
-        document.getElementById(
-            "mobileChannels"
-        );
-
-
-    const netChannels =
-        document.getElementById(
-            "netChannels"
-        );
-
+    const tabMobile = document.getElementById("tabMobile");
+    const tabNet = document.getElementById("tabNet");
+    const mobileChannels = document.getElementById("mobileChannels");
+    const netChannels = document.getElementById("netChannels");
 
     if(tab === "mobile"){
-
-        tabMobile.classList.add(
-            "active"
-        );
-
-        tabNet.classList.remove(
-            "active"
-        );
-
-        mobileChannels.style.display =
-            "grid";
-
-        netChannels.style.display =
-            "none";
-
+        tabMobile.classList.add("active");
+        tabNet.classList.remove("active");
+        mobileChannels.style.display = "grid";
+        netChannels.style.display = "none";
     }else{
-
-        tabNet.classList.add(
-            "active"
-        );
-
-        tabMobile.classList.remove(
-            "active"
-        );
-
-        netChannels.style.display =
-            "grid";
-
-        mobileChannels.style.display =
-            "none";
-
+        tabNet.classList.add("active");
+        tabMobile.classList.remove("active");
+        netChannels.style.display = "grid";
+        mobileChannels.style.display = "none";
     }
 
-
-    document
-        .querySelectorAll(".channel-card")
-        .forEach(
-            c =>
-            c.classList.remove("active")
-        );
-
-
-    const btn =
-        document.getElementById(
-            "payActionBtn"
-        );
-
-
-    btn.style.opacity =
-        "0.5";
-
-
-    btn.style.pointerEvents =
-        "none";
-
+    document.querySelectorAll(".channel-card").forEach(c => c.classList.remove("active"));
+    const btn = document.getElementById("payActionBtn");
+    btn.style.opacity = "0.5";
+    btn.style.pointerEvents = "none";
 }
 
-
-function selectChannel(
-    cardElement,
-    name,
-    account
-){
-
-    document
-        .querySelectorAll(".channel-card")
-        .forEach(
-            c =>
-            c.classList.remove("active")
-        );
-
-
-    cardElement.classList.add(
-        "active"
-    );
-
-
-    selectedChannelName =
-        name;
-
-
-    selectedAccountNumber =
-        account;
-
-
-    const btn =
-        document.getElementById(
-            "payActionBtn"
-        );
-
-
-    btn.style.opacity =
-        "1";
-
-
-    btn.style.pointerEvents =
-        "auto";
-
-
-    btn.textContent =
-        `Pay ৳${Number(currentAmount).toLocaleString()} via ${name}`;
-
+function selectChannel(cardElement, name, account){
+    document.querySelectorAll(".channel-card").forEach(c => c.classList.remove("active"));
+    cardElement.classList.add("active");
+    selectedChannelName = name;
+    selectedAccountNumber = account;
+    const btn = document.getElementById("payActionBtn");
+    btn.style.opacity = "1";
+    btn.style.pointerEvents = "auto";
+    btn.textContent = `Pay ৳${Number(currentAmount).toLocaleString()} via ${name}`;
 }
-
 
 function proceedToPaymentDetails(){
-
     closeGatewayModal();
-
-
-    document
-        .getElementById("detailsTitle")
-        .textContent =
-        `${selectedChannelName} পেমেন্ট নির্দেশনা`;
-
-
-    document
-        .getElementById("detailsInstructionBox")
-        .innerHTML = `
-
-        <b>নির্বাচিত মাধ্যম:</b>
-        ${selectedChannelName}
-
-        <br>
-
-        <b>পরিমাণ:</b>
-        ৳${Number(currentAmount).toLocaleString()}
-
-        <br><br>
-
-        অনুগ্রহ করে আপনার
-        ${selectedChannelName}
-        অ্যাপ থেকে নিচের নম্বরে টাকা পাঠান:
-
-        <div
-            style="
-            background:#fff;
-            padding:10px;
-            border-radius:8px;
-            margin:10px 0;
-            font-size:18px;
-            font-weight:bold;
-            color:#008751;
-            text-align:center;
-            border:1px dashed #cbd5e1;
-            "
-        >
-
+    document.getElementById("detailsTitle").textContent = `${selectedChannelName} পেমেন্ট নির্দেশনা`;
+    document.getElementById("detailsInstructionBox").innerHTML = `
+        <b>নির্বাচিত মাধ্যম:</b> ${selectedChannelName}<br>
+        <b>পরিমাণ:</b> ৳${Number(currentAmount).toLocaleString()}<br><br>
+        অনুগ্রহ করে আপনার ${selectedChannelName} অ্যাপ থেকে নিচের নম্বরে টাকা পাঠান:
+        <div style="background:#fff;padding:10px;border-radius:8px;margin:10px 0;font-size:18px;font-weight:bold;color:#008751;text-align:center;border:1px dashed #cbd5e1;">
             ${selectedAccountNumber}
-
         </div>
-
-        <small style="color:#64748b;">
-            ❤ MB মানবতা ফান্ডে সহযোগিতার জন্য আপনাকে আন্তরিক ধন্যবাদ
-        </small>
-
+        <small style="color:#64748b;">❤ MB মানবতা ফান্ডে সহযোগিতার জন্য আপনাকে আন্তরিক ধন্যবাদ</small>
     `;
-
-
-    document
-        .getElementById("detailsModal")
-        .style.display =
-        "block";
-
+    document.getElementById("detailsModal").style.display = "block";
 }
-
 
 function completePayment(){
-
-    document
-        .getElementById("detailsModal")
-        .style.display =
-        "none";
-
-
-    document
-        .getElementById("fundType")
-        .value =
-        "";
-
-
-    document
-        .getElementById("fundContact")
-        .value =
-        "";
-
-
-    document
-        .getElementById("fundAmount")
-        .value =
-        "";
-
+    document.getElementById("detailsModal").style.display = "none";
+    document.getElementById("fundType").value = "";
+    document.getElementById("fundContact").value = "";
+    document.getElementById("fundAmount").value = "";
 }
-
-
-/* =====================================================
-   AMBULANCE LIST
-===================================================== */
 
 function renderAmbulanceList(){
-
-    const container =
-        document.getElementById(
-            "ambulanceListContainer"
-        );
-
-
-    const ambulances =
-        JSON.parse(
-            localStorage.getItem(
-                "mb_ambulances"
-            ) || "[]"
-        );
-
-
+    const container = document.getElementById("ambulanceListContainer");
+    const ambulances = JSON.parse(localStorage.getItem("mb_ambulances") || "[]");
     if(!ambulances.length){
-
-        container.innerHTML = `
-
-            <p
-                style="
-                text-align:center;
-                padding:10px;
-                color:#555;
-                "
-            >
-                কোনো এম্বুলেন্সের তথ্য পাওয়া যায়নি।
-            </p>
-
-        `;
-
+        container.innerHTML = `<p style="text-align:center;padding:10px;color:#555;">কোনো এম্বুলেন্সের তথ্য পাওয়া যায়নি।</p>`;
         return;
-
     }
-
-
-    container.innerHTML =
-        ambulances.map(
-            a => `
-
+    container.innerHTML = ambulances.map(a => `
         <div class="ambulance-list-item">
-
-            <h4>
-                🚑 এম্বুলেন্স এর নাম:
-                ${escapeHtml(a.name)}
-            </h4>
-
-            <p>
-
-                <b>📞 নাম্বার:</b>
-
-                <a
-                    href="tel:${escapeHtml(a.phone)}"
-                    style="
-                    color:#7c1eaf;
-                    font-weight:bold;
-                    "
-                >
-                    ${escapeHtml(a.phone)}
-                </a>
-
-            </p>
-
-            <p>
-
-                <b>📍 ঠিকানা:</b>
-
-                ${escapeHtml(a.address)}
-
-            </p>
-
+            <h4>🚑 এম্বুলেন্স এর নাম: ${escapeHtml(a.name)}</h4>
+            <p><b>📞 নাম্বার:</b> <a href="tel:${escapeHtml(a.phone)}" style="color:#7c1eaf;font-weight:bold;">${escapeHtml(a.phone)}</a></p>
+            <p><b>📍 ঠিকানা:</b> ${escapeHtml(a.address)}</p>
         </div>
-
-    `
-        ).join("");
-
+    `).join("");
 }
-
-
-/* =====================================================
-   LOCAL STORAGE
-===================================================== */
 
 function getDonors(){
-
-    return JSON.parse(
-        localStorage.getItem(
-            "mb_donors"
-        ) || "[]"
-    );
-
+    return JSON.parse(localStorage.getItem("mb_donors") || "[]");
 }
-
 
 function saveDonors(data){
-
-    localStorage.setItem(
-        "mb_donors",
-        JSON.stringify(data)
-    );
-
+    localStorage.setItem("mb_donors", JSON.stringify(data));
 }
-
 
 function getRequests(){
-
-    return JSON.parse(
-        localStorage.getItem(
-            "mb_requests"
-        ) || "[]"
-    );
-
+    return JSON.parse(localStorage.getItem("mb_requests") || "[]");
 }
-
-
-/* =====================================================
-   DONOR REGISTRATION
-===================================================== */
 
 function fileToBase64(file){
-
-    return new Promise(
-        (resolve,reject)=>{
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                () =>
-                resolve(
-                    reader.result
-                );
-
-
-            reader.onerror =
-                reject;
-
-
-            reader.readAsDataURL(
-                file
-            );
-
-        }
-    );
-
+    return new Promise((resolve,reject)=>{
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
 }
 
-
-document
-    .getElementById("donorForm")
-    .addEventListener(
-        "submit",
-        async function(e){
-
-            e.preventDefault();
-
-
-            const donors =
-                getDonors();
-
-
-            const id =
-                "MB-" +
-                Date.now()
-                .toString()
-                .slice(-8);
-
-
-            const donor = {
-
-                id:id,
-
-                name:
-                    document
-                    .getElementById(
-                        "dName"
-                    )
-                    .value
-                    .trim(),
-
-                phone:
-                    document
-                    .getElementById(
-                        "dPhone"
-                    )
-                    .value
-                    .trim(),
-
-                blood:
-                    document
-                    .getElementById(
-                        "dBlood"
-                    )
-                    .value,
-
-                division:
-                    document
-                    .getElementById(
-                        "dDivision"
-                    )
-                    .value,
-
-                district:
-                    document
-                    .getElementById(
-                        "dDistrict"
-                    )
-                    .value,
-
-                upazila:
-                    document
-                    .getElementById(
-                        "dUpazila"
-                    )
-                    .value,
-
-                address:
-                    document
-                    .getElementById(
-                        "dAddress"
-                    )
-                    .value
-                    .trim(),
-
-                photo:"",
-
-                status:"pending",
-
-                createdAt:
-                    new Date()
-                    .toISOString()
-
-            };
-
-
-            const photoFile =
-                document
-                .getElementById(
-                    "dPhoto"
-                )
-                .files[0];
-
-
-            if(photoFile){
-
-                donor.photo =
-                    await fileToBase64(
-                        photoFile
-                    );
-
-            }
-
-
-            donors.push(
-                donor
-            );
-
-
-            saveDonors(
-                donors
-            );
-
-
-            alert(
-
-                "আপনার নিবন্ধনের অনুরোধ পাঠানো হয়েছে।\n\n" +
-
-                "Donor ID: " +
-                id +
-
-                "\nStatus: Pending\n\n" +
-
-                "Admin যাচাই করে Approve করার পর আপনার Profile তালিকায় প্রদর্শিত হবে।"
-
-            );
-
-
-            this.reset();
-
-
-            updateStats();
-
-        }
-    );
-
-
-/* =====================================================
-   EMERGENCY REQUEST
-===================================================== */
-
-document
-    .getElementById("requestForm")
-    .addEventListener(
-        "submit",
-        function(e){
-
-            e.preventDefault();
-
-
-            const requests =
-                getRequests();
-
-
-            requests.push({
-
-                id:
-                    "REQ-" +
-                    Date.now()
-                    .toString()
-                    .slice(-8),
-
-                patient:
-                    document
-                    .getElementById(
-                        "rName"
-                    )
-                    .value
-                    .trim(),
-
-                phone:
-                    document
-                    .getElementById(
-                        "rPhone"
-                    )
-                    .value
-                    .trim(),
-
-                blood:
-                    document
-                    .getElementById(
-                        "rBlood"
-                    )
-                    .value,
-
-                bags:
-                    document
-                    .getElementById(
-                        "rBags"
-                    )
-                    .value,
-
-                division:
-                    document
-                    .getElementById(
-                        "rDivision"
-                    )
-                    .value,
-
-                district:
-                    document
-                    .getElementById(
-                        "rDistrict"
-                    )
-                    .value,
-
-                upazila:
-                    document
-                    .getElementById(
-                        "rUpazila"
-                    )
-                    .value,
-
-                hospital:
-                    document
-                    .getElementById(
-                        "rHospital"
-                    )
-                    .value
-                    .trim(),
-
-                date:
-                    document
-                    .getElementById(
-                        "rDate"
-                    )
-                    .value,
-
-                urgency:
-                    document
-                    .getElementById(
-                        "rUrgency"
-                    )
-                    .value,
-
-                info:
-                    document
-                    .getElementById(
-                        "rInfo"
-                    )
-                    .value
-                    .trim(),
-
-                status:"pending",
-
-                createdAt:
-                    new Date()
-                    .toISOString()
-
-            });
-
-
-            localStorage.setItem(
-                "mb_requests",
-                JSON.stringify(
-                    requests
-                )
-            );
-
-
-            alert(
-                "🚨 আপনার রক্তের অনুরোধ সফলভাবে পাঠানো হয়েছে।"
-            );
-
-
-            this.reset();
-
-
-            updateStats();
-
-        }
-    );
-
-
-/* =====================================================
-   DONOR SEARCH
-===================================================== */
+document.getElementById("donorForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+    const donors = getDonors();
+    const id = "MB-" + Date.now().toString().slice(-8);
+    const donor = {
+        id:id,
+        name: document.getElementById("dName").value.trim(),
+        phone: document.getElementById("dPhone").value.trim(),
+        blood: document.getElementById("dBlood").value,
+        division: document.getElementById("dDivision").value,
+        district: document.getElementById("dDistrict").value,
+        upazila: document.getElementById("dUpazila").value,
+        address: document.getElementById("dAddress").value.trim(),
+        photo:"",
+        status:"pending",
+        createdAt: new Date().toISOString()
+    };
+    const photoFile = document.getElementById("dPhoto").files[0];
+    if(photoFile){
+        donor.photo = await fileToBase64(photoFile);
+    }
+    donors.push(donor);
+    saveDonors(donors);
+    alert("আপনার নিবন্ধনের অনুরোধ পাঠানো হয়েছে।\n\nDonor ID: " + id + "\nStatus: Pending\n\nAdmin যাচাই করে Approve করার পর আপনার Profile তালিকায় প্রদর্শিত হবে।");
+    this.reset();
+    updateStats();
+});
+
+document.getElementById("requestForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const requests = getRequests();
+    requests.push({
+        id: "REQ-" + Date.now().toString().slice(-8),
+        patient: document.getElementById("rName").value.trim(),
+        phone: document.getElementById("rPhone").value.trim(),
+        blood: document.getElementById("rBlood").value,
+        bags: document.getElementById("rBags").value,
+        division: document.getElementById("rDivision").value,
+        district: document.getElementById("rDistrict").value,
+        upazila: document.getElementById("rUpazila").value,
+        hospital: document.getElementById("rHospital").value.trim(),
+        date: document.getElementById("rDate").value,
+        urgency: document.getElementById("rUrgency").value,
+        info: document.getElementById("rInfo").value.trim(),
+        status:"pending",
+        createdAt: new Date().toISOString()
+    });
+    localStorage.setItem("mb_requests", JSON.stringify(requests));
+    alert("🚨 আপনার রক্তের অনুরোধ সফলভাবে পাঠানো হয়েছে।");
+    this.reset();
+    updateStats();
+});
 
 function searchDonors(){
+    const blood = document.getElementById("searchBlood").value;
+    const division = document.getElementById("searchDivision").value;
+    const district = document.getElementById("searchDistrict").value;
+    const upazila = document.getElementById("searchUpazila").value;
 
-    const blood =
-        document
-        .getElementById(
-            "searchBlood"
-        )
-        .value;
+    const donors = getDonors().filter(d =>
+        d.status === "approved" &&
+        (!blood || d.blood === blood) &&
+        (!division || d.division === division) &&
+        (!district || d.district === district) &&
+        (!upazila || d.upazila === upazila)
+    );
 
-
-    const division =
-        document
-        .getElementById(
-            "searchDivision"
-        )
-        .value;
-
-
-    const district =
-        document
-        .getElementById(
-            "searchDistrict"
-        )
-        .value;
-
-
-    const upazila =
-        document
-        .getElementById(
-            "searchUpazila"
-        )
-        .value;
-
-
-    const donors =
-        getDonors()
-        .filter(
-            d =>
-
-            d.status === "approved" &&
-
-            (!blood ||
-                d.blood === blood) &&
-
-            (!division ||
-                d.division === division) &&
-
-            (!district ||
-                d.district === district) &&
-
-            (!upazila ||
-                d.upazila === upazila)
-
-        );
-
-
-    const box =
-        document.getElementById(
-            "donorResults"
-        );
-
-
+    const box = document.getElementById("donorResults");
     if(!donors.length){
-
-        box.innerHTML =
-
-            `<div class="notice full">
-
-                কোনো Approved Donor পাওয়া যায়নি।
-
-            </div>`;
-
+        box.innerHTML = `<div class="notice full">কোনো Approved Donor পাওয়া যায়নি।</div>`;
         return;
-
     }
 
-
-    box.innerHTML =
-        donors.map(
-            d => `
-
+    box.innerHTML = donors.map(d => `
         <div class="donor-card">
-
-
-            ${
-                d.photo
-
-                ?
-
-                `<img
-                    src="${d.photo}"
-                    style="
-                    width:75px;
-                    height:75px;
-                    border-radius:50%;
-                    object-fit:cover;
-                    margin-bottom:10px
-                    "
-                >`
-
-                :
-
-                `<div class="blood">
-                    ${d.blood}
-                </div>`
-            }
-
-
-            <h3>
-                ${escapeHtml(d.name)}
-            </h3>
-
-
-            <p>
-
-                <b>🩸 Blood:</b>
-
-                ${d.blood}
-
-            </p>
-
-
-            <p>
-
-                <b>📍</b>
-
-                ${escapeHtml(d.district)},
-
-                ${escapeHtml(d.upazila)}
-
-            </p>
-
-
-            <p>
-
-                <b>🏠</b>
-
-                ${escapeHtml(d.address)}
-
-            </p>
-
-
-            <p>
-
-                <b>🆔</b>
-
-                ${d.id}
-
-            </p>
-
-
+            ${d.photo ? `<img src="${d.photo}" style="width:75px;height:75px;border-radius:50%;object-fit:cover;margin-bottom:10px">` : `<div class="blood">${d.blood}</div>`}
+            <h3>${escapeHtml(d.name)}</h3>
+            <p><b>🩸 Blood:</b> ${d.blood}</p>
+            <p><b>📍</b> ${escapeHtml(d.district)}, ${escapeHtml(d.upazila)}</p>
+            <p><b>🏠</b> ${escapeHtml(d.address)}</p>
+            <p><b>🆔</b> ${d.id}</p>
             <div class="card-actions">
-
-
-                <a
-                    class="small-btn"
-                    href="tel:${d.phone}"
-                >
-                    📞 Call
-                </a>
-
-
-                <a
-                    class="small-btn"
-                    href="https://wa.me/88${d.phone.replace(/\D/g,'')}"
-                    target="_blank"
-                >
-                    💬 WhatsApp
-                </a>
-
-
+                <a class="small-btn" href="tel:${d.phone}">📞 Call</a>
+                <a class="small-btn" href="https://wa.me/88${d.phone.replace(/\D/g,'')}" target="_blank">💬 WhatsApp</a>
             </div>
-
-
         </div>
-
-    `
-        ).join("");
-
+    `).join("");
 }
-
 
 function escapeHtml(text){
-
-    return String(
-        text || ""
-    )
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        );
-
+    return String(text || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
-
-
-/* =====================================================
-   STATISTICS
-===================================================== */
 
 function updateStats(){
-
-    const donors =
-        getDonors();
-
-
-    const requests =
-        getRequests();
-
-
-    document
-        .getElementById(
-            "approvedCount"
-        )
-        .textContent =
-
-        donors.filter(
-            x =>
-            x.status === "approved"
-        ).length;
-
-
-    document
-        .getElementById(
-            "pendingCount"
-        )
-        .textContent =
-
-        donors.filter(
-            x =>
-            x.status === "pending"
-        ).length;
-
-
-    document
-        .getElementById(
-            "requestCount"
-        )
-        .textContent =
-
-        requests.length;
-
+    const donors = getDonors();
+    const requests = getRequests();
+    document.getElementById("approvedCount").textContent = donors.filter(x => x.status === "approved").length;
+    document.getElementById("pendingCount").textContent = donors.filter(x => x.status === "pending").length;
+    document.getElementById("requestCount").textContent = requests.length;
 }
 
-
-/* =====================================================
-   START
-===================================================== */
-
 loadLocations();
-
 updateStats();
-
 </script>
 
 </body>
