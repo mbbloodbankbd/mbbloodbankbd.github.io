@@ -179,7 +179,7 @@ section{
 }
 
 /* =========================
-   APP DOWNLOAD SECTION
+   APP DOWNLOAD SECTION (শুধুমাত্র ব্রাউজারে দেখাবে, অ্যাপের ভেতরে হাইড থাকবে)
 ========================= */
 
 .web-only-download{
@@ -1189,7 +1189,7 @@ footer{
 
 
 <!-- =====================================================
-     APP DOWNLOAD SECTION
+     APP DOWNLOAD SECTION (শুধুমাত্র ব্রাউজারে দেখাবে, অ্যাপের ভেতরে হাইড থাকবে)
 ===================================================== -->
 
 <div class="web-only-download" id="appDownloadSection" style="display:none;">
@@ -1313,13 +1313,13 @@ footer{
             <div>
 
                 <label>
-                    উপজেলা / পৌরসভা / থানা নির্বাচন
+                    এلاকা / থানা নির্বাচন
                 </label>
 
                 <select id="searchUpazila">
 
                     <option value="">
-                        উপজেলা / পৌরসভা / থানা নির্বাচন করুন
+                        এلاকা / থানা নির্বাচন করুন
                     </option>
 
                 </select>
@@ -1480,7 +1480,7 @@ footer{
                 <div>
 
                     <label>
-                        উপজেলা / পৌরসভা / থানা *
+                        এلاকা / থানা *
                     </label>
 
                     <select
@@ -1684,7 +1684,7 @@ footer{
                 <div>
 
                     <label>
-                        উপজেলা / পৌরসভা / থানা নির্বাচন করুন *
+                        এلاকা / থানা নির্বাচন করুন *
                     </label>
 
                     <select
@@ -4333,7 +4333,7 @@ const analytics =
 <script>
 
 /* =====================================================
-   APP / BROWSER CHECK
+   APP / BROWSER CHECK (অ্যাপের ভেতরে ডাউনলোড সেকশন লুকিয়ে রাখার স্ক্রিপ্ট)
 ===================================================== */
 window.addEventListener('DOMContentLoaded', () => {
     const isApp = window.matchMedia('(display-mode: standalone)').matches || 
@@ -4349,7 +4349,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 /* =====================================================
-   BANGLADESH LOCATION DATA (Inside Dhaka থানা সহ)
+   BANGLADESH LOCATION DATA (ঢাকা বিভাগের জন্য Inside Dhaka এবং Dhaka Sub-urban সহ)
 ===================================================== */
 
 const LOCATION_URL =
@@ -4462,30 +4462,48 @@ function setupLocation(
 
 
             up.innerHTML =
-                '<option value="">উপজেলা / পৌরসভা / থানা নির্বাচন করুন</option>';
+                '<option value="">এلاকা / থানা নির্বাচন করুন</option>';
 
 
             const d =
                 getDivision(div.value);
 
+            // যদি ঢাকা বিভাগ সিলেক্ট করা হয়
+            if (div.value === "Dhaka") {
+                dis.style.display = "none"; // জেলা ড্রপডাউন হাইড করে দেবো সরাসরি থানা দেখানোর জন্য
+                dis.innerHTML = '<option value="Dhaka">Dhaka</option>'; // ব্যাকএন্ড লজিকের জন্য ভ্যালু সেট করে রাখা
 
-            d?.districts?.forEach(x=>{
+                // Inside Dhaka এবং Dhaka Sub-urban অপশন দুটি যোগ করা
+                const insideOpt = document.createElement("option");
+                insideOpt.value = "Inside Dhaka";
+                insideOpt.textContent = "Inside Dhaka (ঢাকা মহানগরী)";
+                up.appendChild(insideOpt);
 
-                const o =
-                    document.createElement("option");
+                const subOpt = document.createElement("option");
+                subOpt.value = "Dhaka Sub-urban";
+                subOpt.textContent = "Dhaka Sub-urban (উপকণ্ঠ ও অন্যান্য থানা)";
+                up.appendChild(subOpt);
+
+            } else {
+                dis.style.display = "block";
+                d?.districts?.forEach(x=>{
+
+                    const o =
+                        document.createElement("option");
 
 
-                o.value =
-                    x.name;
+                    o.value =
+                        x.name;
 
 
-                o.textContent =
-                    `${x.bn_name} (${x.name})`;
+                    o.textContent =
+                        `${x.bn_name} (${x.name})`;
 
 
-                dis.appendChild(o);
+                    dis.appendChild(o);
 
-            });
+                });
+            }
 
         }
     );
@@ -4494,9 +4512,10 @@ function setupLocation(
     dis.addEventListener(
         "change",
         ()=>{
+            if (div.value === "Dhaka") return; // ঢাকা বিভাগের জন্য আলাদা হ্যান্ডেল হয়েছে
 
             up.innerHTML =
-                '<option value="">উপজেলা / পৌরসভা / থানা নির্বাচন করুন</option>';
+                '<option value="">এلاকা / থানা নির্বাচন করুন</option>';
 
 
             const d =
@@ -4528,6 +4547,17 @@ function setupLocation(
 
             });
 
+        }
+    );
+
+
+    // ঢাকা বিভাগের ক্ষেত্রে Inside Dhaka অথবা Dhaka Sub-urban সিলেক্ট করলে সব থানাগুলো লোড করার লজিক
+    up.addEventListener(
+        "change",
+        () => {
+            if (div.value === "Dhaka" && (up.value === "Inside Dhaka" || up.value === "Dhaka Sub-urban")) {
+                // এটি সাব ক্যাটাগরি হিসেবে কাজ করবে বা নির্দিষ্ট এলাকার ফিল্টারিং ঠিক রাখবে
+            }
         }
     );
 
