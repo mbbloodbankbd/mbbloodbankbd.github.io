@@ -179,7 +179,7 @@ section{
 }
 
 /* =========================
-   APP DOWNLOAD SECTION (শুধুমাত্র ব্রাউজারে দেখাবে, অ্যাপের ভেতরে হাইড থাকবে)
+   APP DOWNLOAD SECTION (শুধুমাত্র ওয়েবসাইট ব্রাউজারে দেখাবে, অ্যাপের মধ্যে হাই থাকবে)
 ========================= */
 
 .web-only-download{
@@ -1313,13 +1313,13 @@ footer{
             <div>
 
                 <label>
-                    উপজেলা / পৌরসভা নির্বাচন
+                    উপজেলা নির্বাচন
                 </label>
 
                 <select id="searchUpazila">
 
                     <option value="">
-                        উপজেলা / পৌরসভা নির্বাচন করুন
+                        উপজেলা নির্বাচন করুন
                     </option>
 
                 </select>
@@ -1480,7 +1480,7 @@ footer{
                 <div>
 
                     <label>
-                        উপজেলা / পৌরসভা *
+                        উপজেলা *
                     </label>
 
                     <select
@@ -1684,7 +1684,7 @@ footer{
                 <div>
 
                     <label>
-                        উপজেলা / পৌরসভা নির্বাচন করুন *
+                        উপজেলা নির্বাচন করুন *
                     </label>
 
                     <select
@@ -4339,17 +4339,17 @@ window.addEventListener('DOMContentLoaded', () => {
     const isApp = window.matchMedia('(display-mode: standalone)').matches || 
                   window.navigator.standalone || 
                   document.referrer.includes('android-app://') || 
-                  navigator.userAgent.includes('wv');
+                  navigator.userAgent.includes('wv'); // Android WebView check
 
     const downloadSection = document.getElementById('appDownloadSection');
     if (!isApp && downloadSection) {
-        downloadSection.style.display = 'block';
+        downloadSection.style.display = 'block'; // শুধুমাত্র ব্রাউজারে দেখাবে
     }
 });
 
 
 /* =====================================================
-   BANGLADESH LOCATION DATA (উপজেলা ও পৌরসভা সহ)
+   BANGLADESH LOCATION DATA
 ===================================================== */
 
 const LOCATION_URL =
@@ -4462,7 +4462,7 @@ function setupLocation(
 
 
             up.innerHTML =
-                '<option value="">উপজেলা / পৌরসভা নির্বাচন করুন</option>';
+                '<option value="">উপজেলা নির্বাচন করুন</option>';
 
 
             const d =
@@ -4496,7 +4496,7 @@ function setupLocation(
         ()=>{
 
             up.innerHTML =
-                '<option value="">উপজেলা / পৌরসভা নির্বাচন করুন</option>';
+                '<option value="">উপজেলা নির্বাচন করুন</option>';
 
 
             const d =
@@ -5472,7 +5472,7 @@ function escapeHtml(text){
 
 
 /* =====================================================
-   STATS
+   STATISTICS
 ===================================================== */
 
 function updateStats(){
