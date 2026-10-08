@@ -179,7 +179,7 @@ section{
 }
 
 /* =========================
-   APP DOWNLOAD SECTION (শুধুমাত্র ব্রাউজারে দেখাবে, অ্যাপের ভেতরে হাইড থাকবে)
+   APP DOWNLOAD SECTION
 ========================= */
 
 .web-only-download{
@@ -1189,7 +1189,7 @@ footer{
 
 
 <!-- =====================================================
-     APP DOWNLOAD SECTION (শুধুমাত্র ব্রাউজারে দেখাবে, অ্যাপের ভেতরে হাইড থাকবে)
+     APP DOWNLOAD SECTION
 ===================================================== -->
 
 <div class="web-only-download" id="appDownloadSection" style="display:none;">
@@ -1313,13 +1313,13 @@ footer{
             <div>
 
                 <label>
-                    থানা / উপজেলা / পৌরসভা নির্বাচন
+                    উপজেলা / থানা নির্বাচন
                 </label>
 
                 <select id="searchUpazila">
 
                     <option value="">
-                        থানা / উপজেলা / পৌরসভা নির্বাচন করুন
+                        উপজেলা / থানা নির্বাচন করুন
                     </option>
 
                 </select>
@@ -1480,7 +1480,7 @@ footer{
                 <div>
 
                     <label>
-                        থানা / উপজেলা / পৌরসভা *
+                        উপজেলা / থানা *
                     </label>
 
                     <select
@@ -1684,7 +1684,7 @@ footer{
                 <div>
 
                     <label>
-                        থানা / উপজেলা / পৌরসভা নির্বাচন করুন *
+                        উপজেলা / থানা নির্বাচন করুন *
                     </label>
 
                     <select
@@ -4349,7 +4349,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 /* =====================================================
-   BANGLADESH LOCATION DATA (CUSTOM DHAKA INSIDE & SUB-URBAN ADDED)
+   BANGLADESH LOCATION DATA (কাস্টম ঢাকা থানা সহ)
 ===================================================== */
 
 const LOCATION_URL =
@@ -4369,75 +4369,74 @@ async function loadLocations(){
         locations =
             await res.json();
 
-        // Dhaka বিভাগের ক্ষেত্রে কাস্টম Inside Dhaka এবং Dhaka Sub-urban যুক্ত করা হলো
+
+        // ঢাকা বিভাগের ঢাকা জেলার ক্ষেত্রে কাস্টম ইনসাইড ঢাকা ও সাব-আরবান যুক্ত করা
         const dhakaDiv = locations.find(d => d.name === "Dhaka" || d.bn_name === "ঢাকা");
-        if(dhakaDiv){
-            dhakaDiv.districts = [
-                {
-                    name: "Inside Dhaka",
-                    bn_name: "ঢাকা মহানগর (Inside Dhaka)",
-                    upazilas: [
-                        { name: "Adabor", bn_name: "আদাবর" },
-                        { name: "Badda", bn_name: "বাড্ডা" },
-                        { name: "Bangsal", bn_name: "বংশাল" },
-                        { name: "Biman Bandar", bn_name: "বিমানবন্দর" },
-                        { name: "Cantonment", bn_name: "ক্যান্টনমেন্ট" },
-                        { name: "Chalkbazar", bn_name: "চকবাজার" },
-                        { name: "Dakshinkhan", bn_name: "দক্ষিণখান" },
-                        { name: "Darus Salam", bn_name: "দারুস সালাম" },
-                        { name: "Demra", bn_name: "ডেমরা" },
-                        { name: "Dhanmondi", bn_name: "ধানমণ্ডি" },
-                        { name: "Gendaria", bn_name: "গেন্ডারিয়া" },
-                        { name: "Gulshan", bn_name: "গুলশান" },
-                        { name: "Hazaribagh", bn_name: "হাজারীবাগ" },
-                        { name: "Jatrabari", bn_name: "যাত্রাবাড়ী" },
-                        { name: "Kadamtali", bn_name: "কদমতলী" },
-                        { name: "Kafrul", bn_name: "কাফরুল" },
-                        { name: "Kalabagan", bn_name: "कलाবাগান" },
-                        { name: "Kamrangirchar", bn_name: "কামরাঙ্গীরচর" },
-                        { name: "Khilgaon", bn_name: "খিলগাঁও" },
-                        { name: "Khilkhet", bn_name: "খিলক্ষেত" },
-                        { name: "Kotwali", bn_name: "কোতোয়ালী" },
-                        { name: "Lalbagh", bn_name: "লালবাগ" },
-                        { name: "Mirpur Model", bn_name: "মিরপুর মডেল" },
-                        { name: "Mohammadpur", bn_name: "মোহাম্মদপুর" },
-                        { name: "Motijheel", bn_name: "মতিঝিল" },
-                        { name: "New Market", bn_name: "নিউ মার্কেট" },
-                        { name: "Pallabi", bn_name: "পল্লবী" },
-                        { name: "Paltan", bn_name: "পল্টন" },
-                        { name: "Ramna", bn_name: "রমনা" },
-                        { name: "Rampura", bn_name: "রামপুরা" },
-                        { name: "Sabujbagh", bn_name: "সবুজবাগ" },
-                        { name: "Shah Ali", bn_name: "শাহ আলী" },
-                        { name: "Shahbagh", bn_name: "শাহবাগ" },
-                        { name: "Sher-e-Bangla Nagar", bn_name: "শেরেবাংলা নগর" },
-                        { name: "Shyampur", bn_name: "শ্যামপুর" },
-                        { name: "Sutrapur", bn_name: "সূত্রাপুর" },
-                        { name: "Tejgaon", bn_name: "তেজগাঁও" },
-                        { name: "Tejgaon Industrial Area", bn_name: "তেজগাঁও শিল্প এলাকা" },
-                        { name: "Turag", bn_name: "তুরাগ" },
-                        { name: "Uttar Khan", bn_name: "উত্তরখান" },
-                        { name: "Uttara East", bn_name: "উত্তরা পূর্ব" },
-                        { name: "Uttara West", bn_name: "উত্তরা পশ্চিম" }
-                    ]
-                },
-                {
-                    name: "Dhaka Sub-urban",
-                    bn_name: "ঢাকার উপশহর ও পার্শ্ববর্তী (Dhaka Sub-urban)",
-                    upazilas: [
-                        { name: "Savar", bn_name: "সাভার" },
-                        { name: "Keraniganj", bn_name: "কেরানীগঞ্জ" },
-                        { name: "Dhamrai", bn_name: "ধামরাই" },
-                        { name: "Nawabganj", bn_name: "নবাবগঞ্জ" },
-                        { name: "Dohar", bn_name: "দোহার" },
-                        { name: "Tongi", bn_name: "টঙ্গী" },
-                        { name: "Gazipur Sadar", bn_name: "গাজীপুর সদর" },
-                        { name: "Narayanganj Sadar", bn_name: "নারায়ণগঞ্জ সদর" },
-                        { name: "Fatullah", bn_name: "ফতুল্লা" },
-                        { name: "Bandar", bn_name: "বন্দর" }
-                    ]
-                }
-            ];
+        if(dhakaDiv) {
+            const dhakaDist = dhakaDiv.districts.find(ds => ds.name === "Dhaka" || ds.bn_name === "ঢাকা");
+            if(dhakaDist) {
+                dhakaDist.upazilas = [
+                    {
+                        name: "Inside Dhaka",
+                        bn_name: "ইনসাইড ঢাকা (মহানগর থানা)",
+                        upazilas: [
+                            {name: "Adabor", bn_name: "আদাবর"},
+                            {name: "Badda", bn_name: "বাড্ডা"},
+                            {name: "Bangshal", bn_name: "বংশাল"},
+                            {name: "Cantonment", bn_name: "ক্যান্টনমেন্ট"},
+                            {name: "Chawkbazar", bn_name: "চকবাজার"},
+                            {name: "Dakshinkhan", bn_name: "দক্ষিণখান"},
+                            {name: "Darus Salam", bn_name: "দারুস সালাম"},
+                            {name: "Dhanmondi", bn_name: "ধানমন্ডি"},
+                            {name: "Demra", bn_name: "ডেমরা"},
+                            {name: "Gendaria", bn_name: "গেন্ডারিয়া"},
+                            {name: "Gulshan", bn_name: "গুলশান"},
+                            {name: "Hazaribagh", bn_name: "হাজারীবাগ"},
+                            {name: "Jatrabari", bn_name: "যাত্রাবাড়ী"},
+                            {name: "Kadamtali", bn_name: "কদমতলী"},
+                            {name: "Kafrul", bn_name: "কাফরুল"},
+                            {name: "Kalabagan", bn_name: "কলাবাগান"},
+                            {name: "Kamrangirchar", bn_name: "কামরাঙ্গীরচর"},
+                            {name: "Khilgaon", bn_name: "খিলগাঁও"},
+                            {name: "Khilkhet", bn_name: "খিলক্ষেত"},
+                            {name: "Kotwali", bn_name: "কোতোয়ালী"},
+                            {name: "Lalbagh", bn_name: "লালবাগ"},
+                            {name: "Mirpur Model", bn_name: "মিরপুর মডেল"},
+                            {name: "Mohammadpur", bn_name: "মোহাম্মদপুর"},
+                            {name: "Motijheel", bn_name: "মতিঝিল"},
+                            {name: "New Market", bn_name: "নিউ মার্কেট"},
+                            {name: "Pallabi", bn_name: "পল্লবী"},
+                            {name: "Paltan", bn_name: "পল্টন"},
+                            {name: "Ramna", bn_name: "রমনা"},
+                            {name: "Rampura", bn_name: "রামপুরা"},
+                            {name: "Sabujbagh", bn_name: "সবুজবাগ"},
+                            {name: "Shah Ali", bn_name: "শাহ আলী"},
+                            {name: "Shahbagh", bn_name: "শাহবাগ"},
+                            {name: "Sher-e-Bangla Nagar", bn_name: "শেরেবাংলা নগর"},
+                            {name: "Shyampur", bn_name: "শ্যামপুর"},
+                            {name: "Sutrapur", bn_name: "সূত্রাপুর"},
+                            {name: "Tejgaon", bn_name: "তেজগাঁও"},
+                            {name: "Tejgaon Industrial Area", bn_name: "তেজগাঁও শিল্প এলাকা"},
+                            {name: "Turag", bn_name: "তুরাগ"},
+                            {name: "Uttar Khan", bn_name: "উত্তরখান"},
+                            {name: "Uttara East", bn_name: "উত্তরা পূর্ব"},
+                            {name: "Uttara West", bn_name: "উত্তরা পশ্চিম"},
+                            {name: "Vatara", bn_name: "ভাটারা"}
+                        ]
+                    },
+                    {
+                        name: "Dhaka Sub-urban",
+                        bn_name: "ঢাকা সাব-আরবান (উপশহর থানা/এলাকা)",
+                        upazilas: [
+                            {name: "Savar", bn_name: "সাভার"},
+                            {name: "Keraniganj", bn_name: "কেরানীগঞ্জ"},
+                            {name: "Nawabganj", bn_name: "নবাবগঞ্জ"},
+                            {name: "Dohar", bn_name: "দোহার"},
+                            {name: "Dhamrai", bn_name: "ধামরাই"}
+                        ]
+                    }
+                ];
+            }
         }
 
 
@@ -4533,7 +4532,7 @@ function setupLocation(
 
 
             up.innerHTML =
-                '<option value="">থানা / উপজেলা নির্বাচন করুন</option>';
+                '<option value="">উপজেলা / থানা নির্বাচন করুন</option>';
 
 
             const d =
@@ -4567,7 +4566,7 @@ function setupLocation(
         ()=>{
 
             up.innerHTML =
-                '<option value="">থানা / উপজেলা নির্বাচন করুন</option>';
+                '<option value="">উপজেলা / থানা নির্বাচন করুন</option>';
 
 
             const d =
@@ -4583,19 +4582,30 @@ function setupLocation(
 
             district?.upazilas?.forEach(x=>{
 
-                const o =
-                    document.createElement("option");
+                // যদি ইনসাইড ঢাকা বা সাব-আরবান এর মতো নেস্টেড থানা থাকে
+                if(x.upazilas) {
+                    const optgroup = document.createElement("optgroup");
+                    optgroup.label = `${x.bn_name} (${x.name})`;
+                    
+                    x.upazilas.forEach(sub => {
+                        const o = document.createElement("option");
+                        o.value = sub.name;
+                        o.textContent = `${sub.bn_name} (${sub.name})`;
+                        optgroup.appendChild(o);
+                    });
+                    up.appendChild(optgroup);
+                } else {
+                    const o =
+                        document.createElement("option");
 
+                    o.value =
+                        x.name;
 
-                o.value =
-                    x.name;
+                    o.textContent =
+                        `${x.bn_name} (${x.name})`;
 
-
-                o.textContent =
-                    `${x.bn_name} (${x.name})`;
-
-
-                up.appendChild(o);
+                    up.appendChild(o);
+                }
 
             });
 
