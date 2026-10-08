@@ -179,12 +179,18 @@ section{
 }
 
 /* =========================
-   APP DOWNLOAD SECTION (শুধুমাত্র ওয়েবসাইট ব্রাউজারে দেখাবে, অ্যাপের মধ্যে হাই থাকবে)
+   APP DOWNLOAD SECTION (웹 ভিউ অনলি)
 ========================= */
 
 .web-only-download{
     display:block;
     margin-bottom:25px;
+}
+
+@media (display-mode: standalone), (max-width: 480px) and (navigator-standalone) {
+    .web-only-download {
+        display: none !important;
+    }
 }
 
 .app-download-card {
@@ -1189,10 +1195,10 @@ footer{
 
 
 <!-- =====================================================
-     APP DOWNLOAD SECTION (শুধুমাত্র ব্রাউজারে দেখাবে, অ্যাপের ভেতরে জাভাস্ক্রিপ্ট দিয়ে হাইড করা হবে)
+     APP DOWNLOAD SECTION (রক্তদাতা খুঁজুন এর ঠিক উপরে - শুধু ওয়েবসাইটে দেখাবে)
 ===================================================== -->
 
-<div class="web-only-download" id="appDownloadSection" style="display:none;">
+<div class="web-only-download">
     <div class="app-slogan">
         ✨ আমাদের অফিশিয়াল অ্যাপস ডাউনলোড করে খুব সহজেই জরুরি সেবা নিন
     </div>
@@ -4331,22 +4337,6 @@ const analytics =
 
 
 <script>
-
-/* =====================================================
-   APP / BROWSER CHECK (অ্যাপের ভেতরে ডাউনলোড সেকশন লুকিয়ে রাখার স্ক্রিপ্ট)
-===================================================== */
-window.addEventListener('DOMContentLoaded', () => {
-    const isApp = window.matchMedia('(display-mode: standalone)').matches || 
-                  window.navigator.standalone || 
-                  document.referrer.includes('android-app://') || 
-                  navigator.userAgent.includes('wv'); // Android WebView check
-
-    const downloadSection = document.getElementById('appDownloadSection');
-    if (!isApp && downloadSection) {
-        downloadSection.style.display = 'block'; // শুধুমাত্র ব্রাউজারে দেখাবে
-    }
-});
-
 
 /* =====================================================
    BANGLADESH LOCATION DATA
