@@ -804,40 +804,16 @@ textarea:focus{
     padding:20px;
 }
 
-.gateway-tabs{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    margin-bottom:20px;
-}
-
-.gateway-tab{
-    padding:12px;
-    text-align:center;
-    border:2px solid #e2e8f0;
-    border-radius:12px;
-    font-weight:bold;
-    cursor:pointer;
-    background:#fff;
-    transition:all .2s;
-}
-
-.gateway-tab.active{
-    border-color:#0066ff;
-    background:#eff6ff;
-    color:#0066ff;
-}
-
-.channel-grid{
+.gateway-methods{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:12px;
     margin-bottom:20px;
 }
 
-.channel-card{
+.gateway-card{
     border:2px solid #e2e8f0;
-    border-radius:12px;
+    border-radius:14px;
     padding:15px;
     text-align:center;
     cursor:pointer;
@@ -847,11 +823,10 @@ textarea:focus{
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    gap:6px;
-    min-height:85px;
+    gap:5px;
 }
 
-.channel-card.active{
+.gateway-card.active{
     border-color:#008751;
     background:#f0fdf4;
 }
@@ -3917,7 +3892,7 @@ footer{
 
 
 <!-- =====================================================
-     PAYMENT GATEWAY
+     PAYMENT GATEWAY (আগের মতো অরিজিনাল পেমেন্ট উইন্ডো)
 ===================================================== -->
 
 <div
@@ -3996,141 +3971,42 @@ footer{
         </div>
 
 
-        <div class="gateway-tabs">
+        <div class="gateway-methods">
 
 
             <div
-                class="gateway-tab active"
-                id="tabMobile"
-                onclick="switchGatewayTab('mobile')"
+                class="gateway-card"
+                onclick="selectGateway(this, 'bKash', '01726232108')"
             >
-                Mobile Banking
+                <span style="font-size:16px; font-weight:bold; color:#e2136e;">bKash</span>
+                <span style="font-size:12px; color:#555;">বিকাশ</span>
             </div>
 
 
             <div
-                class="gateway-tab"
-                id="tabNet"
-                onclick="switchGatewayTab('net')"
+                class="gateway-card"
+                onclick="selectGateway(this, 'Nagad', '01726232108')"
             >
-                Net Banking
-            </div>
-
-
-        </div>
-
-
-        <div
-            id="mobileChannels"
-            class="channel-grid"
-        >
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'bKash','01726232108')"
-            >
-
-                <span
-                    style="
-                    font-size:16px;
-                    font-weight:bold;
-                    color:#e2136e;
-                    "
-                >
-                    bKash
-                </span>
-
-                <span
-                    style="
-                    font-size:12px;
-                    color:#555;
-                    "
-                >
-                    বিকাশ
-                </span>
-
+                <span style="font-size:16px; font-weight:bold; color:#f7931e;">Nagad</span>
+                <span style="font-size:12px; color:#555;">নগদ</span>
             </div>
 
 
             <div
-                class="channel-card"
-                onclick="selectChannel(this,'Nagad','01726232108')"
+                class="gateway-card"
+                onclick="selectGateway(this, 'Rocket', '01726232108-0')"
             >
-
-                <span
-                    style="
-                    font-size:16px;
-                    font-weight:bold;
-                    color:#f7931e;
-                    "
-                >
-                    Nagad
-                </span>
-
-                <span
-                    style="
-                    font-size:12px;
-                    color:#555;
-                    "
-                >
-                    নগদ
-                </span>
-
+                <span style="font-size:16px; font-weight:bold; color:#8a2be2;">Rocket</span>
+                <span style="font-size:12px; color:#555;">রকেট</span>
             </div>
 
 
             <div
-                class="channel-card"
-                onclick="selectChannel(this,'Rocket','01726232108-0')"
+                class="gateway-card"
+                onclick="selectGateway(this, 'Upay', '01726232108')"
             >
-
-                <span
-                    style="
-                    font-size:16px;
-                    font-weight:bold;
-                    color:#8a2be2;
-                    "
-                >
-                    Rocket
-                </span>
-
-                <span
-                    style="
-                    font-size:12px;
-                    color:#555;
-                    "
-                >
-                    রকেট
-                </span>
-
-            </div>
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'Upay','01726232108')"
-            >
-
-                <span
-                    style="
-                    font-size:16px;
-                    font-weight:bold;
-                    color:#00a651;
-                    "
-                >
-                    Upay
-                </span>
-
-                <span
-                    style="
-                    font-size:12px;
-                    color:#555;
-                    "
-                >
-                    উপায়
-                </span>
-
+                <span style="font-size:16px; font-weight:bold; color:#00a651;">Upay</span>
+                <span style="font-size:12px; color:#555;">উপায়</span>
             </div>
 
 
@@ -4138,140 +4014,31 @@ footer{
 
 
         <div
-            id="netChannels"
-            class="channel-grid"
-            style="display:none;"
+            id="accountBox"
+            style="
+            display:none;
+            background:#f8fafc;
+            border:1px solid #cbd5e1;
+            padding:12px;
+            border-radius:10px;
+            margin-bottom:15px;
+            text-align:center;
+            "
         >
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'DBBL Net Banking','123.105.XXXXX')"
-            >
-
-                <span
-                    style="
-                    font-size:15px;
-                    font-weight:bold;
-                    color:#0055a5;
-                    "
-                >
-                    DBBL Bank
-                </span>
-
-                <span
-                    style="
-                    font-size:11px;
-                    color:#555;
-                    "
-                >
-                    Dutch Bangla
-                </span>
-
-            </div>
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'Islami Bank Net Banking','456.789.XXXXX')"
-            >
-
-                <span
-                    style="
-                    font-size:15px;
-                    font-weight:bold;
-                    color:#008751;
-                    "
-                >
-                    Islami Bank
-                </span>
-
-                <span
-                    style="
-                    font-size:11px;
-                    color:#555;
-                    "
-                >
-                    IBBL
-                </span>
-
-            </div>
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'MTB Net Banking','789.123.XXXXX')"
-            >
-
-                <span
-                    style="
-                    font-size:15px;
-                    font-weight:bold;
-                    color:#cc0000;
-                    "
-                >
-                    MTB Bank
-                </span>
-
-                <span
-                    style="
-                    font-size:11px;
-                    color:#555;
-                    "
-                >
-                    Mutual Trust
-                </span>
-
-            </div>
-
-
-            <div
-                class="channel-card"
-                onclick="selectChannel(this,'AB Bank Net Banking','321.654.XXXXX')"
-            >
-
-                <span
-                    style="
-                    font-size:15px;
-                    font-weight:bold;
-                    color:#0055a5;
-                    "
-                >
-                    AB Bank
-                </span>
-
-                <span
-                    style="
-                    font-size:11px;
-                    color:#555;
-                    "
-                >
-                    AB Bank PLC
-                </span>
-
-            </div>
-
+            <p style="font-size:13px; color:#333; margin-bottom:3px;" id="gatewayInstruction">দয়া করে নিচের নম্বরে সেন্ড মানি করুন:</p>
+            <strong style="font-size:17px; color:#0f172a;" id="gatewayNumber">01726232108</strong>
         </div>
 
 
-        <div id="paymentInstructions" style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:12px; margin-bottom:15px; font-size:13px; line-height:1.6; display:none;">
-            <b>পেমেন্ট নির্দেশিকা:</b><br>
-            ১. প্রথমে আপনার <span id="instChannelName" style="color:#008751; font-weight:bold;"></span> একাউন্টে যান।<br>
-            ২. "Send Money" বা "Payment" অপশনে এই নম্বরটি দিন: <b id="instAccountNo" style="color:#d97706; user-select:all;"></b><br>
-            ৩. টাকার পরিমাণ: <b id="instAmount" style="color:#0f172a;"></b><br>
-            ৪. টাকা পাঠানোর পর নিচের বক্সে ট্রানজেকশন আইডি (TrxID) লিখে কনফার্ম করুন।
-        </div>
-
-
-        <div style="margin-top:10px;">
-            <label style="font-size:13px; font-weight:bold; margin-bottom:5px; display:block;">ট্রানজেকশন আইডি (TrxID) *</label>
-            <input id="gatewayTrx" placeholder="যেমন: 9N7A6BC5..." style="padding:10px; font-size:14px;">
+        <div style="margin-bottom:15px;">
+            <label style="font-size:13px; font-weight:bold; margin-bottom:5px; display:block;">ট্রানজেকশন আইডি (TrxID)</label>
+            <input id="gatewayTrx" placeholder="টাকা প্রেরণের পর ট্রানজেকশন আইডি দিন" style="padding:10px; font-size:14px;">
         </div>
 
 
         <button
             class="yellow-btn"
-            style="margin-top:20px; font-size:16px; padding:12px;"
+            style="width:100%; font-size:16px; padding:12px;"
             onclick="verifyPayment()"
         >
             পেমেন্ট কনফার্ম করুন
@@ -4712,239 +4479,59 @@ function(event){
 
 
 /* =====================================================
-   PAYMENT GATEWAY
+   PAYMENT GATEWAY (আগের মতো লজিক)
 ===================================================== */
 
-let selectedChannelName = "";
-let selectedAccountNumber = "";
-let currentAmount = 0;
-
+let selectedMethod = "";
+let selectedNumber = "";
 
 function openGatewayModal(){
+    const fundType = document.getElementById("fundType").value;
+    const contact = document.getElementById("fundContact").value.trim();
+    const amount = document.getElementById("fundAmount").value.trim();
 
-    const fundType =
-        document
-        .getElementById("fundType")
-        .value;
-
-
-    const contact =
-        document
-        .getElementById("fundContact")
-        .value
-        .trim();
-
-
-    const amount =
-        document
-        .getElementById("fundAmount")
-        .value
-        .trim();
-
-
-    if(
-        !fundType ||
-        !contact ||
-        !amount ||
-        amount <= 0
-    ){
-
-        alert(
-            "দয়া করে তহবিল, মোবাইল/ইমেইল এবং সঠিক পরিমাণ পূরণ করুন।"
-        );
-
+    if(!fundType || !contact || !amount || amount <= 0){
+        alert("দয়া করে তহবিল, মোবাইল/ইমেইল এবং সঠিক পরিমাণ পূরণ করুন।");
         return;
-
     }
 
-
-    currentAmount =
-        amount;
-
-
-    document
-        .getElementById("displayAmount")
-        .textContent =
-        "৳ " +
-        Number(amount).toLocaleString();
-
-
-    document
-        .getElementById("gatewayModal")
-        .style.display =
-        "block";
-
-
-    document
-        .querySelectorAll(".channel-card")
-        .forEach(
-            c =>
-            c.classList.remove("active")
-        );
-        
-    document.getElementById("paymentInstructions").style.display = "none";
+    document.getElementById("displayAmount").textContent = "৳ " + Number(amount).toLocaleString();
+    document.getElementById("gatewayModal").style.display = "block";
+    document.getElementById("accountBox").style.display = "none";
     document.getElementById("gatewayTrx").value = "";
 
+    document.querySelectorAll(".gateway-card").forEach(c => c.classList.remove("active"));
+    selectedMethod = "";
 }
-
 
 function closeGatewayModal(){
-
-    document
-        .getElementById("gatewayModal")
-        .style.display =
-        "none";
-
+    document.getElementById("gatewayModal").style.display = "none";
 }
 
+function selectGateway(cardElement, method, number){
+    document.querySelectorAll(".gateway-card").forEach(c => c.classList.remove("active"));
+    cardElement.classList.add("active");
 
-function switchGatewayTab(tab){
+    selectedMethod = method;
+    selectedNumber = number;
 
-    const tabMobile =
-        document.getElementById(
-            "tabMobile"
-        );
-
-
-    const tabNet =
-        document.getElementById(
-            "tabNet"
-        );
-
-
-    const mobileChannels =
-        document.getElementById(
-            "mobileChannels"
-        );
-
-
-    const netChannels =
-        document.getElementById(
-            "netChannels"
-        );
-
-
-    if(tab === "mobile"){
-
-        tabMobile.classList.add(
-            "active"
-        );
-
-        tabNet.classList.remove(
-            "active"
-        );
-
-        mobileChannels.style.display =
-            "grid";
-
-        netChannels.style.display =
-            "none";
-
-    }else{
-
-        tabNet.classList.add(
-            "active"
-        );
-
-        tabMobile.classList.remove(
-            "active"
-        );
-
-        netChannels.style.display =
-            "grid";
-
-        mobileChannels.style.display =
-            "none";
-
-    }
-
-
-    document
-        .querySelectorAll(".channel-card")
-        .forEach(
-            c =>
-            c.classList.remove("active")
-        );
-        
-    document.getElementById("paymentInstructions").style.display = "none";
-
+    document.getElementById("gatewayNumber").textContent = number;
+    document.getElementById("gatewayInstruction").textContent = `${method} নম্বরে সেন্ড মানি করুন:`;
+    document.getElementById("accountBox").style.display = "block";
 }
-
-
-function selectChannel(
-    cardElement,
-    name,
-    account
-){
-
-    document
-        .querySelectorAll(".channel-card")
-        .forEach(
-            c =>
-            c.classList.remove("active")
-        );
-
-
-    cardElement.classList.add(
-        "active"
-    );
-
-
-    selectedChannelName =
-        name;
-
-
-    selectedAccountNumber =
-        account;
-        
-    document.getElementById("instChannelName").textContent = name;
-    document.getElementById("instAccountNo").textContent = account;
-    document.getElementById("instAmount").textContent = "৳ " + Number(currentAmount).toLocaleString();
-    document.getElementById("paymentInstructions").style.display = "block";
-
-}
-
 
 function verifyPayment(){
-
-    const trx =
-        document
-        .getElementById(
-            "gatewayTrx"
-        )
-        .value
-        .trim();
-
-
-    if(!selectedChannelName){
-
-        alert(
-            "দয়া করে একটি পেমেন্ট মাধ্যম নির্বাচন করুন।"
-        );
-
+    const trx = document.getElementById("gatewayTrx").value.trim();
+    if(!selectedMethod){
+        alert("দয়া করে একটি পেমেন্ট মাধ্যম নির্বাচন করুন।");
         return;
-
     }
-
-
     if(!trx){
-
-        alert(
-            "দয়া করে ট্রানজেকশন আইডি দিন।"
-        );
-
+        alert("দয়া করে ট্রানজেকশন আইডি দিন।");
         return;
-
     }
-
-
-    alert(
-        "✅ পেমেন্ট সফলভাবে সাবমিট হয়েছে। ধন্যবাদ!"
-    );
-
-
+    alert("✅ পেমেন্ট সফলভাবে সাবমিট হয়েছে। ধন্যবাদ!");
     closeGatewayModal();
-
 }
 
 
