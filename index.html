@@ -179,7 +179,7 @@ section{
 }
 
 /* =========================
-   APP DOWNLOAD SECTION
+   APP DOWNLOAD SECTION (শুধুমাত্র ব্রাউজারে দেখাবে, অ্যাপের ভেতরে হাইড থাকবে)
 ========================= */
 
 .web-only-download{
@@ -804,16 +804,40 @@ textarea:focus{
     padding:20px;
 }
 
-.gateway-methods{
+.gateway-tabs{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.gateway-tab{
+    padding:12px;
+    text-align:center;
+    border:2px solid #e2e8f0;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+    background:#fff;
+    transition:all .2s;
+}
+
+.gateway-tab.active{
+    border-color:#0066ff;
+    background:#eff6ff;
+    color:#0066ff;
+}
+
+.channel-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:12px;
     margin-bottom:20px;
 }
 
-.gateway-card{
+.channel-card{
     border:2px solid #e2e8f0;
-    border-radius:14px;
+    border-radius:12px;
     padding:15px;
     text-align:center;
     cursor:pointer;
@@ -823,10 +847,11 @@ textarea:focus{
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    gap:5px;
+    gap:6px;
+    min-height:85px;
 }
 
-.gateway-card.active{
+.channel-card.active{
     border-color:#008751;
     background:#f0fdf4;
 }
@@ -1164,7 +1189,7 @@ footer{
 
 
 <!-- =====================================================
-     APP DOWNLOAD SECTION
+     APP DOWNLOAD SECTION (শুধুমাত্র ব্রাউজারে দেখাবে, অ্যাপের ভেতরে জাভাস্ক্রিপ্ট দিয়ে হাইড করা হবে)
 ===================================================== -->
 
 <div class="web-only-download" id="appDownloadSection" style="display:none;">
@@ -1288,13 +1313,13 @@ footer{
             <div>
 
                 <label>
-                    উপজেলা / থানা নির্বাচন
+                    উপজেলা / পৌরসভা নির্বাচন
                 </label>
 
                 <select id="searchUpazila">
 
                     <option value="">
-                        উপজেলা / থানা নির্বাচন করুন
+                        উপজেলা / পৌরসভা নির্বাচন করুন
                     </option>
 
                 </select>
@@ -1455,7 +1480,7 @@ footer{
                 <div>
 
                     <label>
-                        উপজেলা / থানা *
+                        উপজেলা / পৌরসভা *
                     </label>
 
                     <select
@@ -1659,7 +1684,7 @@ footer{
                 <div>
 
                     <label>
-                        উপজেলা / থানা নির্বাচন করুন *
+                        উপজেলা / পৌরসভা নির্বাচন করুন *
                     </label>
 
                     <select
@@ -3892,7 +3917,7 @@ footer{
 
 
 <!-- =====================================================
-     PAYMENT GATEWAY (আগের মতো অরিজিনাল পেমেন্ট উইন্ডো)
+     PAYMENT GATEWAY
 ===================================================== -->
 
 <div
@@ -3971,42 +3996,24 @@ footer{
         </div>
 
 
-        <div class="gateway-methods">
+        <div class="gateway-tabs">
 
 
             <div
-                class="gateway-card"
-                onclick="selectGateway(this, 'bKash', '01726232108')"
+                class="gateway-tab active"
+                id="tabMobile"
+                onclick="switchGatewayTab('mobile')"
             >
-                <span style="font-size:16px; font-weight:bold; color:#e2136e;">bKash</span>
-                <span style="font-size:12px; color:#555;">বিকাশ</span>
+                Mobile Banking
             </div>
 
 
             <div
-                class="gateway-card"
-                onclick="selectGateway(this, 'Nagad', '01726232108')"
+                class="gateway-tab"
+                id="tabNet"
+                onclick="switchGatewayTab('net')"
             >
-                <span style="font-size:16px; font-weight:bold; color:#f7931e;">Nagad</span>
-                <span style="font-size:12px; color:#555;">নগদ</span>
-            </div>
-
-
-            <div
-                class="gateway-card"
-                onclick="selectGateway(this, 'Rocket', '01726232108-0')"
-            >
-                <span style="font-size:16px; font-weight:bold; color:#8a2be2;">Rocket</span>
-                <span style="font-size:12px; color:#555;">রকেট</span>
-            </div>
-
-
-            <div
-                class="gateway-card"
-                onclick="selectGateway(this, 'Upay', '01726232108')"
-            >
-                <span style="font-size:16px; font-weight:bold; color:#00a651;">Upay</span>
-                <span style="font-size:12px; color:#555;">উপায়</span>
+                Net Banking
             </div>
 
 
@@ -4014,31 +4021,248 @@ footer{
 
 
         <div
-            id="accountBox"
-            style="
-            display:none;
-            background:#f8fafc;
-            border:1px solid #cbd5e1;
-            padding:12px;
-            border-radius:10px;
-            margin-bottom:15px;
-            text-align:center;
-            "
+            id="mobileChannels"
+            class="channel-grid"
         >
-            <p style="font-size:13px; color:#333; margin-bottom:3px;" id="gatewayInstruction">দয়া করে নিচের নম্বরে সেন্ড মানি করুন:</p>
-            <strong style="font-size:17px; color:#0f172a;" id="gatewayNumber">01726232108</strong>
+
+
+            <div
+                class="channel-card"
+                onclick="selectChannel(this,'bKash','01726232108')"
+            >
+
+                <span
+                    style="
+                    font-size:16px;
+                    font-weight:bold;
+                    color:#e2136e;
+                    "
+                >
+                    bKash
+                </span>
+
+                <span
+                    style="
+                    font-size:12px;
+                    color:#555;
+                    "
+                >
+                    বিকাশ
+                </span>
+
+            </div>
+
+
+            <div
+                class="channel-card"
+                onclick="selectChannel(this,'Nagad','01726232108')"
+            >
+
+                <span
+                    style="
+                    font-size:16px;
+                    font-weight:bold;
+                    color:#f7931e;
+                    "
+                >
+                    Nagad
+                </span>
+
+                <span
+                    style="
+                    font-size:12px;
+                    color:#555;
+                    "
+                >
+                    নগদ
+                </span>
+
+            </div>
+
+
+            <div
+                class="channel-card"
+                onclick="selectChannel(this,'Rocket','01726232108-0')"
+            >
+
+                <span
+                    style="
+                    font-size:16px;
+                    font-weight:bold;
+                    color:#8a2be2;
+                    "
+                >
+                    Rocket
+                </span>
+
+                <span
+                    style="
+                    font-size:12px;
+                    color:#555;
+                    "
+                >
+                    রকেট
+                </span>
+
+            </div>
+
+
+            <div
+                class="channel-card"
+                onclick="selectChannel(this,'Upay','01726232108')"
+            >
+
+                <span
+                    style="
+                    font-size:16px;
+                    font-weight:bold;
+                    color:#00a651;
+                    "
+                >
+                    Upay
+                </span>
+
+                <span
+                    style="
+                    font-size:12px;
+                    color:#555;
+                    "
+                >
+                    উপায়
+                </span>
+
+            </div>
+
+
         </div>
 
 
-        <div style="margin-bottom:15px;">
-            <label style="font-size:13px; font-weight:bold; margin-bottom:5px; display:block;">ট্রানজেকশন আইডি (TrxID)</label>
+        <div
+            id="netChannels"
+            class="channel-grid"
+            style="display:none;"
+        >
+
+
+            <div
+                class="channel-card"
+                onclick="selectChannel(this,'DBBL Net Banking','123.105.XXXXX')"
+            >
+
+                <span
+                    style="
+                    font-size:15px;
+                    font-weight:bold;
+                    color:#0055a5;
+                    "
+                >
+                    DBBL Bank
+                </span>
+
+                <span
+                    style="
+                    font-size:11px;
+                    color:#555;
+                    "
+                >
+                    Dutch Bangla
+                </span>
+
+            </div>
+
+
+            <div
+                class="channel-card"
+                onclick="selectChannel(this,'Islami Bank Net Banking','456.789.XXXXX')"
+            >
+
+                <span
+                    style="
+                    font-size:15px;
+                    font-weight:bold;
+                    color:#008751;
+                    "
+                >
+                    Islami Bank
+                </span>
+
+                <span
+                    style="
+                    font-size:11px;
+                    color:#555;
+                    "
+                >
+                    IBBL
+                </span>
+
+            </div>
+
+
+            <div
+                class="channel-card"
+                onclick="selectChannel(this,'MTB Net Banking','789.123.XXXXX')"
+            >
+
+                <span
+                    style="
+                    font-size:15px;
+                    font-weight:bold;
+                    color:#cc0000;
+                    "
+                >
+                    MTB Bank
+                </span>
+
+                <span
+                    style="
+                    font-size:11px;
+                    color:#555;
+                    "
+                >
+                    Mutual Trust
+                </span>
+
+            </div>
+
+
+            <div
+                class="channel-card"
+                onclick="selectChannel(this,'AB Bank Net Banking','321.654.XXXXX')"
+            >
+
+                <span
+                    style="
+                    font-size:15px;
+                    font-weight:bold;
+                    color:#0055a5;
+                    "
+                >
+                    AB Bank
+                </span>
+
+                <span
+                    style="
+                    font-size:11px;
+                    color:#555;
+                    "
+                >
+                    AB Bank PLC
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div style="margin-top:20px;">
+            <label style="font-size:13px; font-weight:bold; margin-bottom:5px; display:block;">ট্রানজেকশন আইডি / অ্যাকাউন্ট নম্বর</label>
             <input id="gatewayTrx" placeholder="টাকা প্রেরণের পর ট্রানজেকশন আইডি দিন" style="padding:10px; font-size:14px;">
         </div>
 
 
         <button
             class="yellow-btn"
-            style="width:100%; font-size:16px; padding:12px;"
+            style="margin-top:20px; font-size:16px; padding:12px;"
             onclick="verifyPayment()"
         >
             পেমেন্ট কনফার্ম করুন
@@ -4109,7 +4333,7 @@ const analytics =
 <script>
 
 /* =====================================================
-   APP / BROWSER CHECK
+   APP / BROWSER CHECK (অ্যাপের ভেতরে ডাউনলোড সেকশন লুকিয়ে রাখার স্ক্রিপ্ট)
 ===================================================== */
 window.addEventListener('DOMContentLoaded', () => {
     const isApp = window.matchMedia('(display-mode: standalone)').matches || 
@@ -4125,7 +4349,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 /* =====================================================
-   BANGLADESH LOCATION DATA (কাস্টম ঢাকা থানা সহ)
+   BANGLADESH LOCATION DATA (উপজেলা ও পৌরসভা সহ)
 ===================================================== */
 
 const LOCATION_URL =
@@ -4144,75 +4368,6 @@ async function loadLocations(){
 
         locations =
             await res.json();
-
-
-        const dhakaDiv = locations.find(d => d.name === "Dhaka" || d.bn_name === "ঢাকা");
-        if(dhakaDiv) {
-            const dhakaDist = dhakaDiv.districts.find(ds => ds.name === "Dhaka" || ds.bn_name === "ঢাকা");
-            if(dhakaDist) {
-                dhakaDist.upazilas = [
-                    {
-                        name: "Inside Dhaka",
-                        bn_name: "ইনসাইড ঢাকা (মহানগর থানা)",
-                        upazilas: [
-                            {name: "Adabor", bn_name: "আদাবর"},
-                            {name: "Badda", bn_name: "বাড্ডা"},
-                            {name: "Bangshal", bn_name: "বংশাল"},
-                            {name: "Cantonment", bn_name: "ক্যান্টনমেন্ট"},
-                            {name: "Chawkbazar", bn_name: "চকবাজার"},
-                            {name: "Dakshinkhan", bn_name: "দক্ষিণখান"},
-                            {name: "Darus Salam", bn_name: "দারুস সালাম"},
-                            {name: "Dhanmondi", bn_name: "ধানমন্ডি"},
-                            {name: "Demra", bn_name: "ডেমরা"},
-                            {name: "Gendaria", bn_name: "গেন্ডারিয়া"},
-                            {name: "Gulshan", bn_name: "গুলশান"},
-                            {name: "Hazaribagh", bn_name: "হাজারীবাগ"},
-                            {name: "Jatrabari", bn_name: "যাত্রাবাড়ী"},
-                            {name: "Kadamtali", bn_name: "কদমতলী"},
-                            {name: "Kafrul", bn_name: "কাফরুল"},
-                            {name: "Kalabagan", bn_name: "কলাবাগান"},
-                            {name: "Kamrangirchar", bn_name: "কামরাঙ্গীরচর"},
-                            {name: "Khilgaon", bn_name: "খিলগাঁও"},
-                            {name: "Khilkhet", bn_name: "খিলক্ষেত"},
-                            {name: "Kotwali", bn_name: "কোতোয়ালী"},
-                            {name: "Lalbagh", bn_name: "লালবাগ"},
-                            {name: "Mirpur Model", bn_name: "মিরপুর মডেল"},
-                            {name: "Mohammadpur", bn_name: "মোহাম্মদপুর"},
-                            {name: "Motijheel", bn_name: "মতিঝিল"},
-                            {name: "New Market", bn_name: "নিউ মার্কেট"},
-                            {name: "Pallabi", bn_name: "পল্লবী"},
-                            {name: "Paltan", bn_name: "পল্টন"},
-                            {name: "Ramna", bn_name: "রমনা"},
-                            {name: "Rampura", bn_name: "রামপুরা"},
-                            {name: "Sabujbagh", bn_name: "সবুজবাগ"},
-                            {name: "Shah Ali", bn_name: "শাহ আলী"},
-                            {name: "Shahbagh", bn_name: "শাহবাগ"},
-                            {name: "Sher-e-Bangla Nagar", bn_name: "শেরেবাংলা নগর"},
-                            {name: "Shyampur", bn_name: "শ্যামপুর"},
-                            {name: "Sutrapur", bn_name: "সূত্রাপুর"},
-                            {name: "Tejgaon", bn_name: "তেজগাঁও"},
-                            {name: "Tejgaon Industrial Area", bn_name: "তেজগাঁও শিল্প এলাকা"},
-                            {name: "Turag", bn_name: "তুরাগ"},
-                            {name: "Uttar Khan", bn_name: "উত্তরখান"},
-                            {name: "Uttara East", bn_name: "উত্তরা পূর্ব"},
-                            {name: "Uttara West", bn_name: "উত্তরা পশ্চিম"},
-                            {name: "Vatara", bn_name: "ভাটারা"}
-                        ]
-                    },
-                    {
-                        name: "Dhaka Sub-urban",
-                        bn_name: "ঢাকা সাব-আরবান (উপশহর থানা/এলাকা)",
-                        upazilas: [
-                            {name: "Savar", bn_name: "সাভার"},
-                            {name: "Keraniganj", bn_name: "কেরানীগঞ্জ"},
-                            {name: "Nawabganj", bn_name: "নবাবগঞ্জ"},
-                            {name: "Dohar", bn_name: "দোহার"},
-                            {name: "Dhamrai", bn_name: "ধামরাই"}
-                        ]
-                    }
-                ];
-            }
-        }
 
 
         fillDivisions("searchDivision");
@@ -4307,7 +4462,7 @@ function setupLocation(
 
 
             up.innerHTML =
-                '<option value="">উপজেলা / থানা নির্বাচন করুন</option>';
+                '<option value="">উপজেলা / পৌরসভা নির্বাচন করুন</option>';
 
 
             const d =
@@ -4341,7 +4496,7 @@ function setupLocation(
         ()=>{
 
             up.innerHTML =
-                '<option value="">উপজেলা / থানা নির্বাচন করুন</option>';
+                '<option value="">উপজেলা / পৌরসভা নির্বাচন করুন</option>';
 
 
             const d =
@@ -4357,29 +4512,19 @@ function setupLocation(
 
             district?.upazilas?.forEach(x=>{
 
-                if(x.upazilas) {
-                    const optgroup = document.createElement("optgroup");
-                    optgroup.label = `${x.bn_name} (${x.name})`;
-                    
-                    x.upazilas.forEach(sub => {
-                        const o = document.createElement("option");
-                        o.value = sub.name;
-                        o.textContent = `${sub.bn_name} (${sub.name})`;
-                        optgroup.appendChild(o);
-                    });
-                    up.appendChild(optgroup);
-                } else {
-                    const o =
-                        document.createElement("option");
+                const o =
+                    document.createElement("option");
 
-                    o.value =
-                        x.name;
 
-                    o.textContent =
-                        `${x.bn_name} (${x.name})`;
+                o.value =
+                    x.name;
 
-                    up.appendChild(o);
-                }
+
+                o.textContent =
+                    `${x.bn_name} (${x.name})`;
+
+
+                up.appendChild(o);
 
             });
 
@@ -4479,50 +4624,193 @@ function(event){
 
 
 /* =====================================================
-   PAYMENT GATEWAY (আগের মতো লজিক)
+   PAYMENT GATEWAY
 ===================================================== */
 
-let selectedMethod = "";
-let selectedNumber = "";
+let selectedChannelName = "";
+
+let selectedAccountNumber = "";
+
+let currentAmount = 0;
+
 
 function openGatewayModal(){
-    const fundType = document.getElementById("fundType").value;
-    const contact = document.getElementById("fundContact").value.trim();
-    const amount = document.getElementById("fundAmount").value.trim();
 
-    if(!fundType || !contact || !amount || amount <= 0){
-        alert("দয়া করে তহবিল, মোবাইল/ইমেইল এবং সঠিক পরিমাণ পূরণ করুন।");
+    const fundType =
+        document
+        .getElementById("fundType")
+        .value;
+
+
+    const contact =
+        document
+        .getElementById("fundContact")
+        .value
+        .trim();
+
+
+    const amount =
+        document
+        .getElementById("fundAmount")
+        .value
+        .trim();
+
+
+    if(
+        !fundType ||
+        !contact ||
+        !amount ||
+        amount <= 0
+    ){
+
+        alert(
+            "দয়া করে তহবিল, মোবাইল/ইমেইল এবং সঠিক পরিমাণ পূরণ করুন।"
+        );
+
         return;
+
     }
 
-    document.getElementById("displayAmount").textContent = "৳ " + Number(amount).toLocaleString();
-    document.getElementById("gatewayModal").style.display = "block";
-    document.getElementById("accountBox").style.display = "none";
-    document.getElementById("gatewayTrx").value = "";
 
-    document.querySelectorAll(".gateway-card").forEach(c => c.classList.remove("active"));
-    selectedMethod = "";
+    currentAmount =
+        amount;
+
+
+    document
+        .getElementById("displayAmount")
+        .textContent =
+        "৳ " +
+        Number(amount).toLocaleString();
+
+
+    document
+        .getElementById("gatewayModal")
+        .style.display =
+        "block";
+
+
+    document
+        .querySelectorAll(".channel-card")
+        .forEach(
+            c =>
+            c.classList.remove("active")
+        );
+
 }
+
 
 function closeGatewayModal(){
-    document.getElementById("gatewayModal").style.display = "none";
+
+    document
+        .getElementById("gatewayModal")
+        .style.display =
+        "none";
+
 }
 
-function selectGateway(cardElement, method, number){
-    document.querySelectorAll(".gateway-card").forEach(c => c.classList.remove("active"));
-    cardElement.classList.add("active");
 
-    selectedMethod = method;
-    selectedNumber = number;
+function switchGatewayTab(tab){
 
-    document.getElementById("gatewayNumber").textContent = number;
-    document.getElementById("gatewayInstruction").textContent = `${method} নম্বরে সেন্ড মানি করুন:`;
-    document.getElementById("accountBox").style.display = "block";
+    const tabMobile =
+        document.getElementById(
+            "tabMobile"
+        );
+
+
+    const tabNet =
+        document.getElementById(
+            "tabNet"
+        );
+
+
+    const mobileChannels =
+        document.getElementById(
+            "mobileChannels"
+        );
+
+
+    const netChannels =
+        document.getElementById(
+            "netChannels"
+        );
+
+
+    if(tab === "mobile"){
+
+        tabMobile.classList.add(
+            "active"
+        );
+
+        tabNet.classList.remove(
+            "active"
+        );
+
+        mobileChannels.style.display =
+            "grid";
+
+        netChannels.style.display =
+            "none";
+
+    }else{
+
+        tabNet.classList.add(
+            "active"
+        );
+
+        tabMobile.classList.remove(
+            "active"
+        );
+
+        netChannels.style.display =
+            "grid";
+
+        mobileChannels.style.display =
+            "none";
+
+    }
+
+
+    document
+        .querySelectorAll(".channel-card")
+        .forEach(
+            c =>
+            c.classList.remove("active")
+        );
+
+}
+
+
+function selectChannel(
+    cardElement,
+    name,
+    account
+){
+
+    document
+        .querySelectorAll(".channel-card")
+        .forEach(
+            c =>
+            c.classList.remove("active")
+        );
+
+
+    cardElement.classList.add(
+        "active"
+    );
+
+
+    selectedChannelName =
+        name;
+
+
+    selectedAccountNumber =
+        account;
+
 }
 
 function verifyPayment(){
     const trx = document.getElementById("gatewayTrx").value.trim();
-    if(!selectedMethod){
+    if(!selectedChannelName){
         alert("দয়া করে একটি পেমেন্ট মাধ্যম নির্বাচন করুন।");
         return;
     }
@@ -4532,6 +4820,10 @@ function verifyPayment(){
     }
     alert("✅ পেমেন্ট সফলভাবে সাবমিট হয়েছে। ধন্যবাদ!");
     closeGatewayModal();
+    document.getElementById("gatewayTrx").value = "";
+    document.getElementById("fundType").value = "";
+    document.getElementById("fundContact").value = "";
+    document.getElementById("fundAmount").value = "";
 }
 
 
@@ -5180,7 +5472,7 @@ function escapeHtml(text){
 
 
 /* =====================================================
-   STATISTICS
+   STATS
 ===================================================== */
 
 function updateStats(){
