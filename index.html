@@ -179,81 +179,86 @@ section{
 }
 
 /* =========================
-   APP DOWNLOAD SECTION (웹 ভিউ অনলি)
+   APP DOWNLOAD BANNER (শুধুমাত্র ওয়েবসাইটে দেখানোর জন্য)
 ========================= */
 
 .web-only-download{
-    display:block;
-    margin-bottom:25px;
+    display: block; /* শুধুমাত্র ওয়েবসাইটে দেখাবে */
 }
 
-@media (display-mode: standalone), (max-width: 480px) and (navigator-standalone) {
-    .web-only-download {
+@media(display-mode: standalone), (max-width: 0px){
+    /* অ্যাপের ভেতর লুকানোর জন্য ক্লাস */
+    .web-only-download{
         display: none !important;
     }
 }
 
-.app-download-card {
-    background: linear-gradient(135deg, #0b2245, #14366b);
+.app-download-card{
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     border-radius: 20px;
     padding: 18px 22px;
-    color: #ffffff;
-    box-shadow: 0 15px 35px rgba(11, 34, 69, 0.25);
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    text-decoration: none;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 15px 35px rgba(20,40,60,0.25);
+    margin-bottom: 25px;
     border: 1px solid rgba(255,255,255,0.15);
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.app-download-card:hover {
+.app-download-card:hover{
     transform: translateY(-3px);
-    box-shadow: 0 20px 40px rgba(11, 34, 69, 0.35);
+    box-shadow: 0 20px 40px rgba(20,40,60,0.35);
 }
 
-.app-download-left {
+.app-download-left{
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 15px;
 }
 
-.app-download-icon {
-    width: 46px;
-    height: 46px;
-    background: rgba(255, 255, 255, 0.12);
-    border-radius: 12px;
+.app-download-icon{
+    width: 48px;
+    height: 48px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 22px;
-    backdrop-filter: blur(5px);
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.2);
 }
 
-.app-download-texts h4 {
-    font-size: 17px;
-    font-weight: 700;
-    color: #ffffff;
+.app-download-info h3{
+    font-size: 18px;
+    font-weight: 800;
     margin-bottom: 2px;
-}
-
-.app-download-texts p {
-    font-size: 13px;
-    color: #cbd5e1;
-}
-
-.app-download-arrow {
-    font-size: 20px;
     color: #ffffff;
-    opacity: 0.8;
 }
 
-.app-slogan {
+.app-download-info p{
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+}
+
+.app-download-slogan{
     text-align: center;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 700;
-    color: #6b21a8;
+    color: #7c1eaf;
     margin-bottom: 8px;
+    background: rgba(124, 30, 175, 0.08);
+    padding: 6px 12px;
+    border-radius: 10px;
+    border: 1px dashed rgba(124, 30, 175, 0.25);
+}
+
+.app-download-arrow{
+    font-size: 20px;
+    font-weight: bold;
+    color: rgba(255,255,255,0.8);
 }
 
 /* =========================
@@ -1195,21 +1200,21 @@ footer{
 
 
 <!-- =====================================================
-     APP DOWNLOAD SECTION (রক্তদাতা খুঁজুন এর ঠিক উপরে - শুধু ওয়েবসাইটে দেখাবে)
+     APP DOWNLOAD OPTION (শুধুমাত্র ওয়েবসাইটে দেখাবে)
 ===================================================== -->
 
 <div class="web-only-download">
-    <div class="app-slogan">
-        ✨ আমাদের অফিশিয়াল অ্যাপস ডাউনলোড করে খুব সহজেই জরুরি সেবা নিন
+    <div class="app-download-slogan">
+        💡 মোবাইল অ্যাপ ব্যবহার করুন, খুব সহজেই জরুরি মুহূর্তে রক্তদাতা খুঁজুন ও রক্ত দিন।
     </div>
     
-    <a href="_MB_Blood_Bank_20235203.apk" class="app-download-card" download>
+    <a href="MBBloodBank.apk" class="app-download-card" download>
         <div class="app-download-left">
             <div class="app-download-icon">
                 📥
             </div>
-            <div class="app-download-texts">
-                <h4>অ্যাপ ডাউনলোড করুন</h4>
+            <div class="app-download-info">
+                <h3>অ্যাপ ডাউনলোড করুন</h3>
                 <p>Android App • Free Download</p>
             </div>
         </div>
@@ -4678,14 +4683,6 @@ function openGatewayModal(){
         .style.display =
         "block";
 
-
-    document
-        .querySelectorAll(".channel-card")
-        .forEach(
-            c =>
-            c.classList.remove("active")
-        );
-
 }
 
 
@@ -4759,14 +4756,6 @@ function switchGatewayTab(tab){
 
     }
 
-
-    document
-        .querySelectorAll(".channel-card")
-        .forEach(
-            c =>
-            c.classList.remove("active")
-        );
-
 }
 
 
@@ -4798,22 +4787,30 @@ function selectChannel(
 
 }
 
+
 function verifyPayment(){
+
     const trx = document.getElementById("gatewayTrx").value.trim();
+
     if(!selectedChannelName){
-        alert("দয়া করে একটি পেমেন্ট মাধ্যম নির্বাচন করুন।");
+        alert("দয়া করে যেকোনো একটি পেমেন্ট মাধ্যম সিলেক্ট করুন।");
         return;
     }
+
     if(!trx){
-        alert("দয়া করে ট্রানজেকশন আইডি দিন।");
+        alert("দয়া করে ট্রানজেকশন আইডি বা অ্যাকাউন্ট নম্বর প্রদান করুন।");
         return;
     }
-    alert("✅ পেমেন্ট সফলভাবে সাবমিট হয়েছে। ধন্যবাদ!");
+
+    alert("❤ MB মানবতা ফান্ডে আপনার অনুদান সফলভাবে জমা হয়েছে। ধন্যবাদ!");
+
     closeGatewayModal();
+
     document.getElementById("gatewayTrx").value = "";
     document.getElementById("fundType").value = "";
     document.getElementById("fundContact").value = "";
     document.getElementById("fundAmount").value = "";
+
 }
 
 
@@ -5095,7 +5092,7 @@ document
 
                 "\nStatus: Pending\n\n" +
 
-                "Admin যাচাই করে Approve করার পর আপনার Profile তালিকায় প্রদর্শিত হবে।"
+                "Admin যাচাই করে Approve করার পর আপনার Profile তালিকায় প্রদর্শিত হবে."
 
             );
 
@@ -5522,4 +5519,3 @@ updateStats();
 
 </body>
 </html>
-
