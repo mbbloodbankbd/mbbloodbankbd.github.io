@@ -4254,9 +4254,18 @@ footer{
         </div>
 
 
-        <div style="margin-top:20px;">
-            <label style="font-size:13px; font-weight:bold; margin-bottom:5px; display:block;">ট্রানজেকশন আইডি / অ্যাকাউন্ট নম্বর</label>
-            <input id="gatewayTrx" placeholder="টাকা প্রেরণের পর ট্রানজেকশন আইডি দিন" style="padding:10px; font-size:14px;">
+        <div id="paymentInstructions" style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:12px; margin-bottom:15px; font-size:13px; line-height:1.6; display:none;">
+            <b>পেমেন্ট নির্দেশিকা:</b><br>
+            ১. প্রথমে আপনার <span id="instChannelName" style="color:#008751; font-weight:bold;"></span> একাউন্টে যান।<br>
+            ২. "Send Money" বা "Payment" অপশনে এই নম্বরটি দিন: <b id="instAccountNo" style="color:#d97706; user-select:all;"></b><br>
+            ৩. টাকার পরিমাণ: <b id="instAmount" style="color:#0f172a;"></b><br>
+            ৪. টাকা পাঠানোর পর নিচের বক্সে ট্রানজেকশন আইডি (TrxID) লিখে কনফার্ম করুন।
+        </div>
+
+
+        <div style="margin-top:10px;">
+            <label style="font-size:13px; font-weight:bold; margin-bottom:5px; display:block;">ট্রানজেকশন আইডি (TrxID) *</label>
+            <input id="gatewayTrx" placeholder="যেমন: 9N7A6BC5..." style="padding:10px; font-size:14px;">
         </div>
 
 
@@ -4370,7 +4379,6 @@ async function loadLocations(){
             await res.json();
 
 
-        // ঢাকা বিভাগের ঢাকা জেলার ক্ষেত্রে কাস্টম ইনসাইড ঢাকা ও সাব-আরবান যুক্ত করা
         const dhakaDiv = locations.find(d => d.name === "Dhaka" || d.bn_name === "ঢাকা");
         if(dhakaDiv) {
             const dhakaDist = dhakaDiv.districts.find(ds => ds.name === "Dhaka" || ds.bn_name === "ঢাকা");
@@ -4582,7 +4590,6 @@ function setupLocation(
 
             district?.upazilas?.forEach(x=>{
 
-                // যদি ইনসাইড ঢাকা বা সাব-আরবান এর মতো নেস্টেড থানা থাকে
                 if(x.upazilas) {
                     const optgroup = document.createElement("optgroup");
                     optgroup.label = `${x.bn_name} (${x.name})`;
@@ -4709,9 +4716,7 @@ function(event){
 ===================================================== */
 
 let selectedChannelName = "";
-
 let selectedAccountNumber = "";
-
 let currentAmount = 0;
 
 
@@ -4776,6 +4781,9 @@ function openGatewayModal(){
             c =>
             c.classList.remove("active")
         );
+        
+    document.getElementById("paymentInstructions").style.display = "none";
+    document.getElementById("gatewayTrx").value = "";
 
 }
 
@@ -4857,6 +4865,8 @@ function switchGatewayTab(tab){
             c =>
             c.classList.remove("active")
         );
+        
+    document.getElementById("paymentInstructions").style.display = "none";
 
 }
 
@@ -4886,25 +4896,55 @@ function selectChannel(
 
     selectedAccountNumber =
         account;
+        
+    document.getElementById("instChannelName").textContent = name;
+    document.getElementById("instAccountNo").textContent = account;
+    document.getElementById("instAmount").textContent = "৳ " + Number(currentAmount).toLocaleString();
+    document.getElementById("paymentInstructions").style.display = "block";
 
 }
 
+
 function verifyPayment(){
-    const trx = document.getElementById("gatewayTrx").value.trim();
+
+    const trx =
+        document
+        .getElementById(
+            "gatewayTrx"
+        )
+        .value
+        .trim();
+
+
     if(!selectedChannelName){
-        alert("দয়া করে একটি পেমেন্ট মাধ্যম নির্বাচন করুন।");
+
+        alert(
+            "দয়া করে একটি পেমেন্ট মাধ্যম নির্বাচন করুন।"
+        );
+
         return;
+
     }
+
+
     if(!trx){
-        alert("দয়া করে ট্রানজেকশন আইডি দিন।");
+
+        alert(
+            "দয়া করে ট্রানজেকশন আইডি দিন।"
+        );
+
         return;
+
     }
-    alert("✅ পেমেন্ট সফলভাবে সাবমিট হয়েছে। ধন্যবাদ!");
+
+
+    alert(
+        "✅ পেমেন্ট সফলভাবে সাবমিট হয়েছে। ধন্যবাদ!"
+    );
+
+
     closeGatewayModal();
-    document.getElementById("gatewayTrx").value = "";
-    document.getElementById("fundType").value = "";
-    document.getElementById("fundContact").value = "";
-    document.getElementById("fundAmount").value = "";
+
 }
 
 
