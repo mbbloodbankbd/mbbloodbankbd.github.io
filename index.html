@@ -4392,7 +4392,7 @@ if (
 
 
 /* =====================================================
-   BANGLADESH LOCATION DATA
+   BANGLADESH LOCATION DATA (CUSTOMIZED FOR DHAKA METRO)
 ===================================================== */
 
 const LOCATION_URL =
@@ -4411,6 +4411,46 @@ async function loadLocations(){
 
         locations =
             await res.json();
+
+        // ঢাকা বিভাগের ভেতরে ঢাকা জেলার নিচে 'ঢাকা মহানগর (Inside Dhaka)' অপশন এবং থানাগুলো যুক্ত করা
+        let dhakaDiv = locations.find(d => d.name === "Dhaka");
+        if(dhakaDiv){
+            let dhakaDist = dhakaDiv.districts.find(dis => dis.name === "Dhaka");
+            if(dhakaDist){
+                // ঢাকার থানাগুলোর লিস্ট (আপনার প্রয়োজনমতো বাংলা নাম সহ যোগ করা হয়েছে)
+                let metroUpazilas = [
+                    { name: "Adabor", bn_name: "আদাবর" },
+                    { name: "Badda", bn_name: "বাড্ডা" },
+                    { name: "Bangsal", bn_name: "বংশাল" },
+                    { name: "Cantonment", bn_name: "ক্যান্টনমেন্ট" },
+                    { name: "Chawkbazar", bn_name: "চকবাজার" },
+                    { name: "Dakkhinkhan", bn_name: "দক্ষিণখান" },
+                    { name: "Darus Salam", bn_name: "দারুস সালাম" },
+                    { name: "Demra", bn_name: "ডেমরা" },
+                    { name: "Dhanmondi", bn_name: "ধানমন্ডি" },
+                    { name: "Gendaria", bn_name: "গেন্ডারিয়া" },
+                    { name: "Gulshan", bn_name: "গুলশান" },
+                    { name: "Hazaribagh", bn_name: "হাজারীবাগ" },
+                    { name: "Jatrabari", bn_name: "যাত্রাবাড়ী" },
+                    { name: "Kadamtali", bn_name: "কদমতলী" },
+                    { name: "Kafrul", bn_name: "কাফরুল" },
+                    { name: "Kalabagan", bn_name: "কলাবাগান" },
+                    { name: "Ramna", bn_name: "রমনা" },
+                    { name: "Motijheel", bn_name: "মতিঝিল" },
+                    { name: "Mirpur", bn_name: "মিরপুর" },
+                    { name: "Mohammadpur", bn_name: "মোহাম্মদপুর" },
+                    { name: "Tejgaon", bn_name: "তেজগাঁও" },
+                    { name: "Uttara", bn_name: "উত্তরা" }
+                ];
+
+                // জেলার তালিকায় নতুন একটি এন্ট্রি 'Inside Dhaka' বা 'ঢাকা মহানগর' ঢুকিয়ে দেওয়া
+                dhakaDiv.districts.unshift({
+                    name: "Inside Dhaka",
+                    bn_name: "ঢাকা মহানগর (Metro)",
+                    upazilas: metroUpazilas
+                });
+            }
+        }
 
 
         fillDivisions("searchDivision");
