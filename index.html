@@ -27,7 +27,13 @@ body{
       linear-gradient(135deg,#f9e7ff,#eee8ff,#ffe9f4);
     color:#29123f;
     min-height:100vh;
-    padding-bottom: 70px; /* Space for app bottom nav */
+}
+
+/* শুধুমাত্র অ্যাপ মোডে বডির নিচে প্যাডিং যোগ হবে যাতে কন্টেন্ট নেভিগেশন বারের নিচে ঢাকা না পড়ে */
+@media (display-mode: standalone), (display-mode: fullscreen) {
+    body {
+        padding-bottom: 70px;
+    }
 }
 
 body:before{
@@ -95,10 +101,10 @@ a{
     cursor: pointer;
     font-size: 24px;
     color: #fff;
-    background: linear-gradient(145deg, #6825a5, #d41467);
+    background: linear-gradient(145deg,#6825a5,#d41467);
     box-shadow:
-        8px 8px 20px rgba(75, 20, 110, .35),
-        inset 2px 2px 5px rgba(255, 255, 255, .3);
+        8px 8px 20px rgba(75,20,110,.35),
+        inset 2px 2px 5px rgba(255,255,255,.3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -170,7 +176,7 @@ a{
 ========================= */
 
 .bottom-nav {
-    display: none; /* ব্রাউজারে লুকানো থাকবে */
+    display: none; /* পাবলিক ওয়েবসাইটে লুকানো থাকবে */
     position: fixed;
     bottom: 0;
     left: 0;
@@ -218,6 +224,81 @@ a{
 
 .bottom-nav-item.active {
     color: #d80058;
+}
+
+/* =========================
+   BANNER
+========================= */
+
+.banner{
+    width:100%;
+    margin:15px auto 25px;
+    border-radius:28px;
+    overflow:hidden;
+    box-shadow:0 25px 60px rgba(80,20,100,.25);
+    background:#fff;
+}
+
+.banner img{
+    display:block;
+    width:100%;
+    height:auto;
+}
+
+/* =========================
+   APP DOWNLOAD SECTION (WEB ONLY)
+========================= */
+
+.app-download-box{
+    margin:25px 0;
+    padding:25px;
+    text-align:center;
+    background:linear-gradient(135deg, rgba(112, 39, 173, 0.1), rgba(215, 25, 103, 0.1));
+    border:1px solid rgba(255,255,255,.9);
+    border-radius:28px;
+    box-shadow:0 15px 35px rgba(70,20,100,.12);
+}
+
+.app-download-box h3{
+    font-size:22px;
+    font-weight:800;
+    color:#7027ad;
+    margin-bottom:8px;
+}
+
+.app-download-box p{
+    font-size:15px;
+    font-weight:700;
+    color:#29123f;
+    margin-bottom:18px;
+}
+
+.app-download-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 28px;
+    border-radius:18px;
+    color:#fff;
+    font-family:inherit;
+    font-weight:800;
+    font-size:16px;
+    background:linear-gradient(145deg,#008751,#006c40);
+    box-shadow:
+        7px 8px 18px rgba(0,135,81,.28),
+        inset 1px 1px 3px rgba(255,255,255,.35);
+    transition:.25s;
+}
+
+.app-download-btn:hover{
+    transform:translateY(-3px);
+    background:linear-gradient(145deg,#006c40,#005230);
+}
+
+@media (display-mode: standalone), (display-mode: fullscreen) {
+    .web-only-download {
+        display: none !important;
+    }
 }
 
 /* =========================
