@@ -4376,6 +4376,22 @@ const analytics =
 <script>
 
 /* =====================================================
+   HIDE APP DOWNLOAD IN APP/PWA MODE
+===================================================== */
+if (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.matchMedia('(display-mode: fullscreen)').matches ||
+    window.navigator.standalone === true ||
+    document.referrer.includes('android-app://')
+) {
+    const downloadBox = document.querySelector('.web-only-download');
+    if (downloadBox) {
+        downloadBox.style.display = 'none';
+    }
+}
+
+
+/* =====================================================
    BANGLADESH LOCATION DATA
 ===================================================== */
 
