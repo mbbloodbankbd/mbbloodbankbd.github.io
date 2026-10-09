@@ -27,7 +27,7 @@ body{
       linear-gradient(135deg,#f9e7ff,#eee8ff,#ffe9f4);
     color:#29123f;
     min-height:100vh;
-    padding-bottom: 75px; /* যাতে নিচের কন্টেন্ট নেভিগেশন বারের নিচে ঢাকা না পড়ে */
+    padding-bottom: 70px; /* কন্টেন্ট যেন নেভিগেশন বারের নিচে ঢাকা না পড়ে */
 }
 
 body:before{
@@ -166,11 +166,11 @@ a{
 }
 
 /* =========================
-   BOTTOM NAVIGATION BAR
+   BOTTOM NAVIGATION BAR (APP ONLY)
 ========================= */
 
 .bottom-nav {
-    display: flex;
+    display: none; /* ডিফল্টভাবে অফ থাকবে */
     position: fixed;
     bottom: 0;
     left: 0;
@@ -187,6 +187,13 @@ a{
     padding: 0 5px;
 }
 
+/* অ্যাপ মোড অথবা মোবাইল অ্যাপ ভিউয়ের জন্য */
+@media (display-mode: standalone), (display-mode: fullscreen), (max-width: 768px) {
+    .bottom-nav {
+        display: flex !important;
+    }
+}
+
 .bottom-nav-item {
     display: flex;
     flex-direction: column;
@@ -194,7 +201,7 @@ a{
     justify-content: center;
     flex: 1;
     color: #666;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     cursor: pointer;
     transition: color 0.2s;
@@ -1242,7 +1249,7 @@ footer{
 </div>
 
 
-<!-- নিচের নেভিগেশন বার -->
+<!-- অ্যাপের নিচের ন্যাভিগেশন বার (শুধু অ্যাপ বা মোবাইল স্ক্রিনে দেখাবে) -->
 <nav class="bottom-nav">
     <a href="#home" class="bottom-nav-item active" onclick="setActiveNav(this)">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -4536,7 +4543,7 @@ function setActiveNav(element) {
 }
 
 /* =====================================================
-   NOTIFICATION FUNCTIONS
+   NOTIFICATION FUNCTIONS (APP ONLY)
 ===================================================== */
 function updateNotificationsBadge() {
     const requests = JSON.parse(localStorage.getItem("mb_requests") || "[]");
