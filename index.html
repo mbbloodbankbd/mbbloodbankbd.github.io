@@ -29,6 +29,11 @@ body{
     min-height:100vh;
 }
 
+/* ডিফল্টভাবে অ্যাপের বটম নেভিগেশন বার হাইড থাকবে (শুধু ওয়েবসাইটে অফ) */
+.bottom-nav {
+    display: none; 
+}
+
 body:before{
     content:"";
     position:fixed;
@@ -111,8 +116,8 @@ a{
 
 .notif-badge {
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 10px;
+    right: 10px;
     background: #ff3040;
     color: white;
     font-size: 11px;
@@ -162,54 +167,6 @@ a{
 .side-menu a:hover{
     transform:translateX(-5px);
     background:rgba(255,255,255,.18);
-}
-
-/* =========================
-   BOTTOM NAVIGATION BAR (DEFAULT HIDDEN, SHOWN VIA JS IN APP ONLY)
-========================= */
-
-.bottom-nav {
-    display: none !important;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 65px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-top: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 -5px 20px rgba(70, 20, 100, 0.1);
-    z-index: 1000;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0 5px;
-}
-
-.bottom-nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    color: #666;
-    font-size: 11px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: color 0.2s;
-    text-decoration: none;
-    padding: 6px 0;
-}
-
-.bottom-nav-item svg {
-    width: 22px;
-    height: 22px;
-    margin-bottom: 3px;
-    fill: currentColor;
-}
-
-.bottom-nav-item.active {
-    color: #d80058;
 }
 
 /* =========================
@@ -1235,29 +1192,50 @@ footer{
 </div>
 
 
-<!-- অ্যাপের নিচের ন্যাভিগেশন বার (শুধু অ্যাপ মোডে দেখাবে) -->
+<!-- অ্যাপের নিচের ন্যাভিগেশন বার (জাভাস্ক্রিপ্ট দিয়ে শুধুমাত্র অ্যাপ মোডে দেখানো হবে) -->
 <nav id="appBottomNav" class="bottom-nav">
     <a href="#home" class="bottom-nav-item active" onclick="setActiveNav(this)">
-        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:currentColor;margin-bottom:3px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         হোম
     </a>
     <a href="#search" class="bottom-nav-item" onclick="setActiveNav(this)">
-        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:currentColor;margin-bottom:3px;"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
         ডোনার
     </a>
     <a href="#ambulance" class="bottom-nav-item" onclick="setActiveNav(this)">
-        <svg viewBox="0 0 24 24"><path d="M18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m1.5-9H17V7h2.5V9.5M6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg>
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:currentColor;margin-bottom:3px;"><path d="M18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m1.5-9H17V7h2.5V9.5M6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg>
         অ্যাম্বুলেন্স
     </a>
     <a href="#request" class="bottom-nav-item" onclick="setActiveNav(this)">
-        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:currentColor;margin-bottom:3px;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
         রিকোয়েস্ট
     </a>
     <a href="#register" class="bottom-nav-item" onclick="setActiveNav(this)">
-        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:currentColor;margin-bottom:3px;"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         প্রোফাইল
     </a>
 </nav>
+
+<style>
+/* বটম নেভিগেশন বারের স্টাইল */
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    color: #666;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: color 0.2s;
+    text-decoration: none;
+    padding: 6px 0;
+}
+.bottom-nav-item.active {
+    color: #d80058;
+}
+</style>
 
 
 <main class="container" id="home">
@@ -4521,28 +4499,49 @@ const analytics =
 <script>
 
 /* =====================================================
-   APP MODE CHECK & NAVBAR CONTROL
+   APP MODE CHECK & NAVBAR / DOWNLOAD TOGGLE (RELOAD SAFE)
 ===================================================== */
-const isAppMode = 
-    window.matchMedia('(display-mode: standalone)').matches ||
-    window.matchMedia('(display-mode: fullscreen)').matches ||
-    window.navigator.standalone === true ||
-    document.referrer.includes('android-app://');
+function checkAppMode() {
+    const isStandalone = 
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.matchMedia('(display-mode: fullscreen)').matches ||
+        window.navigator.standalone === true ||
+        document.referrer.includes('android-app://');
 
-if (isAppMode) {
-    // শুধু অ্যাপ মোড হলে ন্যাভিগেশন বার দেখাবে এবং বডির নিচে প্যাডিং রাখবে
-    const bottomNav = document.getElementById('appBottomNav');
-    if (bottomNav) {
-        bottomNav.style.display = 'flex';
-    }
-    document.body.style.paddingBottom = '70px';
-
-    // অ্যাপ মোড হলে ডাউনলোড বক্স হাইড করবে
     const downloadBox = document.querySelector('.web-only-download');
-    if (downloadBox) {
-        downloadBox.style.display = 'none';
+    const bottomNav = document.getElementById('appBottomNav');
+
+    if (isStandalone) {
+        // যদি অ্যাপ মোড হয়
+        if (downloadBox) downloadBox.style.display = 'none';
+        if (bottomNav) {
+            bottomNav.style.display = 'flex';
+            bottomNav.style.position = 'fixed';
+            bottomNav.style.bottom = '0';
+            bottomNav.style.left = '0';
+            bottomNav.style.width = '100%';
+            bottomNav.style.height = '65px';
+            bottomNav.style.background = 'rgba(255, 255, 255, 0.95)';
+            bottomNav.style.backdropFilter = 'blur(15px)';
+            bottomNav.style.borderTop = '1px solid rgba(255, 255, 255, 0.8)';
+            bottomNav.style.boxShadow = '0 -5px 20px rgba(70, 20, 100, 0.1)';
+            bottomNav.style.zIndex = '1000';
+            bottomNav.style.justifyContent = 'space-around';
+            bottomNav.style.alignItems = 'center';
+            bottomNav.style.padding = '0 5px';
+        }
+        document.body.style.paddingBottom = '70px';
+    } else {
+        // যদি ব্রাউজার বা পাবলিক ওয়েবসাইট হয়
+        if (downloadBox) downloadBox.style.display = 'block';
+        if (bottomNav) bottomNav.style.display = 'none';
+        document.body.style.paddingBottom = '0px';
     }
 }
+
+// পেজ লোড এবং রিফ্রেশ হওয়ার সাথে সাথে চেক করবে
+window.addEventListener('DOMContentLoaded', checkAppMode);
+window.addEventListener('load', checkAppMode);
 
 
 /* =====================================================
