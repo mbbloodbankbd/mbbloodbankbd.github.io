@@ -27,7 +27,6 @@ body{
       linear-gradient(135deg,#f9e7ff,#eee8ff,#ffe9f4);
     color:#29123f;
     min-height:100vh;
-    padding-bottom: 70px; /* কন্টেন্ট যেন নেভিগেশন বারের নিচে ঢাকা না পড়ে */
 }
 
 body:before{
@@ -112,8 +111,8 @@ a{
 
 .notif-badge {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 8px;
+    right: 8px;
     background: #ff3040;
     color: white;
     font-size: 11px;
@@ -166,11 +165,11 @@ a{
 }
 
 /* =========================
-   BOTTOM NAVIGATION BAR (APP ONLY)
+   BOTTOM NAVIGATION BAR (DEFAULT HIDDEN, SHOWN VIA JS IN APP ONLY)
 ========================= */
 
 .bottom-nav {
-    display: none; /* ডিফল্টভাবে অফ থাকবে */
+    display: none !important;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -185,13 +184,6 @@ a{
     justify-content: space-around;
     align-items: center;
     padding: 0 5px;
-}
-
-/* অ্যাপ মোড অথবা মোবাইল অ্যাপ ভিউয়ের জন্য */
-@media (display-mode: standalone), (display-mode: fullscreen), (max-width: 768px) {
-    .bottom-nav {
-        display: flex !important;
-    }
 }
 
 .bottom-nav-item {
@@ -287,12 +279,6 @@ a{
 .app-download-btn:hover{
     transform:translateY(-3px);
     background:linear-gradient(145deg,#006c40,#005230);
-}
-
-@media (display-mode: standalone), (display-mode: fullscreen) {
-    .web-only-download {
-        display: none !important;
-    }
 }
 
 /* =========================
@@ -1249,8 +1235,8 @@ footer{
 </div>
 
 
-<!-- অ্যাপের নিচের ন্যাভিগেশন বার (শুধু অ্যাপ বা মোবাইল স্ক্রিনে দেখাবে) -->
-<nav class="bottom-nav">
+<!-- অ্যাপের নিচের ন্যাভিগেশন বার (শুধু অ্যাপ মোডে দেখাবে) -->
+<nav id="appBottomNav" class="bottom-nav">
     <a href="#home" class="bottom-nav-item active" onclick="setActiveNav(this)">
         <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         হোম
@@ -4535,6 +4521,31 @@ const analytics =
 <script>
 
 /* =====================================================
+   APP MODE CHECK & NAVBAR CONTROL
+===================================================== */
+const isAppMode = 
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.matchMedia('(display-mode: fullscreen)').matches ||
+    window.navigator.standalone === true ||
+    document.referrer.includes('android-app://');
+
+if (isAppMode) {
+    // শুধু অ্যাপ মোড হলে ন্যাভিগেশন বার দেখাবে এবং বডির নিচে প্যাডিং রাখবে
+    const bottomNav = document.getElementById('appBottomNav');
+    if (bottomNav) {
+        bottomNav.style.display = 'flex';
+    }
+    document.body.style.paddingBottom = '70px';
+
+    // অ্যাপ মোড হলে ডাউনলোড বক্স হাইড করবে
+    const downloadBox = document.querySelector('.web-only-download');
+    if (downloadBox) {
+        downloadBox.style.display = 'none';
+    }
+}
+
+
+/* =====================================================
    ACTIVE BOTTOM NAV HELPER
 ===================================================== */
 function setActiveNav(element) {
@@ -4578,22 +4589,6 @@ function openNotificationModal() {
 
 function closeNotificationModal() {
     document.getElementById("notificationModal").style.display = "none";
-}
-
-
-/* =====================================================
-   HIDE APP DOWNLOAD IN APP/PWA MODE
-===================================================== */
-if (
-    window.matchMedia('(display-mode: standalone)').matches ||
-    window.matchMedia('(display-mode: fullscreen)').matches ||
-    window.navigator.standalone === true ||
-    document.referrer.includes('android-app://')
-) {
-    const downloadBox = document.querySelector('.web-only-download');
-    if (downloadBox) {
-        downloadBox.style.display = 'none';
-    }
 }
 
 
