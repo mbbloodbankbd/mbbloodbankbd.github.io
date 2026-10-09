@@ -27,6 +27,7 @@ body{
       linear-gradient(135deg,#f9e7ff,#eee8ff,#ffe9f4);
     color:#29123f;
     min-height:100vh;
+    padding-bottom: 70px; /* Space for app bottom nav */
 }
 
 body:before{
@@ -74,101 +75,56 @@ a{
 }
 
 /* =========================
-   BANNER
+   TOP BUTTONS (MENU & NOTIFICATION)
 ========================= */
 
-.banner{
-    width:100%;
-    margin:15px auto 25px;
-    border-radius:28px;
-    overflow:hidden;
-    box-shadow:0 25px 60px rgba(80,20,100,.25);
-    background:#fff;
+.top-buttons-container {
+    position: fixed;
+    right: 18px;
+    top: 18px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
 }
 
-.banner img{
-    display:block;
-    width:100%;
-    height:auto;
-}
-
-/* =========================
-   APP DOWNLOAD SECTION (WEB ONLY)
-========================= */
-
-.app-download-box{
-    margin:25px 0;
-    padding:25px;
-    text-align:center;
-    background:linear-gradient(135deg, rgba(112, 39, 173, 0.1), rgba(215, 25, 103, 0.1));
-    border:1px solid rgba(255,255,255,.9);
-    border-radius:28px;
-    box-shadow:0 15px 35px rgba(70,20,100,.12);
-}
-
-.app-download-box h3{
-    font-size:22px;
-    font-weight:800;
-    color:#7027ad;
-    margin-bottom:8px;
-}
-
-.app-download-box p{
-    font-size:15px;
-    font-weight:700;
-    color:#29123f;
-    margin-bottom:18px;
-}
-
-.app-download-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:14px 28px;
-    border-radius:18px;
-    color:#fff;
-    font-family:inherit;
-    font-weight:800;
-    font-size:16px;
-    background:linear-gradient(145deg,#008751,#006c40);
+.menu-btn, .notification-btn{
+    width: 58px;
+    height: 58px;
+    border: 0;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #fff;
+    background: linear-gradient(145deg, #6825a5, #d41467);
     box-shadow:
-        7px 8px 18px rgba(0,135,81,.28),
-        inset 1px 1px 3px rgba(255,255,255,.35);
-    transition:.25s;
+        8px 8px 20px rgba(75, 20, 110, .35),
+        inset 2px 2px 5px rgba(255, 255, 255, .3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: transform 0.2s;
 }
 
-.app-download-btn:hover{
-    transform:translateY(-3px);
-    background:linear-gradient(145deg,#006c40,#005230);
+.menu-btn:hover, .notification-btn:hover {
+    transform: scale(1.05);
 }
 
-/* Hide in installed PWA/App mode */
-@media (display-mode: standalone), (display-mode: fullscreen) {
-    .web-only-download {
-        display: none !important;
-    }
-}
-
-/* =========================
-   MENU
-========================= */
-
-.menu-btn{
-    position:fixed;
-    right:18px;
-    top:18px;
-    z-index:1000;
-    width:58px;
-    height:58px;
-    border:0;
-    border-radius:20px;
-    cursor:pointer;
-    font-size:26px;
-    color:#fff;
-    background:linear-gradient(145deg,#6825a5,#d41467);
-    box-shadow:
-        8px 8px 20px rgba(75,20,110,.35),
-        inset 2px 2px 5px rgba(255,255,255,.3);
+.notif-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ff3040;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 5px rgba(255, 48, 64, 0.8);
 }
 
 .side-menu{
@@ -207,6 +163,61 @@ a{
 .side-menu a:hover{
     transform:translateX(-5px);
     background:rgba(255,255,255,.18);
+}
+
+/* =========================
+   BOTTOM NAVIGATION BAR (APP ONLY)
+========================= */
+
+.bottom-nav {
+    display: none; /* ব্রাউজারে লুকানো থাকবে */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 65px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-top: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 -5px 20px rgba(70, 20, 100, 0.1);
+    z-index: 1000;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 5px;
+}
+
+/* শুধুমাত্র অ্যাপ বা PWA মোডে এটি দেখা যাবে */
+@media (display-mode: standalone), (display-mode: fullscreen) {
+    .bottom-nav {
+        display: flex !important;
+    }
+}
+
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    color: #666;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: color 0.2s;
+    text-decoration: none;
+    padding: 6px 0;
+}
+
+.bottom-nav-item svg {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 3px;
+    fill: currentColor;
+}
+
+.bottom-nav-item.active {
+    color: #d80058;
 }
 
 /* =========================
@@ -1116,7 +1127,14 @@ footer{
 
 <body>
 
-<button class="menu-btn" onclick="toggleMenu()">☰</button>
+<!-- টপ বাটনসমূহ (নোটিফিকেশন ও মেনু) -->
+<div class="top-buttons-container">
+    <button class="notification-btn" onclick="openNotificationModal()" title="নোটিফিকেশন">
+        🔔
+        <span id="notifBadge" class="notif-badge" style="display:none;">0</span>
+    </button>
+    <button class="menu-btn" onclick="toggleMenu()" title="মেনু">☰</button>
+</div>
 
 
 <div id="sideMenu" class="side-menu">
@@ -1154,6 +1172,31 @@ footer{
     </a>
 
 </div>
+
+
+<!-- অ্যাপের নিচের ন্যাভিগেশন বার (শুধু অ্যাপ মোডে দেখাবে) -->
+<nav class="bottom-nav">
+    <a href="#home" class="bottom-nav-item active" onclick="setActiveNav(this)">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        হোম
+    </a>
+    <a href="#search" class="bottom-nav-item" onclick="setActiveNav(this)">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        ডোনার
+    </a>
+    <a href="#ambulance" class="bottom-nav-item" onclick="setActiveNav(this)">
+        <svg viewBox="0 0 24 24"><path d="M18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m1.5-9H17V7h2.5V9.5M6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg>
+        অ্যাম্বুলেন্স
+    </a>
+    <a href="#request" class="bottom-nav-item" onclick="setActiveNav(this)">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        রিকোয়েস্ট
+    </a>
+    <a href="#register" class="bottom-nav-item" onclick="setActiveNav(this)">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        প্রোফাইল
+    </a>
+</nav>
 
 
 <main class="container" id="home">
@@ -3845,6 +3888,47 @@ footer{
 
 
 <!-- =====================================================
+     NOTIFICATION MODAL
+===================================================== -->
+
+<div
+    id="notificationModal"
+    class="modal"
+>
+
+    <div class="modal-box">
+
+
+        <button
+            class="close"
+            onclick="closeNotificationModal()"
+        >
+            &times;
+        </button>
+
+
+        <h3
+            style="
+            color:#7c1eaf;
+            margin-bottom:15px;
+            text-align:center;
+            "
+        >
+            🔔 জরুরি নোটিফিকেশন
+        </h3>
+
+
+        <div id="notificationListContainer">
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
      AMBULANCE MODAL
 ===================================================== -->
 
@@ -4376,6 +4460,53 @@ const analytics =
 <script>
 
 /* =====================================================
+   ACTIVE BOTTOM NAV HELPER
+===================================================== */
+function setActiveNav(element) {
+    document.querySelectorAll('.bottom-nav-item').forEach(item => item.classList.remove('active'));
+    element.classList.add('active');
+}
+
+/* =====================================================
+   NOTIFICATION FUNCTIONS (APP ONLY)
+===================================================== */
+function updateNotificationsBadge() {
+    const requests = JSON.parse(localStorage.getItem("mb_requests") || "[]");
+    const badge = document.getElementById("notifBadge");
+    if (requests.length > 0) {
+        badge.style.display = "flex";
+        badge.textContent = requests.length;
+    } else {
+        badge.style.display = "none";
+    }
+}
+
+function openNotificationModal() {
+    const container = document.getElementById("notificationListContainer");
+    const requests = JSON.parse(localStorage.getItem("mb_requests") || "[]");
+    
+    if (!requests.length) {
+        container.innerHTML = `<p style="text-align:center; padding:10px; color:#555;">কোনো নতুন নোটিফিকেশন নেই।</p>`;
+    } else {
+        container.innerHTML = requests.map(r => `
+            <div class="ambulance-list-item">
+                <h4 style="color:#d80058;">🚨 রক্তের অনুরোধ: ${escapeHtml(r.blood)} (${r.bags} ব্যাগ)</h4>
+                <p><b>রোগী:</b> ${escapeHtml(r.patient)}</p>
+                <p><b>হাসপাতাল:</b> ${escapeHtml(r.hospital)}</p>
+                <p><b>যোগাযোগ:</b> <a href="tel:${r.phone}" style="color:#7c1eaf; font-weight:bold;">${escapeHtml(r.phone)}</a></p>
+                <p><small style="color:#666;">তারিখ: ${escapeHtml(r.date)} | মাত্রা: ${escapeHtml(r.urgency)}</small></p>
+            </div>
+        `).join("");
+    }
+    document.getElementById("notificationModal").style.display = "block";
+}
+
+function closeNotificationModal() {
+    document.getElementById("notificationModal").style.display = "none";
+}
+
+
+/* =====================================================
    HIDE APP DOWNLOAD IN APP/PWA MODE
 ===================================================== */
 if (
@@ -4413,7 +4544,6 @@ async function loadLocations(){
             await res.json();
 
 
-        // ঢাকা বিভাগের ভেতরে জেলার তালিকায় 'Inside Dhaka' বা ঢাকা মহানগর যোগ করা
         let dhakaDiv = locations.find(d => d.name === "Dhaka");
         if(dhakaDiv){
             let dhakaDist = dhakaDiv.districts.find(dis => dis.name === "Dhaka");
@@ -4443,7 +4573,6 @@ async function loadLocations(){
                     { name: "Uttara", bn_name: "উত্তরা" }
                 ];
 
-                // Inside Dhaka অপশন যুক্ত করা
                 dhakaDiv.districts.unshift({
                     name: "Inside Dhaka",
                     bn_name: "Inside Dhaka (ঢাকা মহানগর)",
@@ -4699,6 +4828,11 @@ function(event){
             "detailsModal"
         );
 
+    const notifModal =
+        document.getElementById(
+            "notificationModal"
+        );
+
 
     if(event.target == ambModal)
         ambModal.style.display =
@@ -4712,6 +4846,10 @@ function(event){
 
     if(event.target == detailsModal)
         detailsModal.style.display =
+            "none";
+
+    if(event.target == notifModal)
+        notifModal.style.display =
             "none";
 
 }
@@ -5468,6 +5606,8 @@ document
 
             updateStats();
 
+            updateNotificationsBadge();
+
         }
     );
 
@@ -5743,6 +5883,8 @@ function updateStats(){
 loadLocations();
 
 updateStats();
+
+updateNotificationsBadge();
 
 </script>
 
