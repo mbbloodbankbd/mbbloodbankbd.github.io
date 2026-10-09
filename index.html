@@ -4392,7 +4392,7 @@ if (
 
 
 /* =====================================================
-   BANGLADESH LOCATION DATA (CUSTOMIZED FOR DHAKA METRO)
+   BANGLADESH LOCATION DATA (CUSTOMIZED FOR INSIDE DHAKA)
 ===================================================== */
 
 const LOCATION_URL =
@@ -4412,12 +4412,12 @@ async function loadLocations(){
         locations =
             await res.json();
 
-        // ঢাকা বিভাগের ভেতরে ঢাকা জেলার নিচে 'ঢাকা মহানগর (Inside Dhaka)' অপশন এবং থানাগুলো যুক্ত করা
+
+        // ঢাকা বিভাগের ভেতরে জেলার তালিকায় 'Inside Dhaka' বা ঢাকা মহানগর যোগ করা
         let dhakaDiv = locations.find(d => d.name === "Dhaka");
         if(dhakaDiv){
             let dhakaDist = dhakaDiv.districts.find(dis => dis.name === "Dhaka");
             if(dhakaDist){
-                // ঢাকার থানাগুলোর লিস্ট (আপনার প্রয়োজনমতো বাংলা নাম সহ যোগ করা হয়েছে)
                 let metroUpazilas = [
                     { name: "Adabor", bn_name: "আদাবর" },
                     { name: "Badda", bn_name: "বাড্ডা" },
@@ -4443,10 +4443,10 @@ async function loadLocations(){
                     { name: "Uttara", bn_name: "উত্তরা" }
                 ];
 
-                // জেলার তালিকায় নতুন একটি এন্ট্রি 'Inside Dhaka' বা 'ঢাকা মহানগর' ঢুকিয়ে দেওয়া
+                // Inside Dhaka অপশন যুক্ত করা
                 dhakaDiv.districts.unshift({
                     name: "Inside Dhaka",
-                    bn_name: "ঢাকা মহানগর (Metro)",
+                    bn_name: "Inside Dhaka (ঢাকা মহানগর)",
                     upazilas: metroUpazilas
                 });
             }
