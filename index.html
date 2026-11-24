@@ -1,924 +1,1114 @@
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#d71940">
-<title>MB Blood Bank | বৃহত্তম ব্লাড ব্যাংক</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MB Blood Bank | রক্তদান ও মানবিক সেবা প্ল্যাটফর্ম</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --surface: rgba(255, 255, 255, 0.85);
+      --surface-solid: #ffffff;
+      --primary: #d90429;
+      --primary-dark: #9b001c;
+      --primary-soft: rgba(217, 4, 41, 0.1);
+      --secondary: #1d3557;
+      --text: #1b1f2a;
+      --muted: #64748b;
+      --success: #16a34a;
+      --border: rgba(226, 232, 240, 0.9);
+      --shadow-3d: 0 14px 30px -10px rgba(217, 4, 41, 0.18), 0 6px 14px -6px rgba(15, 23, 42, 0.08);
+      --shadow-card: 0 10px 25px -5px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      --radius: 20px;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Hind Siliguri', sans-serif;
+    }
 
-<style>
-:root{
- --red:#df1742;
- --dark:#a90c30;
- --pink:#ff5278;
- --bg:#fff4f6;
- --white:#fff;
- --text:#282332;
- --muted:#777;
- --shadow:0 12px 35px rgba(173,20,55,.10);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{
- font-family:'Noto Sans Bengali','Poppins',sans-serif;
- background:linear-gradient(145deg,#fff0f3,#f7eaff,#fff5f5);
- color:var(--text);
- min-height:100vh;
- padding-bottom:85px;
-}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer;border:0}
-.header{
- background:linear-gradient(120deg,#a9002d,#e91e52,#ff6482);
- color:white;padding:18px 17px 28px;
- border-radius:0 0 30px 30px;
- box-shadow:0 12px 30px #cf164333;
- position:relative;overflow:hidden;
-}
-.header:before,.header:after{
- content:"";position:absolute;border-radius:50%;
- background:#ffffff17;
-}
-.header:before{width:180px;height:180px;right:-55px;top:-85px}
-.header:after{width:100px;height:100px;right:100px;bottom:-65px}
-.topbar{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
-.brand{display:flex;align-items:center;gap:10px}
-.logo{
- width:46px;height:46px;border-radius:16px;
- background:#fff;color:var(--red);
- display:grid;place-items:center;font-size:27px;
- box-shadow:0 5px 18px #75001f55;
-}
-.brand h2{font-size:19px;font-weight:800}
-.brand small{display:block;font-size:11px;opacity:.9}
-.icon-btn{
- background:#ffffff24;color:white;border:1px solid #ffffff55;
- width:40px;height:40px;border-radius:13px;font-size:20px;
-}
-.hero{position:relative;z-index:1;margin-top:25px}
-.hero h1{font-size:25px;line-height:1.55;font-weight:800}
-.hero p{font-size:13px;opacity:.95;margin-top:7px;line-height:1.8}
-.hero-btn{
- margin-top:15px;background:white;color:var(--red);
- padding:11px 18px;border-radius:14px;font-weight:800;
- box-shadow:0 5px 15px #78001e33;
-}
-.container{max-width:650px;margin:auto;padding:17px}
-.section-title{
- display:flex;justify-content:space-between;align-items:center;
- margin:22px 0 13px;font-size:17px;font-weight:800;
-}
-.section-title span{color:var(--red)}
-.card{
- background:#ffffffd9;border:1px solid #ffffff;
- border-radius:21px;padding:17px;margin-bottom:15px;
- box-shadow:var(--shadow);backdrop-filter:blur(15px);
-}
-.stats{
- display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
- margin-top:-5px;
-}
-.stat{
- padding:17px 13px;border-radius:19px;
- background:linear-gradient(145deg,#fff,#ffe8ee);
- border:1px solid #fff;box-shadow:var(--shadow);
-}
-.stat-icon{font-size:24px}
-.stat h2{font-size:25px;color:var(--red);margin:7px 0 2px}
-.stat p{font-size:12px;color:var(--muted)}
-.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.menu-card{
- padding:17px 12px;border-radius:20px;
- background:white;box-shadow:var(--shadow);
- border:1px solid #fff;text-align:center;
- transition:.2s;
-}
-.menu-card:active{transform:scale(.96)}
-.menu-card .emoji{font-size:30px}
-.menu-card h3{font-size:13px;margin-top:8px}
-.menu-card p{font-size:10px;color:var(--muted);margin-top:4px}
-.btn{
- background:linear-gradient(110deg,var(--dark),var(--red),var(--pink));
- color:white;padding:13px 18px;border-radius:13px;
- width:100%;font-weight:800;box-shadow:0 6px 15px #df174233;
-}
-.btn-outline{
- border:1px solid var(--red);color:var(--red);
- background:white;padding:11px 15px;border-radius:12px;font-weight:700;
-}
-.btn-small{padding:9px 13px;width:auto;font-size:12px}
-.form-group{margin-bottom:13px}
-.form-group label{font-size:12px;font-weight:700;display:block;margin-bottom:7px}
-.form-group input,.form-group select,.form-group textarea{
- width:100%;padding:12px 13px;border:1px solid #eee;
- border-radius:12px;background:#fff;outline:none;
- font-size:13px;color:var(--text);
-}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
- border-color:var(--pink);box-shadow:0 0 0 3px #ff52781b;
-}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.page{display:none;animation:fade .3s}
-.page.active{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.tabs{display:flex;gap:8px;margin-bottom:15px}
-.tab{
- flex:1;padding:11px 5px;border-radius:11px;
- background:#fff0f3;color:var(--red);font-weight:700;font-size:12px;
-}
-.tab.active{background:var(--red);color:white}
-.donor{
- display:flex;align-items:center;gap:12px;
- background:white;padding:13px;border-radius:16px;
- margin-bottom:10px;box-shadow:0 5px 18px #00000008;
-}
-.avatar{
- width:50px;height:50px;border-radius:16px;
- background:#ffe2e9;display:grid;place-items:center;
- font-size:25px;flex-shrink:0;
-}
-.donor-info{flex:1;min-width:0}
-.donor-info h3{font-size:14px}
-.donor-info p{font-size:11px;color:var(--muted);margin-top:4px}
-.blood{
- background:#ffe2e9;color:#c60030;padding:7px 9px;
- border-radius:11px;font-weight:800;font-size:12px;
-}
-.badge-active{color:#13844b;font-size:10px;font-weight:700}
-.notice{
- padding:12px;border-radius:13px;background:#fff4dc;
- color:#865b00;font-size:11px;line-height:1.8;margin-bottom:13px;
-}
-.bottom-nav{
- position:fixed;bottom:0;left:0;right:0;
- background:#ffffffed;backdrop-filter:blur(15px);
- box-shadow:0 -5px 25px #0000000d;
- display:flex;justify-content:space-around;padding:10px 3px 8px;
- z-index:50;border-radius:19px 19px 0 0;
-}
-.nav-item{
- background:transparent;color:#888;display:flex;
- flex-direction:column;align-items:center;gap:3px;
- font-size:10px;min-width:55px;
-}
-.nav-item span:first-child{font-size:21px}
-.nav-item.active{color:var(--red);font-weight:800}
-.modal{
- display:none;position:fixed;inset:0;background:#16000c99;
- z-index:100;align-items:center;justify-content:center;padding:15px;
-}
-.modal.show{display:flex}
-.modal-box{
- background:white;width:100%;max-width:430px;
- padding:22px;border-radius:24px;max-height:90vh;overflow:auto;
- animation:fade .25s;
-}
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}
-.close{background:#ffe5ec;color:var(--red);width:34px;height:34px;border-radius:10px;font-size:20px}
-.empty{text-align:center;padding:25px;color:#999;font-size:13px}
-.footer{text-align:center;color:#999;font-size:10px;padding:22px}
-.hidden{display:none!important}
-#recaptcha-container{margin:10px 0}
-@media(min-width:600px){
- .stats{grid-template-columns:repeat(4,1fr)}
- .menu-grid{grid-template-columns:repeat(3,1fr)}
-}
-</style>
+    body {
+      background:
+        radial-gradient(circle at 10% 10%, rgba(217, 4, 41, 0.09), transparent 35%),
+        radial-gradient(circle at 90% 15%, rgba(29, 53, 87, 0.08), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 92px;
+    }
+
+    /* App Container */
+    .app-shell {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    /* Header */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      box-shadow: var(--shadow-card);
+      position: sticky;
+      top: 10px;
+      z-index: 40;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .blood-drop-3d {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #ff2a4b, #a8001d);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 20px;
+      box-shadow: 0 8px 18px rgba(217, 4, 41, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.45);
+    }
+
+    .brand h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--primary-dark);
+    }
+
+    .brand span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .topbar-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      border: 1px solid var(--border);
+      background: #fff;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+      position: relative;
+    }
+
+    .badge-dot {
+      position: absolute;
+      top: 7px;
+      right: 8px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    /* Views */
+    .view {
+      display: none;
+      animation: fadeUp 0.25s ease;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero Banner */
+    .hero-card {
+      margin-top: 16px;
+      padding: 20px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #d90429 0%, #8d021f 100%);
+      color: #fff;
+      box-shadow: var(--shadow-3d);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      right: -35px;
+      bottom: -45px;
+    }
+
+    .hero-card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 4px;
+    }
+
+    .hero-card p {
+      font-size: 0.9rem;
+      opacity: 0.92;
+      margin-bottom: 14px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--primary);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .btn-primary {
+      background: linear-gradient(145deg, #e60a32, #b30021);
+      color: #fff;
+      width: 100%;
+      padding: 12px;
+      box-shadow: 0 8px 18px rgba(217, 4, 41, 0.25);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .stat-card .num {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-card .label {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* Quick Actions */
+    .section-title {
+      margin: 20px 0 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .quick-item {
+      background: var(--surface-solid);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px 8px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.15s ease;
+    }
+
+    .quick-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .quick-item .q-icon {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 6px;
+      border-radius: 12px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+    }
+
+    .quick-item span {
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: block;
+    }
+
+    /* Cards & Forms */
+    .card {
+      background: var(--surface-solid);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: 14px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .blood-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .chip.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.9rem;
+      background: #f8fafc;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      background: #fff;
+    }
+
+    /* Donor Card */
+    .donor-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px;
+      margin-top: 10px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .donor-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .group-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      background: linear-gradient(145deg, #ff2e4c, #b5001e);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.05rem;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      box-shadow: 0 6px 14px rgba(217, 4, 41, 0.25);
+    }
+
+    .donor-info h4 {
+      font-size: 0.98rem;
+      font-weight: 700;
+    }
+
+    .donor-info p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .status-pill {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .status-pill.busy {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .call-btn {
+      text-decoration: none;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Emergency Request Item */
+    .req-card {
+      border-left: 4px solid var(--primary);
+    }
+
+    .req-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .urgent-tag {
+      background: #fee2e2;
+      color: #b91c1c;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 8px;
+    }
+
+    /* Profile & Toggle */
+    .profile-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      background: var(--secondary);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .switch-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 24px);
+      max-width: 496px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      padding: 8px 4px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14);
+      z-index: 50;
+    }
+
+    .nav-item {
+      border: none;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 4px 0;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+    }
+
+    .nav-item .n-icon {
+      font-size: 1.15rem;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      display: none;
+      place-items: center;
+      padding: 16px;
+      z-index: 60;
+    }
+
+    .modal-backdrop.open {
+      display: grid;
+    }
+
+    .modal-box {
+      background: #fff;
+      width: 100%;
+      max-width: 440px;
+      border-radius: 22px;
+      padding: 18px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .modal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .close-btn {
+      border: none;
+      background: #f1f5f9;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+  </style>
 </head>
-
 <body>
 
-<header class="header">
- <div class="topbar">
-  <div class="brand">
-   <div class="logo">🩸</div>
-   <div>
-    <h2>MB Blood Bank</h2>
-    <small>বৃহত্তম ব্লাড ব্যাংক</small>
-   </div>
+  <div class="app-shell">
+    <!-- Top Header -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="blood-drop-3d">🩸</div>
+        <div>
+          <h1>MB Blood Bank</h1>
+          <span>আপনার নিকটবর্তী রক্তদাতা খুঁজুন</span>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" onclick="openModal('loginModal')" title="লগইন">🔐</button>
+        <button class="icon-btn" onclick="switchView('noticeView', document.querySelectorAll('.nav-item')[3])" title="নোটিফিকেশন">
+          🔔<span class="badge-dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 1. HOME VIEW -->
+    <section id="homeView" class="view active">
+      <div class="hero-card">
+        <h2>এক ব্যাগ রক্ত, একটি নতুন জীবন</h2>
+        <p>সারা বাংলাদেশের জেলা ও উপজেলা পর্যায়ে দ্রুত রক্তদাতা ও অ্যাম্বুলেন্স সেবা পান।</p>
+        <div class="hero-cta-row">
+          <button class="btn btn-white" onclick="switchView('donorView', document.querySelectorAll('.nav-item')[1])">🔍 রক্তদাতা খুঁজুন</button>
+          <button class="btn btn-glass" onclick="openModal('registerModal')">➕ ডোনার নিবন্ধন</button>
+        </div>
+      </div>
+
+      <!-- Live Counters -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="num" id="statTotalDonors">1,248</div>
+          <div class="label">মোট রক্তদাতা সংখ্যা</div>
+        </div>
+        <div class="stat-card">
+          <div class="num" id="statActiveDonors">892</div>
+          <div class="label">Active Donor সংখ্যা</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">3,410</div>
+          <div class="label">মোট রক্তদান সংখ্যা</div>
+        </div>
+        <div class="stat-card">
+          <div class="num" id="statEmergency">04</div>
+          <div class="label">জরুরি রক্তের অনুরোধ</div>
+        </div>
+      </div>
+
+      <!-- Quick Menu -->
+      <div class="section-title">দ্রুত সেবাসমূহ</div>
+      <div class="quick-grid">
+        <div class="quick-item" onclick="switchView('donorView', document.querySelectorAll('.nav-item')[1])">
+          <div class="q-icon">🩸</div>
+          <span>রক্তদাতা খুঁজুন</span>
+        </div>
+        <div class="quick-item" onclick="openModal('registerModal')">
+          <div class="q-icon">📝</div>
+          <span>ডোনার নিবন্ধন</span>
+        </div>
+        <div class="quick-item" onclick="switchView('requestView', document.querySelectorAll('.nav-item')[2])">
+          <div class="q-icon">🚨</div>
+          <span>জরুরি অনুরোধ</span>
+        </div>
+        <div class="quick-item" onclick="openModal('ambulanceModal')">
+          <div class="q-icon">🚑</div>
+          <span>অ্যাম্বুলেন্স সেবা</span>
+        </div>
+        <div class="quick-item" onclick="openModal('fundModal')">
+          <div class="q-icon">🤝</div>
+          <span>MB মানবতা ফান্ড</span>
+        </div>
+        <div class="quick-item" onclick="openModal('rankingModal')">
+          <div class="q-icon">🏆</div>
+          <span>সেরা রক্তদাতা</span>
+        </div>
+      </div>
+
+      <!-- Recent Emergency Preview -->
+      <div class="section-title">
+        <span>সাম্প্রতিক জরুরি অনুরোধ</span>
+        <small style="color: var(--primary); cursor:pointer;" onclick="switchView('requestView', document.querySelectorAll('.nav-item')[2])">সব দেখুন</small>
+      </div>
+      <div id="homeEmergencyPreview"></div>
+    </section>
+
+    <!-- 2. DONOR SEARCH VIEW -->
+    <section id="donorView" class="view">
+      <div class="card">
+        <h3>রক্তদাতা খুঁজুন</h3>
+        <div class="blood-chips" id="bloodGroupFilter">
+          <button class="chip active" data-group="ALL">সব গ্রুপ</button>
+          <button class="chip" data-group="A+">A+</button>
+          <button class="chip" data-group="A-">A-</button>
+          <button class="chip" data-group="B+">B+</button>
+          <button class="chip" data-group="B-">B-</button>
+          <button class="chip" data-group="AB+">AB+</button>
+          <button class="chip" data-group="AB-">AB-</button>
+          <button class="chip" data-group="O+">O+</button>
+          <button class="chip" data-group="O-">O-</button>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-row-2">
+            <select id="filterDivision">
+              <option value="">সব বিভাগ</option>
+              <option value="রংপুর">রংপুর</option>
+              <option value="ঢাকা">ঢাকা</option>
+              <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+              <option value="রাজশাহী">রাজশাহী</option>
+              <option value="খুলনা">খুলনা</option>
+              <option value="সিলেট">সিলেট</option>
+              <option value="বরিশাল">বরিশাল</option>
+              <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+            </select>
+            <input type="text" id="filterDistrict" placeholder="জেলা লিখুন (যেমন: রংপুর)" />
+          </div>
+          <input type="text" id="filterUpazila" placeholder="উপজেলা লিখুন (যেমন: গঙ্গাচড়া)" />
+        </div>
+      </div>
+
+      <div id="donorList"></div>
+    </section>
+
+    <!-- 3. EMERGENCY BLOOD REQUEST VIEW -->
+    <section id="requestView" class="view">
+      <div class="card">
+        <h3>🚨 জরুরি রক্তের অনুরোধ পাঠান</h3>
+        <p style="font-size:0.84rem; color:var(--muted); margin-bottom:10px;">
+          তথ্য জমা দিলে সংশ্লিষ্ট এলাকার ডোনার ও অ্যাডমিনদের কাছে নোটিফিকেশন পৌঁছে যাবে।
+        </p>
+        <form id="emergencyForm" class="form-grid">
+          <input type="text" id="reqPatient" placeholder="রোগীর নাম" required />
+          <div class="form-row-2">
+            <select id="reqGroup" required>
+              <option value="">রক্তের গ্রুপ</option>
+              <option>A+</option><option>A-</option>
+              <option>B+</option><option>B-</option>
+              <option>AB+</option><option>AB-</option>
+              <option>O+</option><option>O-</option>
+            </select>
+            <input type="number" id="reqBags" min="1" max="10" placeholder="কত ব্যাগ প্রয়োজন" required />
+          </div>
+          <input type="text" id="reqHospital" placeholder="হাসপাতালের নাম ও ঠিকানা" required />
+          <div class="form-row-2">
+            <input type="text" id="reqDistrict" placeholder="জেলা" required />
+            <input type="text" id="reqUpazila" placeholder="উপজেলা" required />
+          </div>
+          <div class="form-row-2">
+            <input type="tel" id="reqPhone" placeholder="যোগাযোগের মোবাইল নম্বর" required />
+            <select id="reqUrgency">
+              <option value="অতি জরুরি">অতি জরুরি (এখনই)</option>
+              <option value="আজকের মধ্যে">আজকের মধ্যে</option>
+              <option value="আগামীকাল">আগামীকাল</option>
+            </select>
+          </div>
+          <textarea id="reqNote" rows="2" placeholder="রোগীর সমস্যা বা বিস্তারিত বিবরণ..."></textarea>
+          <button type="submit" class="btn btn-primary">জরুরি অনুরোধ প্রকাশ করুন</button>
+        </form>
+      </div>
+
+      <div class="section-title">চলমান জরুরি রক্তের অনুরোধ</div>
+      <div id="emergencyList"></div>
+    </section>
+
+    <!-- 4. NOTICE VIEW -->
+    <section id="noticeView" class="view">
+      <div class="section-title">🔔 নোটিফিকেশন ও ঘোষণা</div>
+      <div class="card">
+        <h4>🚨 জরুরি O+ রক্তের প্রয়োজন</h4>
+        <p style="font-size:0.85rem; color:var(--muted);">রংপুর মেডিকেল কলেজ হাসপাতাল • ২ ব্যাগ রক্ত প্রয়োজন</p>
+      </div>
+      <div class="card">
+        <h4>🗓️ রক্তদানের রিমাইন্ডার</h4>
+        <p style="font-size:0.85rem; color:var(--muted);">আপনার শেষ রক্তদানের ১২০ দিন পূর্ণ হয়েছে। আপনি এখন পুনরায় রক্তদানের জন্য উপযুক্ত।</p>
+      </div>
+      <div class="card">
+        <h4>📢 ভলান্টিয়ার নিয়োগ বিজ্ঞপ্তি</h4>
+        <p style="font-size:0.85rem; color:var(--muted);">দেশের প্রতিটি উপজেলায় MB Blood Bank ভলান্টিয়ার টিম গঠন চলছে।</p>
+      </div>
+    </section>
+
+    <!-- 5. PROFILE / DONOR DASHBOARD VIEW -->
+    <section id="profileView" class="view">
+      <div class="card">
+        <div class="profile-head">
+          <div class="avatar">MA</div>
+          <div>
+            <h3>মনির আহমেদ শাকিব</h3>
+            <p style="font-size:0.85rem; color:var(--muted);">রক্তের গ্রুপ: <strong style="color:var(--primary);">B+</strong> • গঙ্গাচড়া, রংপুর</p>
+            <span class="status-pill" id="myStatusBadge">Available for Donation</span>
+          </div>
+        </div>
+
+        <div class="switch-row">
+          <div>
+            <strong>Availability ON/OFF</strong>
+            <div style="font-size:0.8rem; color:var(--muted);">জরুরি প্রয়োজনে আপনাকে সার্চে দেখাবে</div>
+          </div>
+          <input type="checkbox" id="availabilityToggle" checked style="width:22px; height:22px; accent-color:var(--primary);" />
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="num">০৬ বার</div>
+          <div class="label">মোট রক্তদান</div>
+        </div>
+        <div class="stat-card">
+          <div class="num" style="font-size:1.05rem;">১৫ জুলাই ২০২৬</div>
+          <div class="label">শেষ রক্তদানের তারিখ</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>🪪 ডিজিটাল ডোনার আইডি ও QR Code</h4>
+        <p style="font-size:0.84rem; color:var(--muted); margin:6px 0 12px;">
+          Donor ID: <strong>MBB-BD-2026-0148</strong> • পরবর্তী সম্ভাব্য তারিখ: <strong>১৩ নভেম্বর ২০২৬</strong>
+        </p>
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-primary" onclick="openModal('certificateModal')">🎖️ সার্টিফিকেট ও QR দেখুন</button>
+        </div>
+      </div>
+    </section>
   </div>
-  <button class="icon-btn" onclick="openLogin()">👤</button>
- </div>
- <div class="hero">
-  <h1>রক্তদানে বাঁচুক জীবন ❤️</h1>
-  <p>আপনার নিকটবর্তী বিভাগ, জেলা ও উপজেলায় রক্তদাতা খোঁজা এখন আরও সহজ।</p>
-  <button class="hero-btn" onclick="showPage('search')">🩸 রক্তদাতা খুঁজুন →</button>
- </div>
-</header>
 
-<main class="container">
+  <!-- Bottom Navigation (5 Menus) -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="switchView('homeView', this)">
+      <span class="n-icon">🏠</span>
+      <span>Home</span>
+    </button>
+    <button class="nav-item" onclick="switchView('donorView', this)">
+      <span class="n-icon">🩸</span>
+      <span>Donor</span>
+    </button>
+    <button class="nav-item" onclick="switchView('requestView', this)">
+      <span class="n-icon">🚨</span>
+      <span>Request</span>
+    </button>
+    <button class="nav-item" onclick="switchView('noticeView', this)">
+      <span class="n-icon">🔔</span>
+      <span>Notice</span>
+    </button>
+    <button class="nav-item" onclick="switchView('profileView', this)">
+      <span class="n-icon">👤</span>
+      <span>Profile</span>
+    </button>
+  </nav>
 
-<!-- HOME -->
-<section id="home" class="page active">
- <div class="section-title">আমাদের পরিসংখ্যান <span>📊</span></div>
- <div class="stats">
-  <div class="stat"><div class="stat-icon">🩸</div><h2 id="totalDonors">0</h2><p>মোট রক্তদাতা</p></div>
-  <div class="stat"><div class="stat-icon">💚</div><h2 id="activeDonors">0</h2><p>Active Donor</p></div>
-  <div class="stat"><div class="stat-icon">🚨</div><h2 id="totalRequests">0</h2><p>রক্তের অনুরোধ</p></div>
-  <div class="stat"><div class="stat-icon">🤝</div><h2 id="totalVolunteers">0</h2><p>স্বেচ্ছাসেবক</p></div>
- </div>
-
- <div class="section-title">আমাদের সেবাসমূহ <span>✨</span></div>
- <div class="menu-grid">
-  <button class="menu-card" onclick="showPage('search')"><div class="emoji">🔎</div><h3>রক্তদাতা খুঁজুন</h3><p>Blood Donor Search</p></button>
-  <button class="menu-card" onclick="showPage('register')"><div class="emoji">📝</div><h3>রক্তদাতা নিবন্ধন</h3><p>Become a Donor</p></button>
-  <button class="menu-card" onclick="showPage('request')"><div class="emoji">🚨</div><h3>জরুরি রক্তের অনুরোধ</h3><p>Emergency Request</p></button>
-  <button class="menu-card" onclick="showPage('profile')"><div class="emoji">👤</div><h3>আমার ড্যাশবোর্ড</h3><p>My Dashboard</p></button>
-  <button class="menu-card" onclick="showPage('ambulance')"><div class="emoji">🚑</div><h3>অ্যাম্বুলেন্স সেবা</h3><p>Ambulance Service</p></button>
-  <button class="menu-card" onclick="showPage('fund')"><div class="emoji">💝</div><h3>MB মানবতা ফান্ড</h3><p>Humanity Fund</p></button>
- </div>
-
- <div class="section-title">জরুরি ঘোষণা <span>📢</span></div>
- <div class="card">
-  <div class="notice">⚠️ আর্থিক লেনদেনে সাবধান। কোনো আর্থিক লেনদেনের জন্য MB Blood Bank কর্তৃপক্ষ দায়ী নয়।</div>
-  <p style="font-size:12px;line-height:1.9">রক্তদান একটি মহৎ কাজ। আপনার এক ব্যাগ রক্ত একজন মানুষের জীবন বাঁচাতে পারে।</p>
- </div>
-</section>
-
-<!-- SEARCH -->
-<section id="search" class="page">
- <div class="section-title">🔎 রক্তদাতা খুঁজুন</div>
- <div class="card">
-  <div class="form-group">
-   <label>রক্তের গ্রুপ নির্বাচন করুন</label>
-   <select id="searchBlood">
-    <option value="">সব রক্তের গ্রুপ</option>
-    <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
-    <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
-   </select>
-  </div>
-  <div class="form-group"><label>বিভাগ</label><select id="searchDivision"><option value="">সকল বিভাগ</option></select></div>
-  <div class="form-group"><label>জেলা</label><select id="searchDistrict"><option value="">সকল জেলা</option></select></div>
-  <div class="form-group"><label>উপজেলা</label><select id="searchUpazila"><option value="">সকল উপজেলা</option></select></div>
-  <button class="btn" onclick="searchDonors()">🔎 Donor Search</button>
- </div>
- <div class="section-title">রক্তদাতাদের তালিকা</div>
- <div id="donorResults"><div class="empty">রক্তদাতা দেখতে Search করুন</div></div>
-</section>
-
-<!-- REGISTER -->
-<section id="register" class="page">
- <div class="section-title">📝 রক্তদাতা হিসেবে নিবন্ধন</div>
- <div class="card">
-  <div class="notice">✅ আপনার নিবন্ধন সম্পন্ন হলে প্রোফাইল স্বয়ংক্রিয়ভাবে Active হবে এবং Donor Search-এ দেখা যাবে।</div>
-  <form id="registerForm">
-   <div class="form-group"><label>আপনার সম্পূর্ণ নাম *</label><input id="regName" required placeholder="আপনার নাম"></div>
-   <div class="form-group"><label>মোবাইল নম্বর *</label><input id="regPhone" type="tel" required placeholder="+8801XXXXXXXXX"></div>
-   <div class="form-group"><label>Gmail / Email *</label><input id="regEmail" type="email" required placeholder="example@gmail.com"></div>
-   <div class="form-group"><label>Password *</label><input id="regPassword" type="password" minlength="6" required placeholder="কমপক্ষে ৬ অক্ষর"></div>
-   <div class="form-group"><label>রক্তের গ্রুপ *</label>
-    <select id="regBlood" required><option value="">নির্বাচন করুন</option>
-     <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
-     <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
-    </select>
-   </div>
-   <div class="form-row">
-    <div class="form-group"><label>বিভাগ *</label><select id="regDivision" required></select></div>
-    <div class="form-group"><label>জেলা *</label><select id="regDistrict" required></select></div>
-   </div>
-   <div class="form-group"><label>উপজেলা *</label><select id="regUpazila" required></select></div>
-   <div class="form-group"><label>বিস্তারিত ঠিকানা</label><textarea id="regAddress" rows="2" placeholder="গ্রাম, এলাকা, রাস্তা"></textarea></div>
-   <div class="form-group"><label>সর্বশেষ রক্তদানের তারিখ</label><input type="date" id="regLastDonation"></div>
-   <div class="form-group"><label>প্রোফাইল ছবির URL (ঐচ্ছিক)</label><input id="regPhoto" type="url" placeholder="https://..."></div>
-   <label style="font-size:12px;display:flex;gap:8px;margin-bottom:15px">
-    <input type="checkbox" required style="width:17px;height:17px">
-    আমার দেওয়া তথ্য সঠিক এবং আমি স্বেচ্ছায় রক্তদাতা হিসেবে নিবন্ধন করছি।
-   </label>
-   <button class="btn" type="submit" id="registerBtn">🩸 নিবন্ধন সম্পন্ন করুন</button>
-  </form>
- </div>
-</section>
-
-<!-- REQUEST -->
-<section id="request" class="page">
- <div class="section-title">🚨 জরুরি রক্তের অনুরোধ</div>
- <div class="card">
-  <form id="requestForm">
-   <div class="form-group"><label>রোগীর নাম *</label><input id="rName" required></div>
-   <div class="form-group"><label>যোগাযোগ নম্বর *</label><input id="rPhone" required type="tel"></div>
-   <div class="form-row">
-    <div class="form-group"><label>রক্তের গ্রুপ *</label>
-     <select id="rBlood" required><option value="">নির্বাচন করুন</option>
-      <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
-      <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
-     </select>
+  <!-- Donor Registration Modal -->
+  <div id="registerModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-top">
+        <h3>🩸 রক্তদাতা হিসেবে নিবন্ধন</h3>
+        <button class="close-btn" onclick="closeModal('registerModal')">✕</button>
+      </div>
+      <form id="donorRegForm" class="form-grid">
+        <input type="text" id="regName" placeholder="সম্পূর্ণ নাম" required />
+        <input type="tel" id="regPhone" placeholder="মোবাইল নম্বর" required />
+        <input type="email" id="regEmail" placeholder="জিমেইল (ঐচ্ছিক)" />
+        <div class="form-row-2">
+          <select id="regGroup" required>
+            <option value="">রক্তের গ্রুপ</option>
+            <option>A+</option><option>A-</option>
+            <option>B+</option><option>B-</option>
+            <option>AB+</option><option>AB-</option>
+            <option>O+</option><option>O-</option>
+          </select>
+          <select id="regDivision" required>
+            <option value="">বিভাগ</option>
+            <option>রংপুর</option><option>ঢাকা</option><option>চট্টগ্রাম</option>
+            <option>রাজশাহী</option><option>খুলনা</option><option>সিলেট</option>
+            <option>বরিশাল</option><option>ময়মনসিংহ</option>
+          </select>
+        </div>
+        <div class="form-row-2">
+          <input type="text" id="regDistrict" placeholder="জেলা" required />
+          <input type="text" id="regUpazila" placeholder="উপজেলা" required />
+        </div>
+        <input type="text" id="regAddress" placeholder="বিস্তারিত ঠিকানা" />
+        <div class="form-row-2">
+          <input type="date" id="regLastDate" title="সর্বশেষ রক্তদানের তারিখ" />
+          <input type="number" id="regCount" min="0" placeholder="কতবার রক্ত দিয়েছেন" />
+        </div>
+        <label style="font-size:0.82rem; display:flex; gap:8px; align-items:center;">
+          <input type="checkbox" required style="width:16px; height:16px;" />
+          আমি স্বেচ্ছায় রক্তদানে সম্মত এবং তথ্য সঠিক।
+        </label>
+        <button type="submit" class="btn btn-primary">নিবন্ধন সম্পন্ন করুন</button>
+      </form>
     </div>
-    <div class="form-group"><label>কত ব্যাগ *</label><input id="rBags" type="number" min="1" required></div>
-   </div>
-   <div class="form-group"><label>বিভাগ *</label><select id="rDivision" required></select></div>
-   <div class="form-group"><label>জেলা *</label><select id="rDistrict" required></select></div>
-   <div class="form-group"><label>উপজেলা *</label><select id="rUpazila" required></select></div>
-   <div class="form-group"><label>হাসপাতাল ও ঠিকানা *</label><textarea id="rHospital" required></textarea></div>
-   <div class="form-group"><label>রক্ত প্রয়োজনের তারিখ *</label><input type="date" id="rDate" required></div>
-   <div class="form-group"><label>জরুরিতার মাত্রা</label>
-    <select id="rUrgency"><option>জরুরি</option><option>অতি জরুরি</option><option>সাধারণ</option></select>
-   </div>
-   <div class="form-group"><label>অতিরিক্ত তথ্য</label><textarea id="rInfo"></textarea></div>
-   <button class="btn" type="submit">🚨 অনুরোধ পাঠান</button>
-  </form>
- </div>
-</section>
-
-<!-- PROFILE -->
-<section id="profile" class="page">
- <div class="section-title">👤 আমার ড্যাশবোর্ড</div>
- <div id="profileContent" class="card">
-  <div class="empty">আপনার ড্যাশবোর্ড দেখতে Login করুন।</div>
-  <button class="btn" onclick="openLogin()">Login করুন</button>
- </div>
-</section>
-
-<!-- AMBULANCE -->
-<section id="ambulance" class="page">
- <div class="section-title">🚑 অ্যাম্বুলেন্স সেবা</div>
- <div class="card">
-  <div style="font-size:48px;text-align:center">🚑</div>
-  <h3 style="text-align:center;margin:10px">জরুরি অ্যাম্বুলেন্স প্রয়োজন?</h3>
-  <p style="font-size:12px;color:#777;text-align:center;margin-bottom:15px">আপনার এলাকার অ্যাম্বুলেন্স সেবার জন্য যোগাযোগ করুন।</p>
-  <div class="form-group"><label>অ্যাম্বুলেন্স নম্বর</label><input id="ambulancePhone" placeholder="অ্যাডমিনের দেওয়া নম্বর"></div>
-  <button class="btn" onclick="callAmbulance()">📞 কল করুন</button>
-  <p style="font-size:10px;color:#999;margin-top:12px">অ্যাম্বুলেন্স নম্বর অ্যাডমিনকে যুক্ত করতে হবে।</p>
- </div>
-</section>
-
-<!-- FUND -->
-<section id="fund" class="page">
- <div class="section-title">💝 MB মানবতা ফান্ড</div>
- <div class="card">
-  <div style="font-size:48px;text-align:center">❤️</div>
-  <h3 style="text-align:center">মানবতার সেবায় আমরা</h3>
-  <p style="font-size:12px;line-height:2;color:#777;margin:12px 0">অসহায় ও অসুস্থ মানুষের পাশে দাঁড়ানোর একটি মানবিক উদ্যোগ। ফান্ডের আয়-ব্যয়ের হিসাব স্বচ্ছভাবে প্রকাশ করা উচিত।</p>
-  <div class="notice">ফান্ডে অর্থ পাঠানোর আগে কর্তৃপক্ষের পরিচয় ও হিসাব যাচাই করুন।</div>
- </div>
-</section>
-
-<div class="footer">© 2026 MB Blood Bank | রক্তদানে বাঁচুক জীবন ❤️</div>
-</main>
-
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
- <button class="nav-item active" onclick="showPage('home',this)"><span>🏠</span>হোম</button>
- <button class="nav-item" onclick="showPage('search',this)"><span>🔎</span>ডোনার</button>
- <button class="nav-item" onclick="showPage('request',this)"><span>🚨</span>রিকোয়েস্ট</button>
- <button class="nav-item" onclick="showPage('profile',this)"><span>👤</span>প্রোফাইল</button>
-</nav>
-
-<!-- LOGIN MODAL -->
-<div class="modal" id="loginModal">
- <div class="modal-box">
-  <div class="modal-head">
-   <h3>🔐 MB Blood Bank Login</h3>
-   <button class="close" onclick="closeLogin()">×</button>
   </div>
-  <div class="tabs">
-   <button class="tab active" id="emailTab" onclick="loginTab('email')">Gmail Login</button>
-   <button class="tab" id="phoneTab" onclick="loginTab('phone')">Mobile OTP</button>
-  </div>
-  <div id="emailLogin">
-   <form id="loginForm">
-    <div class="form-group"><label>Email / Gmail</label><input id="loginEmail" type="email" required placeholder="example@gmail.com"></div>
-    <div class="form-group"><label>Password</label><input id="loginPassword" type="password" required></div>
-    <button class="btn" type="submit">Login করুন</button>
-   </form>
-   <button class="btn-outline" style="width:100%;margin-top:12px" onclick="resetPassword()">Password ভুলে গেছেন?</button>
-  </div>
-  <div id="phoneLogin" class="hidden">
-   <div class="form-group"><label>মোবাইল নম্বর (+880 সহ)</label><input id="phoneNumber" type="tel" placeholder="+8801XXXXXXXXX"></div>
-   <div id="recaptcha-container"></div>
-   <button class="btn" id="sendOtpBtn" onclick="sendOTP()">OTP পাঠান</button>
-   <div id="otpArea" class="hidden" style="margin-top:15px">
-    <div class="form-group"><label>OTP কোড</label><input id="otpCode" inputmode="numeric" placeholder="৬ সংখ্যার OTP"></div>
-    <button class="btn" onclick="verifyOTP()">Verify & Login</button>
-   </div>
-  </div>
-  <p style="font-size:11px;text-align:center;color:#888;margin-top:17px">নতুন সদস্য? নিবন্ধন করুন</p>
-  <button class="btn-outline" style="width:100%;margin-top:8px" onclick="closeLogin();showPage('register')">নতুন নিবন্ধন</button>
- </div>
-</div>
 
-<script type="module">
-// =======================================
-// MB BLOOD BANK - FIREBASE CONFIG
-// Firebase Console থেকে নিজের Config বসাও
-// =======================================
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-
-import {
- getAuth,createUserWithEmailAndPassword,
- signInWithEmailAndPassword,signOut,
- sendPasswordResetEmail,RecaptchaVerifier,
- signInWithPhoneNumber
-}
-from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-
-import {
- getDatabase,ref,set,get,push,update
-}
-from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
-
-const firebaseConfig = {
- apiKey: "YOUR_API_KEY",
- authDomain: "YOUR_PROJECT.firebaseapp.com",
- databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
- projectId: "YOUR_PROJECT",
- storageBucket: "YOUR_PROJECT.appspot.com",
- messagingSenderId: "YOUR_SENDER_ID",
- appId: "YOUR_APP_ID"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
-
-let confirmationResult = null;
-let recaptchaVerifier = null;
-let currentUser = null;
-let currentProfile = null;
-
-// =======================================
-// BANGLADESH LOCATION DATA
-// পূর্ণ জেলা/উপজেলা ডেটা পরে যুক্ত করা যাবে
-// =======================================
-
-const locations = {
- "রংপুর বিভাগ":{
-  "রংপুর":["রংপুর সদর","গঙ্গাচড়া","তারাগঞ্জ","বদরগঞ্জ","মিঠাপুকুর","পীরগঞ্জ","পীরগাছা","কাউনিয়া"],
-  "দিনাজপুর":["দিনাজপুর সদর","বিরল","বোচাগঞ্জ","বিরামপুর","ফুলবাড়ী","ঘোড়াঘাট","হাকিমপুর","কাহারোল","খানসামা","নবাবগঞ্জ","পার্বতীপুর","বিরগঞ্জ"],
-  "গাইবান্ধা":["গাইবান্ধা সদর","সাদুল্লাপুর","সাঘাটা","গোবিন্দগঞ্জ","পলাশবাড়ী","ফুলছড়ি","সুন্দরগঞ্জ"],
-  "কুড়িগ্রাম":["কুড়িগ্রাম সদর","উলিপুর","চিলমারী","রাজারহাট","রৌমারী","ভূরুঙ্গামারী","ফুলবাড়ী","নাগেশ্বরী","চর রাজিবপুর"],
-  "লালমনিরহাট":["লালমনিরহাট সদর","আদিতমারী","কালীগঞ্জ","হাতীবান্ধা","পাটগ্রাম"],
-  "নীলফামারী":["নীলফামারী সদর","সৈয়দপুর","জলঢাকা","ডোমার","ডিমলা","কিশোরগঞ্জ"],
-  "পঞ্চগড়":["পঞ্চগড় সদর","তেঁতুলিয়া","আটোয়ারী","বোদা","দেবীগঞ্জ"],
-  "ঠাকুরগাঁও":["ঠাকুরগাঁও সদর","পীরগঞ্জ","রাণীশংকৈল","বালিয়াডাঙ্গী","হরিপুর"]
- },
- "ঢাকা বিভাগ":{
-  "ঢাকা":["ঢাকা সদর","সাভার","ধামরাই","কেরানীগঞ্জ","দোহার","নবাবগঞ্জ"],
-  "গাজীপুর":["গাজীপুর সদর","কালিয়াকৈর","কালীগঞ্জ","কাপাসিয়া","শ্রীপুর"],
-  "নারায়ণগঞ্জ":["নারায়ণগঞ্জ সদর","সোনারগাঁও","রূপগঞ্জ","আড়াইহাজার","বন্দর"],
-  "ফরিদপুর":["ফরিদপুর সদর","ভাঙ্গা","নগরকান্দা","বোয়ালমারী","মধুখালী"],
-  "গোপালগঞ্জ":["গোপালগঞ্জ সদর","টুঙ্গিপাড়া","কোটালীপাড়া","কাশিয়ানী","মুকসুদপুর"],
-  "মাদারীপুর":["মাদারীপুর সদর","শিবচর","রাজৈর","কালকিনি","ডাসার"],
-  "মানিকগঞ্জ":["মানিকগঞ্জ সদর","সাটুরিয়া","শিবালয়","ঘিওর","দৌলতপুর","হরিরামপুর","সিংগাইর"],
-  "মুন্সীগঞ্জ":["মুন্সীগঞ্জ সদর","শ্রীনগর","সিরাজদিখান","লৌহজং","টংগিবাড়ী","গজারিয়া"],
-  "রাজবাড়ী":["রাজবাড়ী সদর","গোয়ালন্দ","পাংশা","বালিয়াকান্দি","কালুখালী"],
-  "শরীয়তপুর":["শরীয়তপুর সদর","জাজিরা","নড়িয়া","ডামুড্যা","ভেদরগঞ্জ","গোসাইরহাট"]
- },
- "চট্টগ্রাম বিভাগ":{
-  "চট্টগ্রাম":["চট্টগ্রাম সদর","পটিয়া","রাউজান","রাঙ্গুনিয়া","সীতাকুণ্ড","হাটহাজারী","ফটিকছড়ি","লোহাগাড়া","সাতকানিয়া","আনোয়ারা","বাঁশখালী","মীরসরাই","সন্দ্বীপ"],
-  "কক্সবাজার":["কক্সবাজার সদর","রামু","উখিয়া","টেকনাফ","চকরিয়া","পেকুয়া","মহেশখালী","কুতুবদিয়া"],
-  "কুমিল্লা":["কুমিল্লা সদর","দাউদকান্দি","চৌদ্দগ্রাম","লাকসাম","বুড়িচং","ব্রাহ্মণপাড়া","দেবিদ্বার","বরুড়া","হোমনা","মুরাদনগর"],
-  "ব্রাহ্মণবাড়িয়া":["ব্রাহ্মণবাড়িয়া সদর","আশুগঞ্জ","নবীনগর","নাসিরনগর","সরাইল","কসবা","আখাউড়া","বাঞ্ছারামপুর"],
-  "নোয়াখালী":["নোয়াখালী সদর","বেগমগঞ্জ","সোনাইমুড়ী","চাটখিল","কোম্পানীগঞ্জ","হাতিয়া","সেনবাগ","কবিরহাট","সুবর্ণচর"],
-  "ফেনী":["ফেনী সদর","ছাগলনাইয়া","দাগনভূঞা","পরশুরাম","ফুলগাজী","সোনাগাজী"],
-  "লক্ষ্মীপুর":["লক্ষ্মীপুর সদর","রায়পুর","রামগঞ্জ","রামগতি","কমলনগর"],
-  "চাঁদপুর":["চাঁদপুর সদর","হাজীগঞ্জ","ফরিদগঞ্জ","মতলব উত্তর","মতলব দক্ষিণ","কচুয়া","শাহরাস্তি","হাইমচর"],
-  "খাগড়াছড়ি":["খাগড়াছড়ি সদর","দীঘিনালা","পানছড়ি","মাটিরাঙ্গা","রামগড়","মানিকছড়ি","লক্ষ্মীছড়ি","মহালছড়ি","গুইমারা"],
-  "রাঙ্গামাটি":["রাঙ্গামাটি সদর","কাপ্তাই","কাউখালী","বাঘাইছড়ি","বরকল","জুরাছড়ি","লংগদু","রাজস্থলী","বিলাইছড়ি","নানিয়ারচর"],
-  "বান্দরবান":["বান্দরবান সদর","লামা","আলীকদম","নাইক্ষ্যংছড়ি","রোয়াংছড়ি","রুমা","থানচি"]
- },
- "রাজশাহী বিভাগ":{
-  "রাজশাহী":["রাজশাহী সদর","পবা","গোদাগাড়ী","তানোর","মোহনপুর","বাগমারা","দুর্গাপুর","পুঠিয়া","চারঘাট","বাঘা"],
-  "বগুড়া":["বগুড়া সদর","শেরপুর","শিবগঞ্জ","ধুনট","দুপচাঁচিয়া","আদমদীঘি","কাহালু","নন্দীগ্রাম","সোনাতলা","সারিয়াকান্দি","গাবতলী","শাজাহানপুর"],
-  "নাটোর":["নাটোর সদর","সিংড়া","বড়াইগ্রাম","বাগাতিপাড়া","লালপুর","গুরুদাসপুর","নলডাঙ্গা"],
-  "নওগাঁ":["নওগাঁ সদর","আত্রাই","রাণীনগর","মহাদেবপুর","মান্দা","পত্নীতলা","ধামইরহাট","সাপাহার","পোরশা","বদলগাছী","নিয়ামতপুর"],
-  "পাবনা":["পাবনা সদর","ঈশ্বরদী","আটঘরিয়া","চাটমোহর","ভাঙ্গুড়া","ফরিদপুর","সাঁথিয়া","বেড়া","সুজানগর"],
-  "সিরাজগঞ্জ":["সিরাজগঞ্জ সদর","উল্লাপাড়া","শাহজাদপুর","বেলকুচি","চৌহালী","কাজীপুর","রায়গঞ্জ","তাড়াশ","কামারখন্দ"],
-  "জয়পুরহাট":["জয়পুরহাট সদর","আক্কেলপুর","কালাই","ক্ষেতলাল","পাঁচবিবি"]
- },
- "খুলনা বিভাগ":{
-  "খুলনা":["খুলনা সদর","দাকোপ","বটিয়াঘাটা","দিঘলিয়া","ডুমুরিয়া","কয়রা","পাইকগাছা","ফুলতলা","তেরখাদা","রূপসা"],
-  "যশোর":["যশোর সদর","অভয়নগর","বাঘারপাড়া","চৌগাছা","ঝিকরগাছা","কেশবপুর","মণিরামপুর","শার্শা"],
-  "সাতক্ষীরা":["সাতক্ষীরা সদর","আশাশুনি","দেবহাটা","কলারোয়া","কালীগঞ্জ","শ্যামনগর","তালা"],
-  "বাগেরহাট":["বাগেরহাট সদর","চিতলমারী","ফকিরহাট","কচুয়া","মোল্লাহাট","মোংলা","মোরেলগঞ্জ","রামপাল","শরণখোলা"],
-  "চুয়াডাঙ্গা":["চুয়াডাঙ্গা সদর","আলমডাঙ্গা","দামুড়হুদা","জীবননগর"],
-  "কুষ্টিয়া":["কুষ্টিয়া সদর","কুমারখালী","খোকসা","দৌলতপুর","ভেড়ামারা","মিরপুর"],
-  "মাগুরা":["মাগুরা সদর","শ্রীপুর","শালিখা","মহম্মদপুর"],
-  "মেহেরপুর":["মেহেরপুর সদর","গাংনী","মুজিবনগর"],
-  "নড়াইল":["নড়াইল সদর","লোহাগড়া","কালিয়া"],
-  "ঝিনাইদহ":["ঝিনাইদহ সদর","শৈলকুপা","হরিণাকুন্ডু","কালীগঞ্জ","কোটচাঁদপুর","মহেশপুর"]
- },
- "বরিশাল বিভাগ":{
-  "বরিশাল":["বরিশাল সদর","বাকেরগঞ্জ","বাবুগঞ্জ","বানারীপাড়া","উজিরপুর","গৌরনদী","আগৈলঝাড়া","মেহেন্দিগঞ্জ","মুলাদী","হিজলা"],
-  "ভোলা":["ভোলা সদর","বোরহানউদ্দিন","চরফ্যাশন","দৌলতখান","লালমোহন","তজুমদ্দিন","মনপুরা"],
-  "পটুয়াখালী":["পটুয়াখালী সদর","বাউফল","দশমিনা","গলাচিপা","কলাপাড়া","মির্জাগঞ্জ","দুমকি","রাঙ্গাবালী"],
-  "পিরোজপুর":["পিরোজপুর সদর","ভান্ডারিয়া","কাউখালী","মঠবাড়িয়া","নাজিরপুর","নেছারাবাদ","ইন্দুরকানী"],
-  "বরগুনা":["বরগুনা সদর","আমতলী","বেতাগী","বামনা","পাথরঘাটা","তালতলী"],
-  "ঝালকাঠি":["ঝালকাঠি সদর","নলছিটি","রাজাপুর","কাঠালিয়া"]
- },
- "সিলেট বিভাগ":{
-  "সিলেট":["সিলেট সদর","বিয়ানীবাজার","বিশ্বনাথ","কোম্পানীগঞ্জ","ফেঞ্চুগঞ্জ","গোলাপগঞ্জ","গোয়াইনঘাট","জৈন্তাপুর","কানাইঘাট","জকিগঞ্জ","দক্ষিণ সুরমা","ওসমানীনগর","বালাগঞ্জ"],
-  "মৌলভীবাজার":["মৌলভীবাজার সদর","শ্রীমঙ্গল","কমলগঞ্জ","কুলাউড়া","জুড়ী","বড়লেখা","রাজনগর"],
-  "হবিগঞ্জ":["হবিগঞ্জ সদর","নবীগঞ্জ","বাহুবল","চুনারুঘাট","লাখাই","মাধবপুর","বানিয়াচং","আজমিরীগঞ্জ","শায়েস্তাগঞ্জ"],
-  "সুনামগঞ্জ":["সুনামগঞ্জ সদর","ছাতক","জগন্নাথপুর","দোয়ারাবাজার","দিরাই","শাল্লা","ধর্মপাশা","তাহিরপুর","জামালগঞ্জ","বিশ্বম্ভরপুর","দক্ষিণ সুনামগঞ্জ","মধ্যনগর"]
- },
- "ময়মনসিংহ বিভাগ":{
-  "ময়মনসিংহ":["ময়মনসিংহ সদর","ত্রিশাল","ভালুকা","ফুলবাড়ীয়া","গফরগাঁও","গৌরীপুর","ঈশ্বরগঞ্জ","নান্দাইল","মুক্তাগাছা","ফুলপুর","তারাকান্দা","ধোবাউড়া","হালুয়াঘাট"],
-  "জামালপুর":["জামালপুর সদর","মেলান্দহ","ইসলামপুর","দেওয়ানগঞ্জ","সরিষাবাড়ী","মাদারগঞ্জ","বকশীগঞ্জ"],
-  "নেত্রকোণা":["নেত্রকোণা সদর","আটপাড়া","বারহাট্টা","দুর্গাপুর","কলমাকান্দা","কেন্দুয়া","খালিয়াজুরী","মদন","মোহনগঞ্জ","পূর্বধলা"],
-  "শেরপুর":["শেরপুর সদর","নালিতাবাড়ী","নকলা","শ্রীবরদী","ঝিনাইগাতী"]
- }
-};
-
-// =======================================
-// LOCATION DROPDOWN
-// =======================================
-
-function fillOptions(el,items,first){
- el.innerHTML=`<option value="">${first}</option>`+
- items.map(x=>`<option value="${x}">${x}</option>`).join("");
-}
-function setupLocation(prefix){
- const div=document.getElementById(prefix+"Division");
- const dist=document.getElementById(prefix+"District");
- const up=document.getElementById(prefix+"Upazila");
- if(!div||!dist||!up)return;
-
- fillOptions(div,Object.keys(locations),"বিভাগ নির্বাচন করুন");
- fillOptions(dist,[],"জেলা নির্বাচন করুন");
- fillOptions(up,[],"উপজেলা নির্বাচন করুন");
-
- div.addEventListener("change",()=>{
-  fillOptions(dist,Object.keys(locations[div.value]||{}),"জেলা নির্বাচন করুন");
-  fillOptions(up,[],"উপজেলা নির্বাচন করুন");
- });
- dist.addEventListener("change",()=>{
-  fillOptions(up,(locations[div.value]||{})[dist.value]||[],"উপজেলা নির্বাচন করুন");
- });
-}
-["reg","search","r"].forEach(setupLocation);
-
-// =======================================
-// NAVIGATION
-// =======================================
-
-window.showPage=function(id,btn){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
- if(btn)btn.classList.add("active");
- else{
-  const nav=[...document.querySelectorAll(".nav-item")].find(n=>n.getAttribute("onclick")?.includes("'"+id+"'"));
-  if(nav)nav.classList.add("active");
- }
- window.scrollTo({top:0,behavior:"smooth"});
-};
-
-window.openLogin=()=>document.getElementById("loginModal").classList.add("show");
-window.closeLogin=()=>document.getElementById("loginModal").classList.remove("show");
-
-window.loginTab=function(type){
- document.getElementById("emailLogin").classList.toggle("hidden",type!=="email");
- document.getElementById("phoneLogin").classList.toggle("hidden",type!=="phone");
- document.getElementById("emailTab").classList.toggle("active",type==="email");
- document.getElementById("phoneTab").classList.toggle("active",type==="phone");
-};
-
-// =======================================
-// AUTH STATE
-// =======================================
-
-auth.onAuthStateChanged(async user=>{
- currentUser=user;
- if(user){
-  await loadProfile(user.uid);
-  closeLogin();
-  showPage("profile");
- }else{
-  currentProfile=null;
-  document.getElementById("profileContent").innerHTML=
-   '<div class="empty">আপনার ড্যাশবোর্ড দেখতে Login করুন।</div><button class="btn" onclick="openLogin()">Login করুন</button>';
- }
-});
-
-// =======================================
-// DONOR REGISTRATION
-// নিবন্ধনের সঙ্গে সঙ্গে ACTIVE
-// =======================================
-
-document.getElementById("registerForm").addEventListener("submit",async e=>{
- e.preventDefault();
- const btn=document.getElementById("registerBtn");
- btn.disabled=true;
- btn.textContent="নিবন্ধন হচ্ছে...";
-
- try{
-  const email=document.getElementById("regEmail").value.trim();
-  const password=document.getElementById("regPassword").value;
-  const phone=document.getElementById("regPhone").value.trim().replace(/\s/g,"");
-  const cred=await createUserWithEmailAndPassword(auth,email,password);
-  const uid=cred.user.uid;
-
-  const donor={
-   uid,
-   name:document.getElementById("regName").value.trim(),
-   phone,
-   email,
-   blood:document.getElementById("regBlood").value,
-   division:document.getElementById("regDivision").value,
-   district:document.getElementById("regDistrict").value,
-   upazila:document.getElementById("regUpazila").value,
-   address:document.getElementById("regAddress").value.trim(),
-   lastDonation:document.getElementById("regLastDonation").value,
-   photo:document.getElementById("regPhoto").value.trim(),
-   status:"active",
-   approved:true,
-   availability:true,
-   createdAt:Date.now()
-  };
-
-  await set(ref(db,"donors/"+uid),donor);
-
-  // Phone index for looking up profiles
-  const phoneKey=phone.replace(/\D/g,"");
-  await set(ref(db,"phoneIndex/"+phoneKey),uid);
-
-  alert("🎉 অভিনন্দন! আপনার নিবন্ধন সফল হয়েছে। আপনার Donor Profile Active হয়েছে।");
-  e.target.reset();
-  await loadProfile(uid);
-  showPage("profile");
-
- }catch(err){
-  alert("নিবন্ধন ব্যর্থ: "+friendlyError(err));
- }finally{
-  btn.disabled=false;
-  btn.textContent="🩸 নিবন্ধন সম্পন্ন করুন";
- }
-});
-
-// =======================================
-// EMAIL + PASSWORD LOGIN
-// =======================================
-
-document.getElementById("loginForm").addEventListener("submit",async e=>{
- e.preventDefault();
- try{
-  await signInWithEmailAndPassword(
-   auth,
-   document.getElementById("loginEmail").value.trim(),
-   document.getElementById("loginPassword").value
-  );
- }catch(err){alert("Login ব্যর্থ: "+friendlyError(err));}
-});
-
-window.resetPassword=async()=>{
- const email=document.getElementById("loginEmail").value.trim();
- if(!email)return alert("আগে Gmail লিখুন।");
- try{
-  await sendPasswordResetEmail(auth,email);
-  alert("Password reset link আপনার Gmail-এ পাঠানো হয়েছে।");
- }catch(err){alert(friendlyError(err));}
-};
-
-// =======================================
-// PHONE OTP LOGIN
-// =======================================
-
-window.sendOTP=async()=>{
- const phone=document.getElementById("phoneNumber").value.trim();
- if(!/^\+\d{10,15}$/.test(phone)){
-  return alert("দেশের কোডসহ নম্বর লিখুন। যেমন +8801XXXXXXXXX");
- }
- try{
-  if(!recaptchaVerifier){
-   recaptchaVerifier=new RecaptchaVerifier(auth,"recaptcha-container",{size:"normal"});
-  }
-  await recaptchaVerifier.render();
-  confirmationResult=await signInWithPhoneNumber(auth,phone,recaptchaVerifier);
-  document.getElementById("otpArea").classList.remove("hidden");
-  alert("OTP পাঠানো হয়েছে।");
- }catch(err){
-  if(recaptchaVerifier){try{await recaptchaVerifier.clear()}catch(e){} recaptchaVerifier=null;}
-  alert("OTP পাঠানো যায়নি: "+friendlyError(err));
- }
-};
-
-window.verifyOTP=async()=>{
- try{
-  const code=document.getElementById("otpCode").value.trim();
-  if(!confirmationResult)return alert("আগে OTP পাঠান।");
-  await confirmationResult.confirm(code);
-  // Phone-auth accounts may have a separate UID from email accounts.
-  // Phone lookup below loads the matching donor profile if indexed.
- }catch(err){alert("OTP ভুল অথবা মেয়াদ শেষ: "+friendlyError(err));}
-};
-
-// =======================================
-// LOAD PROFILE
-// =======================================
-
-async function loadProfile(uid){
- try{
-  const snap=await get(ref(db,"donors/"+uid));
-  let profile=snap.val();
-
-  // Phone-auth account: look up existing donor by verified phone.
-  if(!profile && auth.currentUser?.phoneNumber){
-   const phoneKey=auth.currentUser.phoneNumber.replace(/\D/g,"");
-   const index=await get(ref(db,"phoneIndex/"+phoneKey));
-   if(index.exists()){
-    const donorSnap=await get(ref(db,"donors/"+index.val()));
-    profile=donorSnap.val();
-   }
-  }
-
-  currentProfile=profile;
-  if(!profile){
-   document.getElementById("profileContent").innerHTML=
-    '<div class="empty">আপনার নম্বরের সঙ্গে কোনো Donor Profile পাওয়া যায়নি। প্রথমে নিবন্ধন করুন অথবা Gmail দিয়ে Login করুন।</div>';
-   return;
-  }
-  renderProfile(profile);
- }catch(err){console.error(err);}
-}
-
-function renderProfile(p){
- document.getElementById("profileContent").innerHTML=`
-  <div style="text-align:center;padding:10px">
-   <div class="avatar" style="width:80px;height:80px;margin:auto;font-size:36px">
-    ${p.photo?`<img src="${escapeHTML(p.photo)}" style="width:100%;height:100%;object-fit:cover;border-radius:16px">`:"🧑"}
-   </div>
-   <h2 style="margin-top:12px">${escapeHTML(p.name||"Donor")}</h2>
-   <p style="color:#159653;font-size:12px;font-weight:bold">● ACTIVE DONOR</p>
-   <span class="blood" style="display:inline-block;margin-top:10px">${escapeHTML(p.blood||"")}</span>
-  </div>
-  <div style="line-height:2.3;font-size:12px;margin-top:15px">
-   <p>📞 ফোন: ${escapeHTML(p.phone||"")}</p>
-   <p>📧 Email: ${escapeHTML(p.email||"")}</p>
-   <p>📍 ${escapeHTML([p.division,p.district,p.upazila].filter(Boolean).join(" / "))}</p>
-   <p>🏠 ঠিকানা: ${escapeHTML(p.address||"উল্লেখ নেই")}</p>
-   <p>🩸 সর্বশেষ রক্তদান: ${escapeHTML(p.lastDonation||"উল্লেখ নেই")}</p>
-   <p>🟢 Availability: ${p.availability?"Available":"Unavailable"}</p>
-  </div>
-  <button class="btn" onclick="toggleAvailability()" style="margin-top:12px">Availability পরিবর্তন</button>
-  <button class="btn-outline" onclick="editProfile()" style="width:100%;margin-top:10px">✏️ প্রোফাইল আপডেট</button>
-  <button class="btn-outline" onclick="logout()" style="width:100%;margin-top:10px;color:#c00;border-color:#c00">Logout</button>
- `;
-}
-
-window.toggleAvailability=async()=>{
- if(!currentUser||!currentProfile)return;
- try{
-  const next=!currentProfile.availability;
-  // Email UID owns the donor record. Phone-only login must not write it.
-  if(currentUser.uid!==currentProfile.uid){
-   return alert("Availability পরিবর্তন করতে আপনার নিবন্ধিত Gmail দিয়ে Login করুন।");
-  }
-  await update(ref(db,"donors/"+currentUser.uid),{availability:next});
-  currentProfile.availability=next;
-  renderProfile(currentProfile);
- }catch(err){alert(friendlyError(err));}
-};
-
-window.editProfile=async()=>{
- if(!currentUser||!currentProfile)return;
- if(currentUser.uid!==currentProfile.uid)return alert("প্রোফাইল আপডেট করতে নিবন্ধিত Gmail দিয়ে Login করুন।");
- const name=prompt("নাম:",currentProfile.name||"");
- if(name===null)return;
- const phone=prompt("মোবাইল নম্বর:",currentProfile.phone||"");
- if(phone===null)return;
- const address=prompt("ঠিকানা:",currentProfile.address||"");
- if(address===null)return;
- try{
-  await update(ref(db,"donors/"+currentUser.uid),{name,phone,address});
-  currentProfile={...currentProfile,name,phone,address};
-  renderProfile(currentProfile);
-  alert("প্রোফাইল আপডেট হয়েছে।");
- }catch(err){alert(friendlyError(err));}
-};
-
-window.logout=async()=>{
- if(confirm("আপনি কি Logout করতে চান?")){
-  await signOut(auth);
-  showPage("home");
- }
-};
-
-// =======================================
-// DONOR SEARCH
-// =======================================
-
-window.searchDonors=async()=>{
- const result=document.getElementById("donorResults");
- result.innerHTML='<div class="empty">খোঁজা হচ্ছে...</div>';
- try{
-  const snap=await get(ref(db,"donors"));
-  if(!snap.exists()){
-   result.innerHTML='<div class="empty">কোনো রক্তদাতা পাওয়া যায়নি।</div>';
-   return;
-  }
-  const blood=document.getElementById("searchBlood").value;
-  const division=document.getElementById("searchDivision").value;
-  const district=document.getElementById("searchDistrict").value;
-  const upazila=document.getElementById("searchUpazila").value;
-
-  const donors=Object.values(snap.val()).filter(d=>
-   d.status==="active" && d.approved===true &&
-   (!blood||d.blood===blood) &&
-   (!division||d.division===division) &&
-   (!district||d.district===district) &&
-   (!upazila||d.upazila===upazila)
-  );
-
-  if(!donors.length){
-   result.innerHTML='<div class="empty">দুঃখিত! এই এলাকায় কোনো রক্তদাতা পাওয়া যায়নি।</div>';
-   return;
-  }
-  result.innerHTML=donors.map(d=>`
-   <div class="donor">
-    <div class="avatar">${d.photo?`<img src="${escapeHTML(d.photo)}" style="width:100%;height:100%;object-fit:cover;border-radius:16px">`:"🧑"}</div>
-    <div class="donor-info">
-     <h3>${escapeHTML(d.name||"নাম নেই")}</h3>
-     <p>${escapeHTML([d.district,d.upazila].filter(Boolean).join(" • "))}</p>
-     <div class="badge-active">● Active Donor ${d.availability===false?"(Unavailable)":""}</div>
+  <!-- Ambulance Modal -->
+  <div id="ambulanceModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-top">
+        <h3>🚑 জরুরি অ্যাম্বুলেন্স সেবা</h3>
+        <button class="close-btn" onclick="closeModal('ambulanceModal')">✕</button>
+      </div>
+      <div class="card" style="margin-top:0;">
+        <h4>রংপুর সদর অ্যাম্বুলেন্স সার্ভিস</h4>
+        <p style="font-size:0.84rem; color:var(--muted);">চালক: মোঃ রফিকুল ইসলাম • গঙ্গাচড়া, রংপুর</p>
+        <a href="tel:01700000001" class="call-btn" style="display:inline-block; margin-top:8px;">📞 কল করুন (01700-000001)</a>
+      </div>
+      <div class="card">
+        <h4>ঢাকা মেডিকেল ICU অ্যাম্বুলেন্স</h4>
+        <p style="font-size:0.84rem; color:var(--muted);">চালক: মোঃ কামাল হোসেন • শাহবাগ, ঢাকা</p>
+        <a href="tel:01700000002" class="call-btn" style="display:inline-block; margin-top:8px;">📞 কল করুন (01700-000002)</a>
+      </div>
     </div>
-    <div style="text-align:center">
-     <div class="blood">${escapeHTML(d.blood||"")}</div>
-     <a href="tel:${encodeURIComponent(d.phone||"")}" style="display:block;color:#d71940;font-size:11px;font-weight:bold;margin-top:8px;text-decoration:none">📞 কল</a>
+  </div>
+
+  <!-- Humanity Fund Modal -->
+  <div id="fundModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-top">
+        <h3>🤝 MB মানবতা ফান্ড</h3>
+        <button class="close-btn" onclick="closeModal('fundModal')">✕</button>
+      </div>
+      <p style="font-size:0.86rem; color:var(--muted); margin-bottom:10px;">
+        অসহায় ও দরিদ্র রোগীদের জরুরি চিকিৎসা ও রক্তের ক্রস-ম্যাচিং সহায়তার জন্য স্বচ্ছ মানবিক তহবিল।
+      </p>
+      <div class="stats-grid" style="margin-top:0;">
+        <div class="stat-card">
+          <div class="num">৳ ১,৪৫,০০০</div>
+          <div class="label">মোট সংগ্রহ</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">৳ ৯৮,৫০০</div>
+          <div class="label">মোট ব্যয় (স্বচ্ছ হিসাব)</div>
+        </div>
+      </div>
     </div>
-   </div>
-  `).join("");
- }catch(err){
-  result.innerHTML='<div class="empty">তথ্য পাওয়া যায়নি। Firebase Database Rules পরীক্ষা করুন।</div>';
-  console.error(err);
- }
-};
+  </div>
 
-// =======================================
-// EMERGENCY REQUEST
-// =======================================
+  <!-- Ranking Modal -->
+  <div id="rankingModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-top">
+        <h3>🏆 সেরা রক্তদাতা তালিকা</h3>
+        <button class="close-btn" onclick="closeModal('rankingModal')">✕</button>
+      </div>
+      <div class="card" style="margin-top:0;">
+        <strong>🥇 ১. তানভীর আহমেদ (O-)</strong>
+        <p style="font-size:0.82rem; color:var(--muted);">মোট রক্তদান: ১৮ বার • রংপুর</p>
+      </div>
+      <div class="card">
+        <strong>🥈 ২. সাদিয়া ইসলাম (A+)</strong>
+        <p style="font-size:0.82rem; color:var(--muted);">মোট রক্তদান: ১৫ বার • ঢাকা</p>
+      </div>
+      <div class="card">
+        <strong>🥉 ৩. মাহমুদুল হাসান (B+)</strong>
+        <p style="font-size:0.82rem; color:var(--muted);">মোট রক্তদান: ১৩ বার • চট্টগ্রাম</p>
+      </div>
+    </div>
+  </div>
 
-document.getElementById("requestForm").addEventListener("submit",async e=>{
- e.preventDefault();
- try{
-  const request={
-   patientName:document.getElementById("rName").value.trim(),
-   phone:document.getElementById("rPhone").value.trim(),
-   blood:document.getElementById("rBlood").value,
-   bags:Number(document.getElementById("rBags").value),
-   division:document.getElementById("rDivision").value,
-   district:document.getElementById("rDistrict").value,
-   upazila:document.getElementById("rUpazila").value,
-   hospital:document.getElementById("rHospital").value.trim(),
-   date:document.getElementById("rDate").value,
-   urgency:document.getElementById("rUrgency").value,
-   info:document.getElementById("rInfo").value.trim(),
-   status:"pending",
-   createdAt:Date.now()
-  };
-  const newRef=push(ref(db,"requests"));
-  await set(newRef,request);
-  alert("আপনার জরুরি রক্তের অনুরোধ জমা হয়েছে।");
-  e.target.reset();
- }catch(err){alert("অনুরোধ পাঠানো যায়নি: "+friendlyError(err));}
-});
+  <!-- Certificate & QR Modal -->
+  <div id="certificateModal" class="modal-backdrop">
+    <div class="modal-box" style="text-align:center;">
+      <div class="modal-top">
+        <h3>🎖️ রক্তদাতা সম্মাননা ও QR ID</h3>
+        <button class="close-btn" onclick="closeModal('certificateModal')">✕</button>
+      </div>
+      <div style="border:2px dashed var(--primary); border-radius:18px; padding:16px; background:#fffafa;">
+        <h4 style="color:var(--primary);">MB BLOOD BANK</h4>
+        <p style="font-size:0.82rem; color:var(--muted);">Certificate of Appreciation</p>
+        <h3 style="margin:8px 0;">মনির আহমেদ শাকিব</h3>
+        <p style="font-size:0.85rem;">স্বেচ্ছায় ৬ বার রক্তদান করে মানবতার সেবায় অনন্য অবদান রাখার জন্য সম্মাননা প্রদান করা হলো।</p>
+        <div style="margin:14px auto; width:110px; height:110px; border:2px solid #1e293b; border-radius:12px; display:grid; place-items:center; font-weight:700; font-size:0.8rem;">
+          QR CODE<br/>MBB-0148
+        </div>
+      </div>
+    </div>
+  </div>
 
-// =======================================
-// STATISTICS
-// =======================================
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-top">
+        <h3>🔐 লগইন / অ্যাকাউন্ট</h3>
+        <button class="close-btn" onclick="closeModal('loginModal')">✕</button>
+      </div>
+      <form class="form-grid" onsubmit="event.preventDefault(); alert('লগইন সফল হয়েছে!'); closeModal('loginModal');">
+        <input type="text" placeholder="মোবাইল নম্বর অথবা জিমেইল" required />
+        <input type="password" placeholder="পাসওয়ার্ড অথবা OTP কোড" required />
+        <button type="submit" class="btn btn-primary">লগইন করুন</button>
+      </form>
+    </div>
+  </div>
 
-async function loadStats(){
- try{
-  const [d,r]=await Promise.all([
-   get(ref(db,"donors")),get(ref(db,"requests"))
-  ]);
-  const donors=d.exists()?Object.values(d.val()):[];
-  const requests=r.exists()?Object.values(r.val()):[];
-  document.getElementById("totalDonors").textContent=donors.length;
-  document.getElementById("activeDonors").textContent=donors.filter(x=>x.status==="active"&&x.approved===true).length;
-  document.getElementById("totalRequests").textContent=requests.length;
- }catch(e){console.log("Stats:",e.message);}
-}
+  <script>
+    // Sample Initial Data
+    const donors = [
+      { name: "তানভীর আহমেদ", group: "O-", division: "রংপুর", district: "রংপুর", upazila: "গঙ্গাচড়া", lastDate: "১০ মে ২০২৬", available: true, phone: "01711000001" },
+      { name: "সাদিয়া ইসলাম", group: "A+", division: "ঢাকা", district: "ঢাকা", upazila: "ধানমন্ডি", lastDate: "২০ জুন ২০২৬", available: true, phone: "01711000002" },
+      { name: "মাহমুদুল হাসান", group: "B+", division: "চট্টগ্রাম", district: "চট্টগ্রাম", upazila: "পাঁচলাইশ", lastDate: "০২ অক্টোবর ২০২৬", available: false, phone: "01711000003" },
+      { name: "রাফিউজ্জামান", group: "AB+", division: "রংপুর", district: "রংপুর", upazila: "সদর", lastDate: "১২ এপ্রিল ২০২৬", available: true, phone: "01711000004" }
+    ];
 
-function escapeHTML(value){
- return String(value??"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[c]));
-}
-function friendlyError(err){
- const errors={
-  "auth/email-already-in-use":"এই Email দিয়ে আগেই অ্যাকাউন্ট খোলা হয়েছে।",
-  "auth/invalid-email":"সঠিক Email লিখুন।",
-  "auth/weak-password":"Password কমপক্ষে ৬ অক্ষরের হতে হবে।",
-  "auth/invalid-credential":"Email অথবা Password সঠিক নয়।",
-  "auth/user-not-found":"এই অ্যাকাউন্ট পাওয়া যায়নি।",
-  "auth/too-many-requests":"অনেকবার চেষ্টা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।",
-  "auth/operation-not-allowed":"Firebase Console-এ এই Login পদ্ধতি চালু করুন।",
-  "auth/invalid-phone-number":"সঠিক আন্তর্জাতিক মোবাইল নম্বর লিখুন।"
- };
- return errors[err.code]||err.message||"অজানা সমস্যা হয়েছে।";
-}
+    const emergencies = [
+      { patient: "আব্দুল করিম", group: "O+", bags: 2, hospital: "রংপুর মেডিকেল কলেজ হাসপাতাল", district: "রংপুর", upazila: "সদর", urgency: "অতি জরুরি", phone: "01811000001", note: "জরুরি অপারেশনের জন্য রক্ত প্রয়োজন" },
+      { patient: "ফাতেমা বেগম", group: "B-", bags: 1, hospital: "ঢাকা মেডিকেল কলেজ হাসপাতাল", district: "ঢাকা", upazila: "শাহবাগ", urgency: "আজকের মধ্যে", phone: "01811000002", note: "থ্যালাসেমিয়া রোগী" }
+    ];
 
-window.callAmbulance=()=>{
- const phone=document.getElementById("ambulancePhone").value.trim();
- if(!phone)return alert("অ্যাম্বুলেন্স নম্বর এখনো যুক্ত করা হয়নি।");
- location.href="tel:"+phone;
-};
+    let selectedGroup = "ALL";
 
-loadStats();
-</script>
+    // Render Donors
+    function renderDonors() {
+      const divVal = document.getElementById("filterDivision").value.trim();
+      const distVal = document.getElementById("filterDistrict").value.trim().toLowerCase();
+      const upaVal = document.getElementById("filterUpazila").value.trim().toLowerCase();
+
+      const filtered = donors.filter(d => {
+        const matchGroup = selectedGroup === "ALL" || d.group === selectedGroup;
+        const matchDiv = !divVal || d.division === divVal;
+        const matchDist = !distVal || d.district.toLowerCase().includes(distVal);
+        const matchUpa = !upaVal || d.upazila.toLowerCase().includes(upaVal);
+        return matchGroup && matchDiv && matchDist && matchUpa;
+      });
+
+      const container = document.getElementById("donorList");
+      if (!filtered.length) {
+        container.innerHTML = `<div class="card" style="text-align:center; color:var(--muted);">কোনো রক্তদাতা পাওয়া যায়নি।</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(d => `
+        <div class="donor-card">
+          <div class="donor-left">
+            <div class="group-badge">${d.group}</div>
+            <div class="donor-info">
+              <h4>${d.name}</h4>
+              <p>${d.upazila}, ${d.district} (${d.division})</p>
+              <p>শেষ রক্তদান: ${d.lastDate}</p>
+              <span class="status-pill ${d.available ? '' : 'busy'}">
+                ${d.available ? '● Available' : '● Resting'}
+              </span>
+            </div>
+          </div>
+          <a href="tel:${d.phone}" class="call-btn">📞 কল</a>
+        </div>
+      `).join("");
+    }
+
+    // Render Emergencies
+    function renderEmergencies() {
+      const html = emergencies.map(e => `
+        <div class="card req-card">
+          <div class="req-header">
+            <strong>🩸 ${e.group} (${e.bags} ব্যাগ) — ${e.patient}</strong>
+            <span class="urgent-tag">${e.urgency}</span>
+          </div>
+          <p style="font-size:0.85rem;">🏥 ${e.hospital}</p>
+          <p style="font-size:0.82rem; color:var(--muted);">📍 ${e.upazila}, ${e.district} • ${e.note}</p>
+          <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:0.82rem; font-weight:600;">যোগাযোগ: ${e.phone}</span>
+            <a href="tel:${e.phone}" class="call-btn">📞 কল করুন</a>
+          </div>
+        </div>
+      `).join("");
+
+      document.getElementById("emergencyList").innerHTML = html;
+      document.getElementById("homeEmergencyPreview").innerHTML = html;
+      document.getElementById("statEmergency").textContent = String(emergencies.length).padStart(2, "0");
+    }
+
+    // Group Chip Selection
+    document.getElementById("bloodGroupFilter").addEventListener("click", (e) => {
+      if (!e.target.classList.contains("chip")) return;
+      document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+      e.target.classList.add("active");
+      selectedGroup = e.target.dataset.group;
+      renderDonors();
+    });
+
+    ["filterDivision", "filterDistrict", "filterUpazila"].forEach(id => {
+      document.getElementById(id).addEventListener("input", renderDonors);
+    });
+
+    // Register New Donor
+    document.getElementById("donorRegForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      donors.unshift({
+        name: document.getElementById("regName").value,
+        phone: document.getElementById("regPhone").value,
+        group: document.getElementById("regGroup").value,
+        division: document.getElementById("regDivision").value,
+        district: document.getElementById("regDistrict").value,
+        upazila: document.getElementById("regUpazila").value,
+        lastDate: document.getElementById("regLastDate").value || "নতুন ডোনার",
+        available: true
+      });
+      renderDonors();
+      e.target.reset();
+      closeModal("registerModal");
+      alert("অভিনন্দন! রক্তদাতা হিসেবে আপনার নিবন্ধন সফল হয়েছে।");
+    });
+
+    // Submit Emergency Request
+    document.getElementById("emergencyForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      emergencies.unshift({
+        patient: document.getElementById("reqPatient").value,
+        group: document.getElementById("reqGroup").value,
+        bags: document.getElementById("reqBags").value,
+        hospital: document.getElementById("reqHospital").value,
+        district: document.getElementById("reqDistrict").value,
+        upazila: document.getElementById("reqUpazila").value,
+        phone: document.getElementById("reqPhone").value,
+        urgency: document.getElementById("reqUrgency").value,
+        note: document.getElementById("reqNote").value || "জরুরি রক্ত প্রয়োজন"
+      });
+      renderEmergencies();
+      e.target.reset();
+      alert("জরুরি রক্তের অনুরোধ প্রকাশিত হয়েছে!");
+    });
+
+    // Availability Switch
+    document.getElementById("availabilityToggle").addEventListener("change", (e) => {
+      const badge = document.getElementById("myStatusBadge");
+      if (e.target.checked) {
+        badge.textContent = "Available for Donation";
+        badge.classList.remove("busy");
+      } else {
+        badge.textContent = "Currently Unavailable";
+        badge.classList.add("busy");
+      }
+    });
+
+    // Navigation & Modals
+    function switchView(viewId, btn) {
+      document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+      document.getElementById(viewId).classList.add("active");
+      document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.add("open");
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("open");
+    }
+
+    // Initial Render
+    renderDonors();
+    renderEmergencies();
+  </script>
 </body>
 </html>
